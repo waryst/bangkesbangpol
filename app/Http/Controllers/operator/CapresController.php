@@ -5,6 +5,7 @@ namespace App\Http\Controllers\operator;
 use App\Http\Controllers\Controller;
 use App\Models\Capres;
 use App\Models\Desa;
+use App\Models\Tps;
 use Illuminate\Http\Request;
 
 class CapresController extends Controller
@@ -14,10 +15,10 @@ class CapresController extends Controller
      */
     public function index()
     {
-        $desa_id="998fdb13-98ab-4ddf-b6a3-9e1f60ad6889";
-        $pencarian_data= Desa::find($desa_id);
+        $desa_id="999054d7-54af-44d6-acff-9e88b8992001";
+        $kirim['tps']=Tps::where('desa_id',$desa_id)->orderBy('title','ASC')->get();
         $kirim['capres']=Capres::orderBy('no_urut','ASC')->get();
-        return view('operator.layout.conten.v_capres',$kirim);    
+        return view('operator.conten.v_capres',$kirim);    
     }
 
     /**
@@ -39,9 +40,10 @@ class CapresController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Desa $capre)
+    public function show($capre)
     {
-        
+        // $data = Capres::orderBy('no_urut','ASC')->whereRelation('suaracapres', 'tps_id', $)->get();
+        // return response()->json(['isi'=>$data]);
 
     }
 

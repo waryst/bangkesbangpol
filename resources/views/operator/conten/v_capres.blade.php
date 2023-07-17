@@ -81,14 +81,13 @@
                 <div class="row">
                     <div class="col-md-4">
                         <div class="form-group">
-                            <select class="form-control select2">
+                            <select id="tps" class="form-control select2">
                                 <option selected="selected">Pilih TPS</option>
-                                <option>Alaska</option>
-                                <option>California</option>
-                                <option>Delaware</option>
-                                <option>Tennessee</option>
-                                <option>Texas</option>
-                                <option>Washington</option>
+                                @foreach ($tps as $tps)
+                                    <option value="{{ $tps->id }}">TPS
+                                        {{ $tps->title }}</option>
+                                @endforeach
+
                             </select>
                         </div>
                     </div>
@@ -138,7 +137,33 @@
 @endsection
 @push('java')
     <script src="{{ asset('asset') }}/plugins/select2/js/select2.full.min.js"></script>
-    <script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('#tps').change(function() {
+                var tps_id = $('#tps').val();
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+                });
+                $.ajax({
+                    type: "GET",
+                    url: "{{ url('capres') }}/" + tps_id,
+                    contentType: false,
+                    processData: false,
+                    dataType: 'json',
+
+                    success: function(data) {
+                        alert(data.isi);
+                    },
+                    error: function(data) {
+                        alert("gagal");
+                    }
+                });
+
+
+            });
+        });
         $(function() {
             //Initialize Select2 Elements
             $(".select2").select2();
