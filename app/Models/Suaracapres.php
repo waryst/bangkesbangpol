@@ -13,4 +13,7 @@ class Suaracapres extends Model
     public function capres(){
         return $this->belongsTo(Capres::class);
     }
+    public function tps(){
+        return $this->belongsTo(Tps::class);
+    }
 }

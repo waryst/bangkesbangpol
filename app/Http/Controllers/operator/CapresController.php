@@ -17,7 +17,8 @@ class CapresController extends Controller
     {
         $desa_id="999054d7-54af-44d6-acff-9e88b8992001";
         $kirim['tps']=Tps::where('desa_id',$desa_id)->orderBy('title','ASC')->get();
-        $kirim['capres']=Capres::orderBy('no_urut','ASC')->get();
+        $kirim['capres']=Capres::with('suaracapres')->orderBy('no_urut','ASC')->get();
+        
         return view('operator.conten.v_capres',$kirim);    
     }
 
@@ -34,16 +35,33 @@ class CapresController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        dd($request);
     }
 
     /**
      * Display the specified resource.
      */
-    public function show($capre)
+    public function show(Tps $capre)
     {
-        // $data = Capres::orderBy('no_urut','ASC')->whereRelation('suaracapres', 'tps_id', $)->get();
-        // return response()->json(['isi'=>$data]);
+        $kirim['pilih_tps']=$capre;
+        $desa_id="999054d7-54af-44d6-acff-9e88b8992001";
+
+        $kirim['tps']=Tps::where('desa_id',$desa_id)->orderBy('title','ASC')->get();
+
+        $kirim['capres']=Capres::with('suaracapres')->orderBy('no_urut','ASC')->get();
+        // $kirim['capres']=Capres::with(['suaracapres' => function (Builder $query ,$capre){
+        //     $query->where('tps_id', '=', $capre);
+        // } ])->orderBy('no_urut','ASC')->get();
+        return view('operator.conten.v_capres',$kirim);    
+
+        // return response()->json($kirim);
+
+    }
+    public function coba()
+    {
+        $kirim['s']="data";
+        return response()->json($kirim);
+        // return response()->json($kirim);
 
     }
 
@@ -60,7 +78,8 @@ class CapresController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        dd($request);
+
     }
 
     /**
@@ -68,6 +87,5 @@ class CapresController extends Controller
      */
     public function destroy(string $id)
     {
-        //
     }
 }

@@ -13,4 +13,7 @@ class Tps extends Model
     public function desa(){
         return $this->belongsTo(Desa::class);
     }
+    public function suaracapres(){
+        return $this->hasMany(Suaracapres::class);
+    }
 }

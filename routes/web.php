@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\operator\CapresController;
+use App\Http\Controllers\operator\SavesuaraController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -19,3 +20,4 @@ Route::get('/', function () {
 });
 
 Route::resource('capres',CapresController::class);
+Route::POST('savesuara/{tipe}',[SavesuaraController::class,'suaracapres']);
