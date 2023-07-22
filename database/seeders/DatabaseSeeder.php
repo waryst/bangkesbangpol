@@ -4,6 +4,8 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
+use App\Models\Cabub;
+use App\Models\Cagub;
 use App\Models\Capres;
 use App\Models\Desa;
 use App\Models\Kecamatan;
@@ -99,5 +101,36 @@ class DatabaseSeeder extends Seeder
             'nama_cawapres'=>'H. SANDIAGA SALAHUDIN UNO',
             'foto'=>2,
         ]);
+
+        Cagub::create([
+            'id'=>'999054d7-54af-44d6-acff-9e88bcapres1',
+            'no_urut'=>1,
+            'nama_cagub'=>'Warist Amru Khoiruddin',
+            'nama_cawagub'=>'Prof. Dr.(H.C) KH. MA RUF AMIN',
+            'foto'=>1,
+        ]);
+        Cagub::create([
+            'id'=>'999054d7-54af-44d6-acff-9e88bcapres2',
+            'no_urut'=>2,
+            'nama_cagub'=>'Devi Nurmalasari',
+            'nama_cawagub'=>'H. SANDIAGA SALAHUDIN UNO',
+            'foto'=>2,
+        ]);
+
+        Cabub::create([
+            'id'=>'999054d7-54af-44d6-acff-9e88bcapres1',
+            'no_urut'=>1,
+            'nama_cabub'=>'Kinara Tazkiya Azzahra',
+            'nama_cawabub'=>'Prof. Dr.(H.C) KH. MA RUF AMIN',
+            'foto'=>1,
+        ]);
+        Cabub::create([
+            'id'=>'999054d7-54af-44d6-acff-9e88bcapres2',
+            'no_urut'=>2,
+            'nama_cabub'=>'Fara Aulia Azzahra',
+            'nama_cawabub'=>'H. SANDIAGA SALAHUDIN UNO',
+            'foto'=>2,
+        ]);
+
     }
 }

@@ -39,15 +39,39 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="#" class="nav-link">
+                            <a href="{{ url('pilgub') }}" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Calon Gubernur</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ url('pilbub') }}" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Calon Bupati</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Calon DPD</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Calon DPR RI</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="#" class="nav-link">
+                            <a href="" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
-                                <p>DPR Propinsi</p>
+                                <p>Calon DPRD Tingkat I</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Calon DPRD Tingkat II</p>
                             </a>
                         </li>
                     </ul>

@@ -26,19 +26,19 @@
                 height="60" width="60">
         </div> --}}
 
-        @include('operator.layout.v_navbar')
+        {{-- @include('operator.layout.v_navbar') --}}
         @include('operator.layout.v_main_sidebar')
 
         <div class="content-wrapper">
-            <div class="content-header">
-                {{-- <div class="container-fluid">
+            {{-- <div class="content-header">
+                <div class="container-fluid">
                     <div class="row mb-2">
                         <div class="col-sm-12">
                             <h1 class="m-0">@yield('title')</h1>
                         </div>
                     </div>
-                </div> --}}
-            </div>
+                </div>
+            </div> --}}
             @yield('content')
         </div>
         @include('operator.layout.v_footer')
