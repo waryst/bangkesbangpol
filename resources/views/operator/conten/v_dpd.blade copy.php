@@ -1,6 +1,6 @@
 @extends('operator.layout.main')
 
-@section('title', 'Calon Presiden')
+@section('title', 'Calon DPD')
 @push('mycss')
     <style>
         input.salah {
@@ -94,7 +94,8 @@
         <div class="container-fluid">
 
             <fieldset class="scheduler-border">
-                <legend class="scheduler-border">Perolehan Suara Sah Calon Presiden dan Wakil Presiden</legend>
+                <legend class="scheduler-border">Perolehan Suara Sah Calon DPD</legend>
+
                 <div class="row">
                     <div class="col-md-3">
                         <div class="form-group">
@@ -116,27 +117,22 @@
                             {{ sprintf('%02d', $pilih_tps->title) }}
                         @endif
                     </div>
-                    @foreach ($capres as $capres)
-                        <div class="col-md-4">
+                    @foreach ($dpd as $dpd)
+                        <div class="col-md-2">
                             <div class="card card_suara">
                                 <ul class="list-group list-group-flush">
                                     <li class="list-group-item text-center py-0 my-0 d-flex justify-content-center back">
                                         <h1 class="font-weight-bold rounded-circle px-1 my-2 nomer_suara">
-                                            0{{ $capres->no_urut }}
+                                            0{{ $dpd->no_urut }}
                                         </h1>
                                     </li>
                                 </ul>
-                                <img src="{{ asset('foto/' . $capres->foto . '.jpeg') }}" class="card-img-top "
-                                    alt="...">
+                                <img src="{{ asset('foto/' . $dpd->foto . '.jpeg') }}" class="card-img-top " alt="...">
                                 <div class="card-body justify-content-center">
                                     <div class="row ">
-                                        <div class="col-6 text-center">
-                                            <span>Calon Presiden</span>
-                                            <p class="card-text">{{ $capres->nama_capres }}</p>
-                                        </div>
-                                        <div class="col-6 text-center">
-                                            <span>Calon Wakil Presiden</span>
-                                            <p class="card-text">{{ $capres->nama_cawapres }}</p>
+                                        <div class="col-12 text-center">
+                                            <span>Calon DPD</span>
+                                            <p class="card-text">{{ $dpd->nama }}</p>
                                         </div>
                                     </div>
                                     <div class="d-flex justify-content-center align-items-center">
@@ -145,15 +141,15 @@
                                             <div style="position: relative">
                                                 <input type="number" min="0"
                                                     oninput="this.value = Math.abs(this.value)" autocomplete="off"
-                                                    id="{{ $capres->id }}" data-id="{{ $capres->id }}"
+                                                    id="{{ $dpd->id }}" data-id="{{ $dpd->id }}"
                                                     onfocus="this.placeholder = ''" onblur="this.placeholder = '0'"
-                                                    value="{{ $capres->suaracapres[0]->jumlah ?? 0 }}"
+                                                    value="{{ $dpd->suaradpd->where('tps_id', $pilih_tps->id)->first()->jumlah ?? 0 }}"
                                                     class="form-control text-center suara submit">
 
-                                                <div class="loadingsuara" id="save{{ $capres->id }}"
+                                                <div class="loadingsuara" id="save{{ $dpd->id }}"
                                                     style="position: absolute;left: 110%;top:25%">
                                                     <svg viewBox="0 0 128 128" width="30" height="30">
-                                                        @if ($capres->suaracapres[0]->jumlah ?? 0 != null)
+                                                        @if ($dpd->suaradpd->where('tps_id', $pilih_tps->id)->first()->jumlah ?? 0 != null)
                                                             <path
                                                                 d="M0 64.37a9.67 9.67 0 0 1 2.94-4.67 8 8 0 0 1 9.2-.66 57.21 57.21 0 0 1 13.8 11 114.1 114.1 0 0 1 13.18 16.73c.17.26.36.5.56.77 1.83-3.43 3.54-6.85 5.44-10.17C56 58.23 70 41.83 88.16 29.21a125.64 125.64 0 0 1 28.44-14.62c5.76-2.12 11.08 1.82 11.22 6.91a1.32 1.32 0 0 0 .18.43v.24c-.11.49-.2 1-.32 1.47a7.91 7.91 0 0 1-5.35 5.95 105 105 0 0 0-25.56 13.15 125.27 125.27 0 0 0-33.1 34.91A138 138 0 0 0 48.5 108.5a7.69 7.69 0 0 1-6.15 5.27 4.66 4.66 0 0 0-.64.23h-1.44c-.1-.06-.19-.16-.3-.18a8.17 8.17 0 0 1-6.42-4.82 128.9 128.9 0 0 0-15.12-23.32c-3.76-4.53-7.75-8.87-12.87-11.88C2.92 72.25.87 70.46 0 67.48z"
                                                                 fill="#1148f1"></path>
@@ -183,13 +179,13 @@
 
             $(document).on('click', '.suara', function(e) {
                 e.preventDefault();
-                var capres_id = $(this).data('id');
-                $('#save' + capres_id).html(`   `);
+                var dpd_id = $(this).data('id');
+                $('#save' + dpd_id).html(`   `);
             });
             $(document).on('focus', '.suara', function(e) {
                 e.preventDefault();
-                var capres_id = $(this).data('id');
-                $('#save' + capres_id).html(`   `);
+                var dpd_id = $(this).data('id');
+                $('#save' + dpd_id).html(`   `);
             });
             $('.submit').blur(function() {
                 var input_id = $(this).data('id');
@@ -197,7 +193,7 @@
                 var jumlah_suara = $(this).val();
                 var fd = new FormData();
                 fd.append(input_id, jumlah_suara);
-                fd.append('capres_id', input_id);
+                fd.append('dpd_id', input_id);
                 fd.append('tps_id', tps_id);
                 fd.append('jumlah_suara', jumlah_suara);
 
@@ -208,14 +204,14 @@
                 });
                 $.ajax({
                     type: "POST",
-                    url: "{{ url('savesuara/capres') }}",
+                    url: "{{ url('savesuara/dpd') }}",
                     data: fd,
                     contentType: false,
                     processData: false,
                     dataType: 'json',
 
                     success: function(data) {
-                        $('#save' + data.capres_id).html(`
+                        $('#save' + data.dpd_id).html(`
                             <svg viewBox="0 0 128 128" width="30" height="30">
                                 <path d="M0 64.37a9.67 9.67 0 0 1 2.94-4.67 8 8 0 0 1 9.2-.66 57.21 57.21 0 0 1 13.8 11 114.1 114.1 0 0 1 13.18 16.73c.17.26.36.5.56.77 1.83-3.43 3.54-6.85 5.44-10.17C56 58.23 70 41.83 88.16 29.21a125.64 125.64 0 0 1 28.44-14.62c5.76-2.12 11.08 1.82 11.22 6.91a1.32 1.32 0 0 0 .18.43v.24c-.11.49-.2 1-.32 1.47a7.91 7.91 0 0 1-5.35 5.95 105 105 0 0 0-25.56 13.15 125.27 125.27 0 0 0-33.1 34.91A138 138 0 0 0 48.5 108.5a7.69 7.69 0 0 1-6.15 5.27 4.66 4.66 0 0 0-.64.23h-1.44c-.1-.06-.19-.16-.3-.18a8.17 8.17 0 0 1-6.42-4.82 128.9 128.9 0 0 0-15.12-23.32c-3.76-4.53-7.75-8.87-12.87-11.88C2.92 72.25.87 70.46 0 67.48z" fill="#1148f1"></path>
                             </svg>          
@@ -241,7 +237,7 @@
         $(document).ready(function() {
             $('#tps').change(function() {
                 var tps_id = $('#tps').val();
-                window.location = "{{ url('capres') }}/" + tps_id;
+                window.location = "{{ url('dpd') }}/" + tps_id;
             });
         });
 

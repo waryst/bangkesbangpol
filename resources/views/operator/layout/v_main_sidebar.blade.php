@@ -51,7 +51,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="" class="nav-link">
+                            <a href="{{ url('dpd') }}" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Calon DPD</p>
                             </a>

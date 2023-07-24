@@ -26,7 +26,7 @@
                 height="60" width="60">
         </div> --}}
 
-        {{-- @include('operator.layout.v_navbar') --}}
+        @include('operator.layout.v_navbar')
         @include('operator.layout.v_main_sidebar')
 
         <div class="content-wrapper">

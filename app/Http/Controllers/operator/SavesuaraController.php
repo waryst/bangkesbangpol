@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Suaracabub;
 use App\Models\Suaracagub;
 use App\Models\Suaracapres;
+use App\Models\Suaradpd;
 use Illuminate\Http\Request;
 
 class SavesuaraController extends Controller
@@ -85,6 +86,34 @@ class SavesuaraController extends Controller
             $kirim['jumlah_suara']=$jumlah_suara;
             return response()->json($kirim);    
         }
+        if($tipe=='dpd'){
+            $dpd_id = $request->dpd_id;
+            $request->validate([
+                $dpd_id  => 'required|numeric|gt:-1|max:500',
+            ]); 
+            
+            $tps_id = $request->tps_id ;
+            $jumlah_suara = $request->jumlah_suara;
+            $suara_id=Suaradpd::where([['dpd_id',$dpd_id],['tps_id',$tps_id]])->first();
+            $suara_id = $suara_id->id ?? '';
+            
+            Suaradpd::updateOrCreate(
+                ['id' => $suara_id],
+                [
+                    'dpd_id' => $dpd_id,
+                    'tps_id' => $tps_id,
+                    'jumlah' =>$jumlah_suara,
+                ]
+            );
+            $kirim['dpd_id']=$dpd_id;
+            $kirim['jumlah_suara']=$jumlah_suara;
+            return response()->json($kirim);    
+        }
+
+
+
+
+
     }
 
     /**

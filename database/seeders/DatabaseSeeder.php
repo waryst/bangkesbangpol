@@ -8,6 +8,7 @@ use App\Models\Cabub;
 use App\Models\Cagub;
 use App\Models\Capres;
 use App\Models\Desa;
+use App\Models\Dpd;
 use App\Models\Kecamatan;
 use App\Models\Tps;
 use Illuminate\Database\Seeder;
@@ -130,6 +131,66 @@ class DatabaseSeeder extends Seeder
             'nama_cabub'=>'Fara Aulia Azzahra',
             'nama_cawabub'=>'H. SANDIAGA SALAHUDIN UNO',
             'foto'=>2,
+        ]);
+        Dpd::create([
+            'id'=>'999054d7-54af-44d6-acff-9e88bcapres1',
+            'no_urut'=>1,
+            'nama'=>'1. Fara Aulia Azzahra',
+            'foto'=>1,
+        ]);
+        Dpd::create([
+            'id'=>'999054d7-54af-44d6-acff-9e88bcapres2',
+            'no_urut'=>2,
+            'nama'=>'2. Fara Aulia Azzahra',
+            'foto'=>2,
+        ]);
+        Dpd::create([
+            'id'=>'999054d7-54af-44d6-acff-9e88bcapres3',
+            'no_urut'=>3,
+            'nama'=>'3. Fara Aulia Azzahra',
+            'foto'=>3,
+        ]);
+        Dpd::create([
+            'id'=>'999054d7-54af-44d6-acff-9e88bcapres4',
+            'no_urut'=>4,
+            'nama'=>'4. Fara Aulia Azzahra',
+            'foto'=>4,
+        ]);
+        Dpd::create([
+            'id'=>'999054d7-54af-44d6-acff-9e88bcapres5',
+            'no_urut'=>5,
+            'nama'=>'5. Fara Aulia Azzahra',
+            'foto'=>5,
+        ]);
+        Dpd::create([
+            'id'=>'999054d7-54af-44d6-acff-9e88bcapres6',
+            'no_urut'=>6,
+            'nama'=>'6. Fara Aulia Azzahra',
+            'foto'=>6,
+        ]);
+        Dpd::create([
+            'id'=>'999054d7-54af-44d6-acff-9e88bcapres7',
+            'no_urut'=>7,
+            'nama'=>'7. Fara Aulia Azzahra',
+            'foto'=>7,
+        ]);
+        Dpd::create([
+            'id'=>'999054d7-54af-44d6-acff-9e88bcapres8',
+            'no_urut'=>8,
+            'nama'=>'8. Fara Aulia Azzahra',
+            'foto'=>8,
+        ]);
+        Dpd::create([
+            'id'=>'999054d7-54af-44d6-acff-9e88bcapres9',
+            'no_urut'=>9,
+            'nama'=>'9. Fara Aulia Azzahra',
+            'foto'=>9,
+        ]);
+        Dpd::create([
+            'id'=>'999054d7-54af-44d6-acff-9e88bcapre10',
+            'no_urut'=>10,
+            'nama'=>'10. Fara Aulia Azzahra',
+            'foto'=>10,
         ]);
 
     }

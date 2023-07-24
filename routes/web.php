@@ -27,4 +27,9 @@ Route::get('pilgub/{id}',[EntrySuaraController::class,'pilgub_tps']);
 
 Route::get('pilbub',[EntrySuaraController::class,'pilbub']);
 Route::get('pilbub/{id}',[EntrySuaraController::class,'pilbub_tps']);
+
+Route::get('dpd',[EntrySuaraController::class,'dpd']);
+Route::get('dpd/{id}',[EntrySuaraController::class,'dpd_tps']);
+
+
 Route::post('savesuara/{tipe}',[SavesuaraController::class,'suara']);
