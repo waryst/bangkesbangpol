@@ -17,7 +17,7 @@
 
 </head>
 
-<body class="hold-transition sidebar-mini layout-fixed">
+<body class="layout-fixed layout-navbar-fixed layout-footer-fixed sidebar-mini text-sm">
     <div class="wrapper">
 
         <!-- Preloader -->

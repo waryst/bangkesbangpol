@@ -100,19 +100,18 @@
                     <div class="col-md-3">
                         <div class="form-group">
                             <select id="tps" class="form-control select2">
-                                <select id="tps" class="form-control select2">
-                                    @if ($pilih_tps->id ?? 0 != null)
-                                        <option selected> {{ 'TPS' . $pilih_tps->title ?? 'Pilih TPS' }}</option>
-                                    @else
-                                        <option selected>Pilih TPS</option>
-                                    @endif
+                                @if ($pilih_tps->id ?? 0 != null)
+                                    <option selected> {{ 'TPS' . $pilih_tps->title ?? 'Pilih TPS' }}</option>
+                                @else
+                                    <option selected>Pilih TPS</option>
+                                @endif
 
-                                    @foreach ($tps as $tps)
-                                        <option value="{{ $tps->id }}">TPS
-                                            {{ $tps->title }}</option>
-                                    @endforeach
+                                @foreach ($tps as $tps)
+                                    <option value="{{ $tps->id }}">TPS
+                                        {{ $tps->title }}</option>
+                                @endforeach
 
-                                </select>
+                            </select>
                         </div>
                     </div>
                 </div>
