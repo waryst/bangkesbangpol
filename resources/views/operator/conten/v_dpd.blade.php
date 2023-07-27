@@ -111,7 +111,11 @@
                                 <div class="col-md-6 d-flex d-md-block justify-content-center">
                                     <div class="form-group m-1">
                                         <select id="tps" class="form-control select2" style="width: 250px;">
-                                            <option selected>Pilih TPS</option>
+                                            @if ($pilih_tps->id ?? 0 != null)
+                                                <option selected> {{ 'TPS' . $pilih_tps->title ?? 'Pilih TPS' }}</option>
+                                            @else
+                                                <option selected>Pilih TPS</option>
+                                            @endif
                                             @foreach ($tps as $tps)
                                                 <option value="{{ $tps->id }}">TPS
                                                     {{ $tps->title }}</option>
@@ -133,7 +137,6 @@
                             </div>
 
                         </div>
-                        <!-- /.card-header -->
                         <div class="card-body table-responsive p-0">
                             <table id="myTable" class="table table-head-fixed table-bordered table-hover text-nowrap">
                                 <thead>
@@ -146,28 +149,28 @@
                                 <tbody>
                                     @foreach ($dpd as $dpd)
                                         <tr>
-                                            <td class="text-center">{{ $dpd->no_urut }}</td>
+                                            <td>{{ $dpd->no_urut }}</td>
                                             <td>{{ $dpd->nama }}</td>
                                             <td>
                                                 @if ($pilih_tps->id ?? 0 != null)
                                                     <div class="d-flex mx-auto justify-content-center"
                                                         style="width: 100px;">
                                                         <input type="number" min="0"
+                                                            onKeyPress="if(this.value.length==3) return false;"
                                                             oninput="this.value = Math.abs(this.value)" autocomplete="off"
                                                             id="{{ $dpd->id }}" data-id="{{ $dpd->id }}"
                                                             onfocus="this.placeholder = ''" onblur="this.placeholder = '0'"
                                                             value="{{ $dpd->suaradpd[0]->jumlah ?? 0 }}"
                                                             class="form-control text-center suara submit">
-
                                                         <div class="input-group-append ml-2">
                                                             <span class="loadingsuara" id="save{{ $dpd->id }}">
-                                                                <svg viewBox="0 0 170 170" width="20" height="20">
-                                                                    @if ($dpd->suaradpd[0]->jumlah ?? 0 != null)
+                                                                @if ($dpd->suaradpd[0]->jumlah ?? 0)
+                                                                    <svg viewBox="0 0 170 170" width="20"
+                                                                        height="20">
                                                                         <path
                                                                             d="M0 64.37a9.67 9.67 0 0 1 2.94-4.67 8 8 0 0 1 9.2-.66 57.21 57.21 0 0 1 13.8 11 114.1 114.1 0 0 1 13.18 16.73c.17.26.36.5.56.77 1.83-3.43 3.54-6.85 5.44-10.17C56 58.23 70 41.83 88.16 29.21a125.64 125.64 0 0 1 28.44-14.62c5.76-2.12 11.08 1.82 11.22 6.91a1.32 1.32 0 0 0 .18.43v.24c-.11.49-.2 1-.32 1.47a7.91 7.91 0 0 1-5.35 5.95 105 105 0 0 0-25.56 13.15 125.27 125.27 0 0 0-33.1 34.91A138 138 0 0 0 48.5 108.5a7.69 7.69 0 0 1-6.15 5.27 4.66 4.66 0 0 0-.64.23h-1.44c-.1-.06-.19-.16-.3-.18a8.17 8.17 0 0 1-6.42-4.82 128.9 128.9 0 0 0-15.12-23.32c-3.76-4.53-7.75-8.87-12.87-11.88C2.92 72.25.87 70.46 0 67.48z"
                                                                             fill="#1148f1"></path>
-                                                                    @endif
-
+                                                                @endif
                                                                 </svg>
                                                             </span>
                                                         </div>
@@ -180,7 +183,6 @@
                                 </tbody>
                             </table>
                         </div>
-                        <!-- /.card-body -->
                     </div>
                 </div>
             </div>
@@ -196,12 +198,14 @@
             filter = input.value.toUpperCase();
             table = document.getElementById("myTable");
             tr = table.getElementsByTagName("tr");
+
             for (i = 0; i < tr.length; i++) {
                 td_no = tr[i].getElementsByTagName("td")[0];
                 td_name = tr[i].getElementsByTagName("td")[1];
                 if (td_no || td_name) {
                     txtValue_no = td_no.textContent || td_no.innerText;
                     txtValue_name = td_name.textContent || td_name.innerText;
+                    console.log(txtValue_no.toUpperCase().indexOf(filter));
                     if (txtValue_no.toUpperCase().indexOf(filter) > -1) {
                         tr[i].style.display = "";
                     } else if (txtValue_name.toUpperCase().indexOf(filter) > -1) {
@@ -219,22 +223,6 @@
                 }
             }
         }
-        // function myFunction() {
-        //     var input, filter, ul, li, a, i, txtValue;
-        //     input = document.getElementById("myInput");
-        //     filter = input.value.toUpperCase();
-        //     ul = document.getElementById("myUL");
-        //     li = ul.getElementsByTagName("li");
-        //     for (i = 0; i < li.length; i++) {
-        //         a = li[i].getElementsByTagName("a")[0];
-        //         txtValue = a.textContent || a.innerText;
-        //         if (txtValue.toUpperCase().indexOf(filter) > -1) {
-        //             li[i].style.display = "";
-        //         } else {
-        //             li[i].style.display = "none";
-        //         }
-        //     }
-        // }
         $(document).ready(function() {
 
             $(document).on('click', '.suara', function(e) {
@@ -271,11 +259,13 @@
                     dataType: 'json',
 
                     success: function(data) {
-                        $('#save' + data.dpd_id).html(`
+                        if (data.jumlah_suara != 0) {
+                            $('#save' + data.dpd_id).html(`
                             <svg viewBox="0 0 170 170" width="20" height="20">
                                 <path d="M0 64.37a9.67 9.67 0 0 1 2.94-4.67 8 8 0 0 1 9.2-.66 57.21 57.21 0 0 1 13.8 11 114.1 114.1 0 0 1 13.18 16.73c.17.26.36.5.56.77 1.83-3.43 3.54-6.85 5.44-10.17C56 58.23 70 41.83 88.16 29.21a125.64 125.64 0 0 1 28.44-14.62c5.76-2.12 11.08 1.82 11.22 6.91a1.32 1.32 0 0 0 .18.43v.24c-.11.49-.2 1-.32 1.47a7.91 7.91 0 0 1-5.35 5.95 105 105 0 0 0-25.56 13.15 125.27 125.27 0 0 0-33.1 34.91A138 138 0 0 0 48.5 108.5a7.69 7.69 0 0 1-6.15 5.27 4.66 4.66 0 0 0-.64.23h-1.44c-.1-.06-.19-.16-.3-.18a8.17 8.17 0 0 1-6.42-4.82 128.9 128.9 0 0 0-15.12-23.32c-3.76-4.53-7.75-8.87-12.87-11.88C2.92 72.25.87 70.46 0 67.48z" fill="#1148f1"></path>
                             </svg>          
                         `);
+                        }
                     },
                     error: function(data) {
                         var errors = data.responseJSON;

@@ -57,19 +57,19 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="" class="nav-link">
+                            <a href="{{ url('caleg') }}" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Calon DPR RI</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="" class="nav-link">
+                            <a href="{{ url('calegprov') }}" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Calon DPRD Tingkat I</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="" class="nav-link">
+                            <a href="{{ url('calegkab') }}" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Calon DPRD Tingkat II</p>
                             </a>

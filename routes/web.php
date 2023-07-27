@@ -31,5 +31,13 @@ Route::get('pilbub/{id}',[EntrySuaraController::class,'pilbub_tps']);
 Route::get('dpd',[EntrySuaraController::class,'dpd']);
 Route::get('dpd/{id}',[EntrySuaraController::class,'dpd_tps']);
 
+Route::get('caleg',[EntrySuaraController::class,'caleg']);
+Route::get('caleg/{id}',[EntrySuaraController::class,'caleg_tps']);
+
+Route::get('calegprov',[EntrySuaraController::class,'calegprov']);
+Route::get('calegprov/{id}',[EntrySuaraController::class,'calegprov_tps']);
+
+Route::get('calegkab',[EntrySuaraController::class,'calegkab']);
+Route::get('calegkab/{id}',[EntrySuaraController::class,'calegkab_tps']);
 
 Route::post('savesuara/{tipe}',[SavesuaraController::class,'suara']);
