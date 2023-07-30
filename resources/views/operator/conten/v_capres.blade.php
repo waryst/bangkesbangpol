@@ -100,7 +100,7 @@
                         <div class="form-group">
                             <select id="tps" class="form-control select2">
                                 @if ($pilih_tps->id ?? 0 != null)
-                                    <option selected> {{ 'TPS' . $pilih_tps->title ?? 'Pilih TPS' }}</option>
+                                    <option selected> {{ 'TPS ' . $pilih_tps->title ?? 'Pilih TPS' }}</option>
                                 @else
                                     <option selected>Pilih TPS</option>
                                 @endif
@@ -150,6 +150,8 @@
                                         @if ($pilih_tps->id ?? 0 != null)
                                             <div style="position: relative">
                                                 <input type="number" min="0"
+                                                    {{ $loop->iteration == 1 ? 'autofocus' : '' }}
+                                                    {{ $loop->iteration == 1 ? 'select' : '' }}
                                                     onKeyPress="if(this.value.length==3) return false;"
                                                     oninput="this.value = Math.abs(this.value)" autocomplete="off"
                                                     id="{{ $capres->id }}" data-id="{{ $capres->id }}"
@@ -170,7 +172,6 @@
                 </div>
             </fieldset>
         </div>
-        <div id="warist"></div>
     </section>
 @endsection
 @push('java')
@@ -181,8 +182,6 @@
         var capres_id;
         var tps_id;
         var jumlah_suara;
-
-
         $(document).ready(function() {
             $(document).on('focus', '.suara', function(e) {
                 e.preventDefault();
@@ -192,18 +191,18 @@
                 e.preventDefault();
                 status = '';
             });
-            $('.submit').keyup(function() {
-
-                input_id = $(this).data('id');
-                tps_id = "{{ $pilih_tps->id ?? 0 }}";
-                jumlah_suara = $(this).val();
-                capres_id = $(this).data('id');
-                $('#save' + capres_id).html(`   `);
-                clearTimeout(Interval);
-                Interval = setTimeout(saveSuara, 1000);
+            $('.submit').keyup(function(e) {
+                if (e.keyCode != 9) {
+                    input_id = $(this).data('id');
+                    tps_id = "{{ $pilih_tps->id ?? 0 }}";
+                    jumlah_suara = $(this).val();
+                    capres_id = $(this).data('id');
+                    $('#save' + capres_id).html(`   `);
+                    clearTimeout(Interval);
+                    Interval = setTimeout(saveSuara, 1000);
+                }
             });
             $('.submit').blur(function() {
-
                 if (status == '') {
                     input_id = $(this).data('id');
                     tps_id = "{{ $pilih_tps->id ?? 0 }}";
@@ -234,7 +233,6 @@
                             </svg>          
                         `);
                             status = '';
-
                         },
                         error: function(data) {
                             var errors = data.responseJSON;
