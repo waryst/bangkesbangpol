@@ -25,4 +25,8 @@ class Kecamatan extends Model
     {
         return $query->withCount('desa')->orderBy('created_at', 'DESC')->get();
     }
+    public function dapil()
+    {
+        return $this->belongsTo(Dapil::class);
+    }
 }

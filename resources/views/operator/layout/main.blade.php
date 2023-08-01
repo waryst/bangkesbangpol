@@ -9,7 +9,7 @@
     @vite('resources/js/app.js')
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
-    <link rel="stylesheet" href="{{ asset('asset') }}/plugins/fontawesome-free/css/all.min.css">
+    {{-- <link rel="stylesheet" href="{{ asset('asset') }}/plugins/fontawesome-free/css/all.min.css"> --}}
     <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
     <link rel="stylesheet" href="{{ asset('asset') }}/plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
     @stack('css')
@@ -18,7 +18,7 @@
 
 </head>
 
-<body class="hold-transition sidebar-mini layout-fixed">
+<body class="layout-fixed layout-navbar-fixed layout-footer-fixed sidebar-mini text-sm">
     <div class="wrapper">
 
         <!-- Preloader -->
@@ -32,13 +32,10 @@
 
         <div class="content-wrapper">
             <div class="content-header">
-                {{-- <div class="container-fluid">
-                    <div class="row mb-2">
-                        <div class="col-sm-12">
-                            <h1 class="m-0">@yield('title')</h1>
-                        </div>
+                <div class="container-fluid">
+                    <div class="col-sm-12">
                     </div>
-                </div> --}}
+                </div>
             </div>
             @yield('content')
         </div>

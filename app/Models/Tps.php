@@ -39,4 +39,9 @@ class Tps extends Model
     {
         return $query->where('desa_id', $desa_id)->delete();
     }
+
+    public function suaracapres()
+    {
+        return $this->hasMany(Suaracapres::class);
+    }
 }

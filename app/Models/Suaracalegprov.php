@@ -6,12 +6,12 @@ use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Suaracapres extends Model
+class Suaracalegprov extends Model
 {
     use HasFactory,HasUuids;
     protected $guarded=['id'];
-    public function capres(){
-        return $this->belongsTo(Capres::class);
+    public function caleg(){
+        return $this->belongsTo(Caleg::class);
     }
     public function tps(){
         return $this->belongsTo(Tps::class);
