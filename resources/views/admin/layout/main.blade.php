@@ -4,7 +4,6 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>Pemilu | Dashboard</title>
     @vite('resources/js/app.js')
     <link rel="stylesheet"
@@ -27,8 +26,8 @@
                 height="60" width="60">
         </div> --}}
 
-        @include('operator.layout.v_navbar')
-        @include('operator.layout.v_main_sidebar')
+        @include('admin.layout.v_navbar')
+        @include('admin.layout.v_main_sidebar')
 
         <div class="content-wrapper">
             <div class="content-header">
@@ -42,7 +41,7 @@
             </div>
             @yield('content')
         </div>
-        @include('operator.layout.v_footer')
+        @include('admin.layout.v_footer')
 
         <!-- Control Sidebar -->
         <aside class="control-sidebar control-sidebar-dark">
