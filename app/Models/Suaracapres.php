@@ -16,4 +16,7 @@ class Suaracapres extends Model
     public function tps(){
         return $this->belongsTo(Tps::class);
     }
+    public function kecamatan(){
+        return $this->belongsTo(Kecamatan::class);
+    }
 }

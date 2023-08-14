@@ -13,4 +13,7 @@ class Capres extends Model
     public function suaracapres(){
         return $this->hasMany(Suaracapres::class);
     }
+    // public function suaracagub(){
+    //     return $this->hasMany(Suaracagub::class);
+    // }
 }
