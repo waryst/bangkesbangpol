@@ -39,7 +39,7 @@
                                     <td class="td-i">
                                         <input value="TPS ` + value.title + `" class="form-control border-0 ml-0 bg-white" readonly>
                                     </td>
-                                    <td class="text-center">`;
+                                    <td class="text-center px-2">`;
                                 if (key === 0) {
                                     table += `<div class="btn-group">
                                             <button class="btn btn-xs btn-secondary delete-button" 
@@ -60,7 +60,6 @@
                             }
                         }
                         Swal.fire({
-                            type: `${response.type}`,
                             icon: `${response.type}`,
                             title: `${response.message}`,
                             showConfirmButton: false,

@@ -15,18 +15,17 @@ class Kecamatan extends Model
     {
         return $this->hasMany(Desa::class);
     }
-
     public function tps()
     {
         return $this->hasManyThrough(Tps::class, Desa::class);
     }
-
-    public function scopeTabel($query)
-    {
-        return $query->withCount('desa')->orderBy('created_at', 'DESC')->get();
-    }
     public function dapil()
     {
         return $this->belongsTo(Dapil::class);
+    }
+
+    public function scopeJumlahDalamDapil($query, $dapil_id)
+    {
+        return $query->where('dapil_id', $dapil_id)->count();
     }
 }

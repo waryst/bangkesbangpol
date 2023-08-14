@@ -13,6 +13,7 @@ use App\Models\Dpd;
 use App\Models\Kecamatan;
 use App\Models\Partai;
 use App\Models\Tps;
+use App\Models\Dapil;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -45,7 +46,8 @@ class DatabaseSeeder extends Seeder
             "Siman"=>array("Beton","Brahu","Demangan","Jarak","Kepuhrubuh","Madusari","Mangunsuman","Manuk","Ngabar","Patihan Kidul","Pijeran","Ronosentanan","Ronowijayan","Sawuh","Sekaran","Siman","Tajug","Tranjang"),
             "Slahung"=>array("Broto","Caluk","Crabak","Duri","Galak","Gombang","Gundik","Janti","Jebeng","Kambeng","Menggare","Mojopitu","Nailan","Ngilo-ilo","Ngloning","Plancungan","Senepo","Simo","Slahung","Truneng","Tugurejo","Wates"),
             "Sooko"=>array("Bedoho","Jurug","Klepu","Ngadirojo","Sooko","Suru"),
-            "Sukorejo"=>array("Bangunrejo","Gandukepuh","Gegeran","Gelanglor","Golan","Kalimalang","Karanglolor","Kedungbanteng","Kranggan","Lengkong","Morosari","Nambangrejo","Nampan","Prajegan","Serangan","Sidorejo","Sragi","Sukorejo"));
+            "Sukorejo"=>array("Bangunrejo","Gandukepuh","Gegeran","Gelanglor","Golan","Kalimalang","Karanglolor","Kedungbanteng","Kranggan","Lengkong","Morosari","Nambangrejo","Nampan","Prajegan","Serangan","Sidorejo","Sragi","Sukorejo")
+        );
             
             
         foreach ($kecamatan as $nama_kec => $array_desa) {
@@ -56,22 +58,31 @@ class DatabaseSeeder extends Seeder
                     'title'=>$nama_desa,
                 ]);
                 // ----------------------------------------------------------TPS
-                Tps::create([
-                    'desa_id'=>$des->id,
-                    'title'=>'1',
-                ]);
-                Tps::create([
-                    'desa_id'=>$des->id,
-                    'title'=>'2',
-                ]);
-                Tps::create([
-                    'desa_id'=>$des->id,
-                    'title'=>'3',
-                ]);
+                // Tps::create([
+                //     'desa_id'=>$des->id,
+                //     'title'=>'1',
+                // ]);
+                // Tps::create([
+                //     'desa_id'=>$des->id,
+                //     'title'=>'2',
+                // ]);
+                // Tps::create([
+                //     'desa_id'=>$des->id,
+                //     'title'=>'3',
+                // ]);
                 // ----------------------------------------------------------TPS
             }
         }
-            
+        
+        Dapil::create(['title'=>'1']);
+        Dapil::create(['title'=>'2']);
+        Dapil::create(['title'=>'3']);
+        Dapil::create(['title'=>'4']);
+        Dapil::create(['title'=>'5']);
+        Dapil::create(['title'=>'6']);
+
+        // Dapil::create(['title'=>'DAPIL RI']);       //identifier caleg RI
+        // Dapil::create(['title'=>'DAPIL DPRD I']);   //identifier caleg DPRD 1
 
         // Kecamatan::create([
         //     'id' => '999054d7-54af-44d6-acff-9e88b899e401',
@@ -462,6 +473,5 @@ class DatabaseSeeder extends Seeder
             'no_urut'=>3,
             'nama'=>'Drs. H. ZAINUL ARIFIN',
         ]);
-
     }
 }

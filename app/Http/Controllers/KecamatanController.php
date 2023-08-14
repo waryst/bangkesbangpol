@@ -4,9 +4,12 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\DB;
 
 use App\Models\Kecamatan;
 use App\Models\Desa;
+use App\Models\Dapil;
+use App\Models\Tps;
 
 class KecamatanController extends Controller
 {
@@ -15,21 +18,16 @@ class KecamatanController extends Controller
      */
     public function index()
     {
-        $data = Kecamatan::withCount('desa')->orderBy('created_at', 'DESC')->get();
+        $data = Kecamatan::withCount('desa')->orderBy('dapil_id', 'ASC')->orderBy('created_at', 'DESC')->get();
         return view('admin.content.kecamatan', compact('data'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
         //
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
+
     public function store(Request $request)
     {
         $request->validate([
@@ -43,7 +41,7 @@ class KecamatanController extends Controller
                 'success' => true,
                 'type' => 'success',
                 'message' => 'Kecamatan berhasil ditambahkan',
-                'data'    => Kecamatan::tabel()
+                'data'    => Kecamatan::withCount('desa')->with('dapil')->orderBy('dapil_id', 'ASC')->orderBy('created_at', 'DESC')->get()
             ]);
         }
 
@@ -54,20 +52,39 @@ class KecamatanController extends Controller
         ]);
     }
 
-    /**
-     * Display the specified resource.
-     */
+
     public function show(string $id)
     {
-        //
+        // show kecamatan belong to dapil dapil.blade
+        $dapil=Dapil::where('id', $id)->first();
+
+        return response()->json([
+                'success' => true,
+                'type' => 'success',
+                'dapil' => $dapil->title,
+                'data'    => Kecamatan::where('dapil_id', $id)->orderBy('title', 'ASC')->get()
+            ]);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
+
     public function edit(string $id)
     {
-        //
+        // remove dapil_id from kecamatan dapil.blade
+        $find=Kecamatan::where('id', $id);
+
+        if ($find->count()==1) {
+            $old=$find->first();
+            $dapil_id = $old->dapil_id;
+            $old->update(['dapil_id' => null]);
+
+            return response()->json([
+                'success' => true,
+                'type' => 'success',
+                'message' => 'Kecamatan berhasil dihapus',
+                'kecamatan_count' => Kecamatan::jumlahDalamDapil($dapil_id),
+                'data'    => Kecamatan::where('dapil_id', $dapil_id)->orderBy('title', 'ASC')->get()
+            ]);
+        }
     }
 
     /**
@@ -114,7 +131,7 @@ class KecamatanController extends Controller
             return response()->json([
                 'success' => true,
                 'type' => 'success',
-                'message' => $old_title.' berhasil diedit menjadi '.$kecamatan->title,
+                'message' => 'Kecamatan berhasil diedit',
                 'data'    => $kecamatan->title
             ]);
         }
@@ -125,18 +142,25 @@ class KecamatanController extends Controller
      */
     public function destroy(string $id)
     {
-        $find=Kecamatan::where('id', $id);
-
-        if ($find->count()==1) {
-            $old=$find->first();
-            $old->delete();
-
-            return response()->json([
-                'success' => true,
-                'type' => 'success',
-                'message' => 'Kecamatan '.$old->title.' berhasil dihapus',
-                'data'    => Kecamatan::tabel()
-            ]);
+        $kecamatan=Kecamatan::where('id', $id)->first();
+        $desa=Desa::where('kecamatan_id', $kecamatan->id)->get();
+        DB::beginTransaction();
+        try {
+            foreach ($desa as $d) {
+                Tps::where('desa_id', $d->id)->delete();
+                $d->delete();
+            }
+            $kecamatan->delete();
+            DB::commit();
+        } catch (\Exception $e) {
+            DB::rollback();
         }
+
+        return response()->json([
+            'success' => true,
+            'type' => 'success',
+            'message' => 'Kecamatan berhasil dihapus',
+            'data'    => Kecamatan::withCount('desa')->with('dapil')->orderBy('dapil_id', 'ASC')->orderBy('created_at', 'DESC')->get()
+        ]);
     }
 }

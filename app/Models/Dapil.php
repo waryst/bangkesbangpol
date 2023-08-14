@@ -10,10 +10,12 @@ class Dapil extends Model
 {
     use HasFactory,HasUuids;
     protected $guarded=['id'];
-    public function kecamatan(){
+    public function kecamatan()
+    {
         return $this->hasMany(Kecamatan::class);
     }
-    public function caleg(){
+    public function caleg()
+    {
         return $this->hasMany(Caleg::class);
     }
 }

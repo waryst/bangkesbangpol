@@ -4,6 +4,8 @@ use App\Http\Controllers\operator\CapresController;
 use App\Http\Controllers\KecamatanController;
 use App\Http\Controllers\DesaController;
 use App\Http\Controllers\TpsController;
+use App\Http\Controllers\DapilController;
+use App\Http\Controllers\PartaiController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\operator\SavesuaraController;
 use App\Http\Controllers\operator\EntrySuaraController;
@@ -27,6 +29,8 @@ Route::resource('capres', CapresController::class);
 Route::resource('kecamatan', KecamatanController::class);
 Route::resource('desa', DesaController::class);
 Route::resource('tps', TpsController::class);
+Route::resource('dapil', DapilController::class);
+Route::resource('partai', PartaiController::class);
 
 Route::get('capres', [EntrySuaraController::class,'capres']);
 Route::get('capres/{id}', [EntrySuaraController::class,'capres_tps']);

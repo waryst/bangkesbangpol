@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\DB;
 
 use App\Models\Kecamatan;
 use App\Models\Desa;
@@ -121,19 +122,10 @@ class DesaController extends Controller
             return response()->json([
                 'success' => true,
                 'type' => 'success',
-                'message' => $old_title.' berhasil diedit menjadi '.$desa->title,
+                'message' => 'Desa berhasil diedit',
                 'data'    => $desa->title
             ]);
         }
-
-        // $old_title = "x";
-        // $kecamatan = "y";
-        // return response()->json([
-        //     'success' => true,
-        //     'type' => 'success',
-        //     'message' => $old_title.' berhasil diedit menjadi '.$kecamatan,
-        //     'data'    => $id
-        // ]);
     }
 
     /**
@@ -141,19 +133,23 @@ class DesaController extends Controller
      */
     public function destroy(string $id)
     {
-        $find=Desa::where('id', $id);
+        $old=Desa::where('id', $id)->first();
 
-        if ($find->count()==1) {
-            $old=$find->first();
-            $old->delete();
+        DB::beginTransaction();
+        try {
+            Tps::where('desa_id', $old->id)->delete();
+            Desa::where('id', $id)->first()->delete();
+            DB::commit();
+        } catch (\Exception $e) {
+            DB::rollback();
+        }
 
-            return response()->json([
+        return response()->json([
                 'success' => true,
                 'type' => 'success',
-                'message' => 'Desa '.$old->title.' berhasil dihapus',
+                'message' => 'Desa berhasil dihapus',
                 'desa_count' => Desa::jumlahDesa($old->kecamatan_id),
                 'data'    => Desa::tabel($old->kecamatan_id)
             ]);
-        }
     }
 }

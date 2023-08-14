@@ -15,7 +15,6 @@
             cancelButtonText: 'Batal',
             reverseButtons: true
         }).then((result) => {
-
             if (result.value) {
                 $.ajax({
                     url: `/desa/` + id,
@@ -42,7 +41,7 @@
                                         </td>
                                         <td class="text-center">` + value.tps_count +
                                     `</td>
-                                        <td class="text-center">
+                                        <td class="text-center px-1">
                                             <div class="btn-group">
                                                 <button class="btn btn-xs btn-secondary delete-button" 
                                                 data-quantity="` + value.id + `">
@@ -56,7 +55,6 @@
                             $("#tr-" + kecamatan_id + " > #desa_count").html(desa_count);
                         }
                         Swal.fire({
-                            type: `${response.type}`,
                             icon: `${response.type}`,
                             title: `${response.message}`,
                             showConfirmButton: false,
@@ -74,6 +72,7 @@
                         //     $("#kec_name").html('');
                         //     $("#kec_name").data("quantity", "");
                         // }
+                        addToolTip('#table-body-desa input', 'right', 'focus', 'press enter to save');
                     }
                 });
             }

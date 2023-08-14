@@ -1,54 +1,51 @@
 <script type="text/javascript">
-    $('#tps').keyup(function(e) {
+    $('#dapil').keyup(function(e) {
         if (e.which == '13') {
             e.preventDefault();
             if ($.trim(this.value).length) {
-                let jml = $('#tps').val();
-                let desa_id = $('#tps').data("quantity");
+                let title = $('#dapil').val();
                 let token = $("meta[name='csrf-token']").attr("content");
-
                 $.ajax({
-                    url: `/tps`,
+                    url: `/dapil`,
                     type: "POST",
                     dataType: "json",
                     cache: false,
                     data: {
-                        "jml": jml,
-                        "desa_id": desa_id,
+                        "title": title,
                         "_token": token
                     },
+
                     success: function(response) {
                         let x = `${response.success}`;
                         if (x == 'true') {
-                            let tps_count = `${response.tps_count}`;
                             let table = "";
                             $.each(response.data, function(key, value) {
                                 table += `
-                                <tr>
+                                <tr id="tr-` + value.id + `">
                                     <td class="td-i">
-                                        <input value="TPS ` + value.title + `" class="form-control border-0 ml-0 bg-white" readonly>
+                                        <input id="` + value.id + `" type="text" value="Dapil ` + value.title + `"
+                                            class="form-control bg-white border-0 ml-0" readonly>
                                     </td>
-                                    <td class="text-center px-2">`;
-                                if (key === 0) {
-                                    table += `<div class="btn-group">
-                                            <button class="btn btn-xs btn-secondary delete-button" 
-                                            data-quantity="` + value.id + `" >
-                                            <i class="ri-delete-bin-line px-1"></i>
+                                    <td class="text-center" id="kecamatan_count">` + value.kecamatan_count + `</td>
+                                    <td class="text-center px-1">
+                                        <div class="btn-group">
+                                            <button class="btn btn-xs btn-secondary delete-button"
+                                                data-quantity="` + value.id + `">
+                                                <i class="ri-delete-bin-line px-1"></i>
                                             </button>
-                                        </div>`;
-                                }
-                                table += `   </td>
-                                 </tr>`;
+                                            <button class="btn btn-xs btn-secondary add"
+                                                data-quantity="` + value.id + `">
+                                                <i class="ri-add-fill px-1"></i>
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>`;
                             });
 
-                            $("#table-body-tps").html(table);
-                            $("#tps").val('');
-                            $('#modal-tps').modal('hide');
-                            $("#tr-" + desa_id + " > #tps_count").html(tps_count);
-                            $("#delete-semua").removeClass('d-none');
-                            if (tps_count < 1) {
-                                $("#delete-semua").addClass('d-none');
-                            }
+                            $("#table-body").html(table);
+                            $("#dapil").val('');
+                            $('#modal-dapil').modal('hide');
+
                         }
                         setTimeout(
                             function() {
@@ -62,6 +59,7 @@
                                     timer: 3000
                                 });
                             }, 700);
+
                     }
                 });
             }
