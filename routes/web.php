@@ -1,5 +1,9 @@
 <?php
 
+use App\Http\Controllers\operator\CapresController;
+use App\Http\Controllers\KecamatanController;
+use App\Http\Controllers\DesaController;
+use App\Http\Controllers\TpsController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\admin\RekapSuaraController;
 use App\Http\Controllers\Auth\AuthController;

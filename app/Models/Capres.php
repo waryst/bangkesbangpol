@@ -10,7 +10,8 @@ class Capres extends Model
 {
     use HasFactory,HasUuids;
     protected $guarded=['id'];
-    public function suaracapres(){
+    public function suaracapres()
+    {
         return $this->hasMany(Suaracapres::class);
     }
     // public function suaracagub(){
