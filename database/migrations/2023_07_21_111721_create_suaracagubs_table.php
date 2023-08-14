@@ -15,6 +15,8 @@ return new class extends Migration
             $table->uuid('id')->primary();
             $table->uuid('cagub_id');
             $table->uuid('tps_id');
+            $table->uuid('desa_id');
+            $table->uuid('kecamatan_id');
             $table->integer('jumlah');
             $table->timestamps();
         });

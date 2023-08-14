@@ -11,16 +11,20 @@ use Laravel\Sanctum\HasApiTokens;
 class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
-
+    public function desa(){
+        return $this->belongsTo(Desa::class);
+    }
     /**
      * The attributes that are mass assignable.
      *
      * @var array<int, string>
      */
     protected $fillable = [
+        'desa_id',
         'name',
         'email',
         'password',
+        'role',
     ];
 
     /**

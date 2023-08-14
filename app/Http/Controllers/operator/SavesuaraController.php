@@ -35,6 +35,8 @@ class SavesuaraController extends Controller
                     [
                         'capres_id' => $capres_id,
                         'tps_id' => $tps_id,
+                        'desa_id' => auth()->user()->desa->id,
+                        'kecamatan_id' => auth()->user()->desa->kecamatan_id,
                         'jumlah' =>$jumlah_suara,
                     ]
                 );
@@ -58,6 +60,8 @@ class SavesuaraController extends Controller
                 [
                     'cagub_id' => $cagub_id,
                     'tps_id' => $tps_id,
+                    'desa_id' => auth()->user()->desa->id,
+                    'kecamatan_id' => auth()->user()->desa->kecamatan_id,
                     'jumlah' =>$jumlah_suara,
                 ]
             );
@@ -81,6 +85,8 @@ class SavesuaraController extends Controller
                 [
                     'cabub_id' => $cabub_id,
                     'tps_id' => $tps_id,
+                    'desa_id' => auth()->user()->desa->id,
+                    'kecamatan_id' => auth()->user()->desa->kecamatan_id,
                     'jumlah' =>$jumlah_suara,
                 ]
             );
@@ -104,6 +110,8 @@ class SavesuaraController extends Controller
                 [
                     'dpd_id' => $dpd_id,
                     'tps_id' => $tps_id,
+                    'desa_id' => auth()->user()->desa->id,
+                    'kecamatan_id' => auth()->user()->desa->kecamatan_id,
                     'jumlah' =>$jumlah_suara,
                 ]
             );
@@ -126,6 +134,8 @@ class SavesuaraController extends Controller
                     [
                         'caleg_id' => $caleg_id,
                         'tps_id' => $tps_id,
+                        'desa_id' => auth()->user()->desa->id,
+                        'kecamatan_id' => auth()->user()->desa->kecamatan_id,
                         'jumlah' =>$jumlah_suara,
                     ]
                 );      
@@ -148,6 +158,8 @@ class SavesuaraController extends Controller
                     [
                         'caleg_id' => $caleg_id,
                         'tps_id' => $tps_id,
+                        'desa_id' => auth()->user()->desa->id,
+                        'kecamatan_id' => auth()->user()->desa->kecamatan_id,
                         'jumlah' =>$jumlah_suara,
                     ]
                 );
@@ -171,6 +183,8 @@ class SavesuaraController extends Controller
                     [
                         'caleg_id' => $caleg_id,
                         'tps_id' => $tps_id,
+                        'desa_id' => auth()->user()->desa->id,
+                        'kecamatan_id' => auth()->user()->desa->kecamatan_id,
                         'jumlah' =>$jumlah_suara,
                     ]
                 ); 

@@ -8,7 +8,7 @@
     @vite('resources/js/app.js')
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
-    <link rel="stylesheet" href="{{ asset('asset') }}/plugins/fontawesome-free/css/all.min.css">
+    {{-- <link rel="stylesheet" href="{{ asset('asset') }}/plugins/fontawesome-free/css/all.min.css"> --}}
     <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
     <link rel="stylesheet" href="{{ asset('asset') }}/plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
     @stack('css')
@@ -17,7 +17,7 @@
 
 </head>
 
-<body class="hold-transition sidebar-mini layout-fixed">
+<body class="layout-fixed layout-navbar-fixed layout-footer-fixed sidebar-mini text-sm">
     <div class="wrapper">
 
         <!-- Preloader -->
@@ -31,64 +31,73 @@
 
         <div class="content-wrapper">
             <div class="content-header">
-                {{-- <div class="container-fluid">
-                    <div class="row mb-2">
-                        <div class="col-sm-12">
-                            <h1 class="m-0">@yield('title')</h1>
-                        </div>
+                <div class="container-fluid">
+                    <div class="col-sm-12">
                     </div>
-                </div> --}}
+                </div>
+                @yield('content')
             </div>
-            @yield('content')
+            @include('admin.layout.v_footer')
+
+            <!-- Control Sidebar -->
+            <aside class="control-sidebar control-sidebar-dark">
+            </aside>
+            <!-- /.control-sidebar -->
         </div>
-        @include('admin.layout.v_footer')
+        <!-- ./wrapper -->
 
-        <!-- Control Sidebar -->
-        <aside class="control-sidebar control-sidebar-dark">
-        </aside>
-        <!-- /.control-sidebar -->
-    </div>
-    <!-- ./wrapper -->
 
-    <!-- jQuery -->
-    <script src="{{ asset('asset') }}/plugins/jquery/jquery.min.js"></script>
-    <!-- jQuery UI 1.11.4 -->
-    <script src="{{ asset('asset') }}/plugins/jquery-ui/jquery-ui.min.js"></script>
-    <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
-    <script>
-        $.widget.bridge('uibutton', $.ui.button)
 
-    </script>
-    <!-- Bootstrap 4 -->
-    <script src="{{ asset('asset') }}/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-    <!-- ChartJS -->
-    <script src="{{ asset('asset') }}/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
-    <!-- AdminLTE App -->
-    <script src="{{ asset('asset') }}/dist/js/adminlte.js"></script>
-    <!-- AdminLTE for demo purposes -->
-    {{-- <script src="{{ asset('asset') }}/dist/js/demo.js"></script> --}}
+        <!-- Bootstrap 4 -->
+        <script src="{{ asset('asset') }}/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+        <!-- ChartJS -->
+        <script src="{{ asset('asset') }}/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
+        <!-- AdminLTE App -->
+        <script src="{{ asset('asset') }}/dist/js/adminlte.js"></script>
+        <!-- AdminLTE for demo purposes -->
+        {{-- <script src="{{ asset('asset') }}/dist/js/demo.js"></script> --}}
 
-    <script>
-        /*** add active class and stay opened when selected ***/
-        var url = window.location;
+        <script>
+            /*** add active class and stay opened when selected ***/
+            var url = window.location;
 
-        // for sidebar menu entirely but not cover treeview
-        $('ul.nav-sidebar a').filter(function() {
-            if (this.href) {
-                return this.href == url || url.href.indexOf(this.href) == 0;
-            }
-        }).addClass('active');
+            // for sidebar menu entirely but not cover treeview
+            $('ul.nav-sidebar a').filter(function() {
+                if (this.href) {
+                    return this.href == url || url.href.indexOf(this.href) == 0;
+                }
+            }).addClass('active');
 
-        // for the treeview
-        $('ul.nav-treeview a').filter(function() {
-            if (this.href) {
-                return this.href == url || url.href.indexOf(this.href) == 0;
-            }
-        }).parentsUntil(".nav-sidebar > .nav-treeview").addClass('menu-open');
-        // }).parentsUntil(".nav-sidebar > .nav-treeview").addClass('menu-open').prev('a').addClass('active');
+            // for the treeview
+            $('ul.nav-treeview a').filter(function() {
+                if (this.href) {
+                    return this.href == url || url.href.indexOf(this.href) == 0;
+                }
+            }).parentsUntil(".nav-sidebar > .nav-treeview").addClass('menu-open');
+            // }).parentsUntil(".nav-sidebar > .nav-treeview").addClass('menu-open').prev('a').addClass('active');
 
-    </script>
-    @stack('java')
+        </script>
+        @stack('java')
+
+        <!-- jQuery -->
+        <script src="{{ asset('asset') }}/plugins/jquery/jquery.min.js"></script>
+        <!-- jQuery UI 1.11.4 -->
+        <script src="{{ asset('asset') }}/plugins/jquery-ui/jquery-ui.min.js"></script>
+        <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
+        <script>
+            $.widget.bridge('uibutton', $.ui.button)
+
+        </script>
+        <!-- Bootstrap 4 -->
+        <script src="{{ asset('asset') }}/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+        <!-- ChartJS -->
+        <script src="{{ asset('asset') }}/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
+        <!-- AdminLTE App -->
+        <script src="{{ asset('asset') }}/dist/js/adminlte.js"></script>
+        <!-- AdminLTE for demo purposes -->
+        <script src="{{ asset('asset') }}/dist/js/demo.js"></script>
+        @stack('java')
+
 </body>
 
 </html>

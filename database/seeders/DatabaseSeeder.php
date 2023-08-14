@@ -14,7 +14,10 @@ use App\Models\Kecamatan;
 use App\Models\Partai;
 use App\Models\Tps;
 use App\Models\Dapil;
+use App\Models\User;
+
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Hash;
 
 class DatabaseSeeder extends Seeder
 {
@@ -24,6 +27,20 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         // \App\Models\User::factory(10)->create();
+        User::create([
+            'name' => 'Warist Amru Khoruddin',
+            'desa_id' =>'999054d7-54af-44d6-acff-9e88b8992001',
+            'email' => 'admin',
+            'role'=>'administrator',
+            'password'=>Hash::make('admin'),
+        ]);
+        User::create([
+            'name' => 'Kinara Tadkiya',
+            'desa_id' =>'999054d7-54af-44d6-acff-9e88b8992001',
+            'email' => 'operator',
+            'role'=>'operator',
+            'password'=>Hash::make('admin'),
+        ]);
 
         $kecamatan = array(
             "Babadan"=>array("Babadan","Barang","Cekok","Gupolo","Japan","Kadipaten","Kertosari","Lembah","Ngunut","Patihan Wetan","Polorejo","Pondok","Purwosari","Sukosari","Trisono"),
@@ -380,96 +397,80 @@ class DatabaseSeeder extends Seeder
             'singkatan'=>'PARTAI UMMAT',
             'logo'=>18,
         ]);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
         Caleg::create([
             'id'=>'999054d7-54af-44d6-acff-9e88bcaleg01',
             'partai_id'=>'999054d7-54af-44d6-acff-9e88partai01',
-            'dapil_id'=>1,
+            'dapil_id'=>'999054d7-54af-44d6-acff-9e88b899e402',
             'no_urut'=>1,
             'nama'=>'Drs. MUHAMMAD NUR, MH',
         ]);
         Caleg::create([
             'id'=>'999054d7-54af-44d6-acff-9e88bcaleg02',
             'partai_id'=>'999054d7-54af-44d6-acff-9e88partai01',
-            'dapil_id'=>1,
+            'dapil_id'=>'999054d7-54af-44d6-acff-9e88b899e402',
             'no_urut'=>2,
             'nama'=>'MUHAMMAD SALEH, ST, MT',
         ]);
         Caleg::create([
             'id'=>'999054d7-54af-44d6-acff-9e88bcaleg03',
             'partai_id'=>'999054d7-54af-44d6-acff-9e88partai01',
-            'dapil_id'=>1,
+            'dapil_id'=>'999054d7-54af-44d6-acff-9e88b899e402',
             'no_urut'=>3,
             'nama'=>'SITI MARIAM',
         ]);
         Caleg::create([
             'id'=>'999054d7-54af-44d6-acff-9e88bcaleg04',
             'partai_id'=>'999054d7-54af-44d6-acff-9e88partai02',
-            'dapil_id'=>1,
+            'dapil_id'=>'999054d7-54af-44d6-acff-9e88b899e402',
             'no_urut'=>1,
             'nama'=>'Ir. Hj. ENDANG SULISTYORINI',
         ]);
         Caleg::create([
             'id'=>'999054d7-54af-44d6-acff-9e88bcaleg05',
             'partai_id'=>'999054d7-54af-44d6-acff-9e88partai02',
-            'dapil_id'=>1,
+            'dapil_id'=>'999054d7-54af-44d6-acff-9e88b899e402',
             'no_urut'=>2,
             'nama'=>'Drs. H. ZAINUL ARIFIN',
         ]);
         Caleg::create([
             'id'=>'999054d7-54af-44d6-acff-9e88bcaleg06',
             'partai_id'=>'999054d7-54af-44d6-acff-9e88partai03',
-            'dapil_id'=>2,
+            'dapil_id'=>'999054d7-54af-44d6-acff-9e88b899e402',
             'no_urut'=>1,
             'nama'=>'MUJAHID ABDUL LATIEF, S.H., M.H',
         ]);
         Caleg::create([
             'id'=>'999054d7-54af-44d6-acff-9e88bcaleg07',
             'partai_id'=>'999054d7-54af-44d6-acff-9e88partai01',
-            'dapil_id'=>2,
+            'dapil_id'=>1,
             'no_urut'=>1,
             'nama'=>'WARIST AMRU KHOIRUDDIN',
         ]);
         Caleg::create([
             'id'=>'999054d7-54af-44d6-acff-9e88bcaleg08',
             'partai_id'=>'999054d7-54af-44d6-acff-9e88partai02',
-            'dapil_id'=>2,
+            'dapil_id'=>1,
             'no_urut'=>1,
             'nama'=>'Drs. H. ZAINUL ARIFIN',
         ]);
         Caleg::create([
             'id'=>'999054d7-54af-44d6-acff-9e88bcaleg09',
             'partai_id'=>'999054d7-54af-44d6-acff-9e88partai01',
-            'dapil_id'=>3,
+            'dapil_id'=>2,
             'no_urut'=>1,
             'nama'=>'MUJAHID ABDUL LATIEF, S.H., M.H',
         ]);
         Caleg::create([
             'id'=>'999054d7-54af-44d6-acff-9e88bcaleg10',
             'partai_id'=>'999054d7-54af-44d6-acff-9e88partai01',
-            'dapil_id'=>3,
+            'dapil_id'=>2,
             'no_urut'=>2,
             'nama'=>'WARIST AMRU KHOIRUDDIN',
         ]);
         Caleg::create([
             'id'=>'999054d7-54af-44d6-acff-9e88bcaleg11',
             'partai_id'=>'999054d7-54af-44d6-acff-9e88partai01',
-            'dapil_id'=>3,
+            'dapil_id'=>2,
             'no_urut'=>3,
             'nama'=>'Drs. H. ZAINUL ARIFIN',
         ]);

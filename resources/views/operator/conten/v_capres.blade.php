@@ -150,12 +150,11 @@
                                         @if ($pilih_tps->id ?? 0 != null)
                                             <div style="position: relative">
                                                 <input type="number" min="0"
-                                                    {{ $loop->iteration == 1 ? 'autofocus' : '' }}
-                                                    {{ $loop->iteration == 1 ? 'select' : '' }}
                                                     onKeyPress="if(this.value.length==3) return false;"
                                                     oninput="this.value = Math.abs(this.value)" autocomplete="off"
                                                     id="{{ $capres->id }}" data-id="{{ $capres->id }}"
-                                                    onfocus="this.placeholder = ''" onblur="this.placeholder = '0'"
+                                                    data-desa="{{ $capres->id }}" onfocus="this.placeholder = ''"
+                                                    onblur="this.placeholder = '0'"
                                                     value="{{ $capres->suaracapres[0]->jumlah ?? 0 }}"
                                                     class="form-control text-center suara submit">
                                                 <div class="loadingsuara" id="save{{ $capres->id }}"

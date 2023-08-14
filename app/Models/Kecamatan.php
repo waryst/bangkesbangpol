@@ -28,4 +28,25 @@ class Kecamatan extends Model
     {
         return $query->where('dapil_id', $dapil_id)->count();
     }
+
+    public function suaracapres()
+    {
+        return $this->hasMany(Suaracapres::class);
+    }
+    public function suaracagub()
+    {
+        return $this->hasMany(Suaracagub::class);
+    }
+    public function suaracabub()
+    {
+        return $this->hasMany(Suaracabub::class);
+    }
+    public function suaradpd()
+    {
+        return $this->hasMany(Suaradpd::class);
+    }
+    public function suaracaleg()
+    {
+        return $this->hasMany(Suaracaleg::class);
+    }
 }
