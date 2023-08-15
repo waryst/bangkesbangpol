@@ -55,6 +55,8 @@ Route::group(['middleware' => ['auth', 'checkRole:administrator', 'revalidate']]
     Route::get('rekapcabub/{tipe}/{id}', [RekapSuaraController::class,'rekapcabub']);
     Route::get('rekapdpd/{tipe}/{id}', [RekapSuaraController::class,'rekapdpd']);
     Route::get('rekapcalegri/{tipe}/{id}', [RekapSuaraController::class,'rekapcalegri']);
+    Route::get('rekapcalegprov/{tipe}/{id}', [RekapSuaraController::class,'rekapcalegprov']);
+    Route::get('rekapcalegkab/{tipe}/{id}', [RekapSuaraController::class,'rekapcalegkab']);
 });
 
 

@@ -11,6 +11,8 @@ use App\Models\Dpd;
 use App\Models\Kecamatan;
 use App\Models\Partai;
 use App\Models\Suaracaleg;
+use App\Models\Suaracalegkab;
+use App\Models\Suaracalegprov;
 use App\Models\Suaracapres;
 use App\Models\Tps;
 use Illuminate\Http\Request;
@@ -222,8 +224,121 @@ class RekapSuaraController extends Controller
             ->Join('Calegs', 'Suaracalegs.caleg_id', '=', 'Calegs.id')
             ->Join('partais', 'Calegs.partai_id', '=', 'partais.id')
             ->get();
-            // dd($kirim['suara']);
         }
         return view('admin.conten.v_rekapcalegri',$kirim);       
+    }
+    public function rekapcalegprov($tipe,$id){
+        if($tipe=='kab'){
+            $kirim['daerah_pemilihan']="KABUPATEN PONOROGO";
+            $kirim['tabel_pemilihan']="Data Perolehan Suara Per Kecamatan";
+            $kirim['ket']="kab";
+            $kirim['data']=Kecamatan::with('suaracalegprov')->orderBy('title','ASC')->get();
+            $dapil_id=2;
+            $kirim['data_partai']=Partai::with(['caleg.suaracalegprov','caleg' =>
+            function ($query) use ($dapil_id)  {
+                $query->where('dapil_id', '=', $dapil_id)->orderBy('no_urut','ASC');
+            } ])->orderBy('no_urut','ASC')->get();
+
+            $kirim['suara']=Suaracalegprov::select('suaracalegprovs.*','Calegs.nama','partais.id as partai_id','partais.singkatan')
+            ->Join('Calegs', 'suaracalegprovs.caleg_id', '=', 'Calegs.id')
+            ->Join('partais', 'Calegs.partai_id', '=', 'partais.id')
+            ->get();
+        }
+        else if($tipe=='kec'){
+            $kirim['ket']="kec";
+            $kirim['kecamatan']=Kecamatan::where('id', '=', $id)->first();
+            $kirim['daerah_pemilihan']="<a href='".url('rekapcalegprov/kab/all')."'>Kabupaten Ponorogo </a> - Kecamatan ".$kirim['kecamatan']->title;
+            $kirim['tabel_pemilihan']="Data Perolehan Suara Per Desa";          
+            $kirim['data']=Desa::with(['suaracalegprov'=> function ($query) use($id)
+            {
+                $query->where('kecamatan_id', '=', $id);
+            }])->where('kecamatan_id', '=', $id)->orderBy('title','ASC')->get();
+            $dapil_id=2;
+            $kirim['data_partai']=Partai::with(['caleg.suaracalegprov','caleg' =>
+                function ($query) use ($dapil_id)  {
+                    $query->where('dapil_id', '=', $dapil_id)->orderBy('no_urut','ASC');
+                } ])->orderBy('no_urut','ASC')->get();
+            $kirim['suara']=Suaracalegprov::select('suaracalegprovs.*','Calegs.nama','partais.id as partai_id','partais.singkatan')
+                ->Join('Calegs', 'suaracalegprovs.caleg_id', '=', 'Calegs.id')
+                ->Join('partais', 'Calegs.partai_id', '=', 'partais.id')
+                ->get();
+        }
+        else if($tipe=='desa'){
+            $kirim['ket']="desa";
+            $kirim['desa']=Desa::with('kecamatan')->where('id', '=', $id)->first();
+            $kirim['daerah_pemilihan']="<a href='".url('rekapcalegprov/kab/all')."'>Kabupaten Ponorogo </a>- <a href='".url('rekapcalegprov/kec/'.$kirim['desa']->kecamatan->id)."'>Kecamatan ".$kirim['desa']->kecamatan->title." </a> - Desa ".$kirim['desa']->title;
+            $kirim['tabel_pemilihan']="Data Perolehan Suara Per TPS";
+            $kirim['data']=Tps::with(['suaracalegprov'=> function ($query) use($id)
+            {
+                $query->where('desa_id', '=', $id);
+            }])->where('desa_id', '=', $id)->orderBy('title','ASC')->get();
+            $dapil_id=2;
+            $kirim['data_partai']=Partai::with(['caleg.suaracalegprov','caleg' =>
+            function ($query) use ($dapil_id)  {
+                $query->where('dapil_id', '=', $dapil_id)->orderBy('no_urut','ASC');
+            } ])->orderBy('no_urut','ASC')->get();
+            $kirim['suara']=Suaracalegprov::select('suaracalegprovs.*','Calegs.nama','partais.id as partai_id','partais.singkatan')
+            ->Join('Calegs', 'suaracalegprovs.caleg_id', '=', 'Calegs.id')
+            ->Join('partais', 'Calegs.partai_id', '=', 'partais.id')
+            ->get();
+        }
+        return view('admin.conten.v_rekapcalegprov',$kirim);       
+    }
+    public function rekapcalegkab($tipe,$id){
+        if($tipe=='kab'){
+            $kirim['daerah_pemilihan']="KABUPATEN PONOROGO";
+            $kirim['tabel_pemilihan']="Data Perolehan Suara Per Kecamatan";
+            $kirim['ket']="kab";
+            $kirim['data']=Kecamatan::with('suaracalegkab')->orderBy('title','ASC')->get();
+           $dapil_id=auth()->user()->desa->kecamatan->dapil_id;
+            $kirim['data_partai']=Partai::with(['caleg.suaracalegkab','caleg' =>
+            function ($query) use ($dapil_id)  {
+                $query->where('dapil_id', '=', $dapil_id)->orderBy('no_urut','ASC');
+            } ])->orderBy('no_urut','ASC')->get();
+
+            $kirim['suara']=Suaracalegkab::select('suaracalegkabs.*','Calegs.nama','partais.id as partai_id','partais.singkatan')
+            ->Join('Calegs', 'suaracalegkabs.caleg_id', '=', 'Calegs.id')
+            ->Join('partais', 'Calegs.partai_id', '=', 'partais.id')
+            ->get();
+        }
+        else if($tipe=='kec'){
+            $kirim['ket']="kec";
+            $kirim['kecamatan']=Kecamatan::where('id', '=', $id)->first();
+            $kirim['daerah_pemilihan']="<a href='".url('rekapcalegkab/kab/all')."'>Kabupaten Ponorogo </a> - Kecamatan ".$kirim['kecamatan']->title;
+            $kirim['tabel_pemilihan']="Data Perolehan Suara Per Desa";          
+            $kirim['data']=Desa::with(['suaracalegkab'=> function ($query) use($id)
+            {
+                $query->where('kecamatan_id', '=', $id);
+            }])->where('kecamatan_id', '=', $id)->orderBy('title','ASC')->get();
+           $dapil_id=auth()->user()->desa->kecamatan->dapil_id;
+            $kirim['data_partai']=Partai::with(['caleg.suaracalegkab','caleg' =>
+                function ($query) use ($dapil_id)  {
+                    $query->where('dapil_id', '=', $dapil_id)->orderBy('no_urut','ASC');
+                } ])->orderBy('no_urut','ASC')->get();
+            $kirim['suara']=Suaracalegkab::select('suaracalegkabs.*','Calegs.nama','partais.id as partai_id','partais.singkatan')
+                ->Join('Calegs', 'suaracalegkabs.caleg_id', '=', 'Calegs.id')
+                ->Join('partais', 'Calegs.partai_id', '=', 'partais.id')
+                ->get();
+        }
+        else if($tipe=='desa'){
+            $kirim['ket']="desa";
+            $kirim['desa']=Desa::with('kecamatan')->where('id', '=', $id)->first();
+            $kirim['daerah_pemilihan']="<a href='".url('rekapcalegkab/kab/all')."'>Kabupaten Ponorogo </a>- <a href='".url('rekapcalegkab/kec/'.$kirim['desa']->kecamatan->id)."'>Kecamatan ".$kirim['desa']->kecamatan->title." </a> - Desa ".$kirim['desa']->title;
+            $kirim['tabel_pemilihan']="Data Perolehan Suara Per TPS";
+            $kirim['data']=Tps::with(['suaracalegkab'=> function ($query) use($id)
+            {
+                $query->where('desa_id', '=', $id);
+            }])->where('desa_id', '=', $id)->orderBy('title','ASC')->get();
+           $dapil_id=auth()->user()->desa->kecamatan->dapil_id;
+            $kirim['data_partai']=Partai::with(['caleg.suaracalegkab','caleg' =>
+            function ($query) use ($dapil_id)  {
+                $query->where('dapil_id', '=', $dapil_id)->orderBy('no_urut','ASC');
+            } ])->orderBy('no_urut','ASC')->get();
+            $kirim['suara']=Suaracalegkab::select('suaracalegkabs.*','Calegs.nama','partais.id as partai_id','partais.singkatan')
+            ->Join('Calegs', 'suaracalegkabs.caleg_id', '=', 'Calegs.id')
+            ->Join('partais', 'Calegs.partai_id', '=', 'partais.id')
+            ->get();
+        }
+        return view('admin.conten.v_rekapcalegkab',$kirim);       
     }
 }

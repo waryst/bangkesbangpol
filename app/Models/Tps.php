@@ -32,4 +32,10 @@ class Tps extends Model
     public function suaracaleg(){
         return $this->hasMany(Suaracaleg::class);
     }
+    public function suaracalegprov(){
+        return $this->hasMany(Suaracalegprov::class);
+    }
+    public function suaracalegkab(){
+        return $this->hasMany(Suaracalegkab::class);
+    }
 }

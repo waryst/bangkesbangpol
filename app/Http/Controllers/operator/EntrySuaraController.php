@@ -124,7 +124,7 @@ class EntrySuaraController extends Controller
         $kirim['pilih_tps']=$id;
         $desa_id=auth()->user()->desa_id;
         $kirim['tps']=Tps::where('desa_id',$desa_id)->orderBy('title','ASC')->get();
-        $dapil_id=auth()->user()->desa->kecamatan->dapil_id;
+        $dapil_id=1;
         $tps_id=$id->id;
         $kirim['partai']=Partai::with(['caleg' =>
         function ($query) use ($dapil_id,$tps_id)  {
@@ -141,7 +141,7 @@ class EntrySuaraController extends Controller
         $kirim['pilih_tps']=$id;
         $desa_id=auth()->user()->desa_id;
         $kirim['tps']=Tps::where('desa_id',$desa_id)->orderBy('title','ASC')->get();
-        $dapil_id=auth()->user()->desa->kecamatan->dapil_id;
+        $dapil_id=2;
         $tps_id=$id->id;
         $kirim['partai']=Partai::with(['caleg' =>
         function ($query) use ($dapil_id,$tps_id)  {
@@ -164,7 +164,7 @@ class EntrySuaraController extends Controller
         $kirim['partai']=Partai::with(['caleg' =>
         function ($query) use ($dapil_id,$tps_id)  {
             $tps=$tps_id;
-            $query->where('dapil_id', '=', $dapil_id)->orderBy('no_urut','ASC')->with(['suaracalegprov'=>
+            $query->where('dapil_id', '=', $dapil_id)->orderBy('no_urut','ASC')->with(['suaracalegkab'=>
             function ($query) use ($tps)  {
                 $query->where('tps_id', '=', $tps);
             }]);

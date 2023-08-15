@@ -187,7 +187,7 @@
                                                         oninput="this.value = Math.abs(this.value)" autocomplete="off"
                                                         id="{{ $caleg->id }}" data-id="{{ $caleg->id }}"
                                                         onfocus="this.placeholder = ''" onblur="this.placeholder = '0'"
-                                                        value="{{ $caleg->suaracaleg[0]->jumlah ?? 0 }}"
+                                                        value="{{ $caleg->suaracalegprov[0]->jumlah ?? 0 }}"
                                                         class="form-control text-center submit p-0 mr-1 font-weight-bold"
                                                         style="height: 20px;font-size: 13px;">
                                                     <div class="loadingsuara" id="save{{ $caleg->id }}">

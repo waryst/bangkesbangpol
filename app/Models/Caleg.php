@@ -22,4 +22,7 @@ class Caleg extends Model
     public function suaracalegprov(){
         return $this->hasMany(Suaracalegprov::class);
     }
+    public function suaracalegkab(){
+        return $this->hasMany(Suaracalegkab::class);
+    }
 }
