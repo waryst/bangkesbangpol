@@ -1,5 +1,5 @@
 <script type="text/javascript">
-    $("#kecamatan").on("change", function(e) {
+    $('#kecamatan').on('select2:close', function(e) {
         e.preventDefault();
         let kecamatan_id = $(this).val();
 
@@ -20,11 +20,11 @@
                                         value="` + value.title + `" readonly></td>
                                     <td class="text-center" id="tps_count">` + value.tps_count +
                             `</td>
-                                    <td class="text-center">
+                                    <td class="text-center px-2">
                                         <div class="btn-group">
                                             <button class="btn btn-xs btn-secondary add" 
                                             data-quantity="` + value.id + `" >
-                                                <i class="mdi mdi-eye-outline px-1"></i>
+                                                <i class="ri-add-fill px-1"></i>
                                             </button>
                                         </div>
                                     </td>

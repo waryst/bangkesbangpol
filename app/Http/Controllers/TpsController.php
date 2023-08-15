@@ -16,7 +16,7 @@ class TpsController extends Controller
      */
     public function index()
     {
-        $data = Kecamatan::withCount('desa')->orderBy('created_at', 'DESC')->get();
+        $data = Kecamatan::withCount('desa')->orderBy('title', 'ASC')->get();
         return view('admin.content.tps', compact('data'));
     }
 
@@ -38,7 +38,12 @@ class TpsController extends Controller
             'desa_id' => 'required|exists:App\Models\Desa,id',
         ]);
 
-        $last=Tps::terakhir($request->desa_id);
+        $d=Tps::where('desa_id', $request->desa_id)->orderBy('id', 'DESC')->first();
+        if ($d) {
+            $last =  $d->title;
+        } else {
+            $last =  0;
+        }
 
         $input = $request->jml;
         while ($input > 0) {
@@ -52,8 +57,8 @@ class TpsController extends Controller
                 'success' => true,
                 'type' => 'success',
                 'message' => "TPS berhasil ditambahkan",
-                'tps_count' => Tps::jumlahTps($request->desa_id),
-                'data'=> Tps::tabel($request->desa_id)
+                'tps_count' => Tps::where('desa_id', $request->desa_id)->count(),
+                'data'=> Tps::where('desa_id', $request->desa_id)->orderBy('id', 'DESC')->get()
             ]);
     }
 
@@ -68,8 +73,8 @@ class TpsController extends Controller
                 'success' => true,
                 'type' => 'success',
                 'kecamatan' => $desa->title,
-                'tps_count' => Tps::jumlahTps($id),
-                'data'=> Tps::tabel($id)
+                'tps_count' => Tps::where('desa_id', $id)->count(),
+                'data'=> Tps::where('desa_id', $id)->orderBy('id', 'DESC')->get()
             ]);
     }
 
@@ -78,13 +83,14 @@ class TpsController extends Controller
      */
     public function edit(string $id)
     {
-        Tps::deleteAll($id);
+        Tps::where('desa_id', $id)->delete();
+
         return response()->json([
             'success' => true,
             'type' => 'success',
             'message' => "TPS berhasil dihapus",
-            'tps_count' => Tps::jumlahTps($id),
-            'data'=> Tps::tabel($id)
+            'tps_count' => Tps::where('desa_id', $id)->count(),
+            'data'=> Tps::where('desa_id', $id)->orderBy('id', 'DESC')->get()
         ]);
     }
 
@@ -110,8 +116,8 @@ class TpsController extends Controller
                 'success' => true,
                 'type' => 'success',
                 'message' => "TPS berhasil dihapus",
-                'tps_count' => Tps::jumlahTps($old->desa_id),
-                'data'=> Tps::tabel($old->desa_id)
+                'tps_count' => Tps::where('desa_id', $old->desa_id)->count(),
+                'data'=> Tps::where('desa_id', $old->desa_id)->orderBy('id', 'DESC')->get()
             ]);
     }
 }

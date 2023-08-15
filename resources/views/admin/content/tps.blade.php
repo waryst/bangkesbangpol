@@ -2,71 +2,7 @@
 
 @section('title', 'Calon Presiden')
     @push('mycss')
-        <style>
-            fieldset.scheduler-border {
-                border: 1px groove #ddd !important;
-                padding: 0 1.4em 0.8em 1.4em !important;
-                margin: 0 0 1.5em 0 !important;
-                -webkit-box-shadow: 0px 0px 0px 0px #000;
-                box-shadow: 0px 0px 0px 0px #000;
-                border: 1px solid darkgray !important;
-                border-radius: 5px;
-            }
-
-            legend.scheduler-border {
-                font-size: 1em !important;
-                font-weight: bold !important;
-                text-align: center !important;
-                width: auto;
-                padding: 0 10px;
-                border-bottom: none;
-                margin-bottom: 5px;
-                color: rgb(115, 115, 115);
-            }
-
-            legend b {
-                color: #000;
-            }
-
-            td {
-                vertical-align: middle !important;
-            }
-
-            .td-i {
-                padding-left: 12px !important;
-            }
-
-            .form-control-yellow:focus {
-                background-color: #fff5d7 !important;
-            }
-
-            .form-control-under:focus {
-                background-color: #fff5d7 !important;
-            }
-
-            .form-control-under {
-                padding-top: 0px !important;
-                padding-bottom: 0px !important;
-                height: 2rem;
-            }
-
-            .bg-light2 {
-                background-color: #f3f3f3 !important;
-            }
-
-            /* Chrome, Safari, Edge, Opera */
-            input::-webkit-outer-spin-button,
-            input::-webkit-inner-spin-button {
-                -webkit-appearance: none;
-                margin: 0;
-            }
-
-            /* Firefox */
-            input[type=number] {
-                -moz-appearance: textfield;
-            }
-
-        </style>
+        @include('admin.css.css')
     @endpush
     @push('css')
         <link rel="stylesheet" href="{{ asset('asset') }}/plugins/select2/css/select2.min.css" />
@@ -116,9 +52,9 @@
                                 <table class="table">
                                     <thead>
                                         <tr>
-                                            <th>Nama Kecamatan</th>
-                                            <th class="text-center">Jumlah TPS</th>
-                                            <th class="text-center">Aksi</th>
+                                            <th>Nama Desa</th>
+                                            <th class="text-center px-1">Jumlah TPS</th>
+                                            <th class="text-center px-2">Aksi</th>
                                         </tr>
                                     </thead>
                                     <tbody id="table-body-desa">
@@ -151,7 +87,7 @@
                                         <tr>
                                             <th>Nama TPS</th>
 
-                                            <th class="text-center">Aksi</th>
+                                            <th class="text-center px-2">Aksi</th>
                                         </tr>
                                     </thead>
                                     <tbody id="table-body-tps">
@@ -163,7 +99,7 @@
                         <div class="card mt-1" id="default">
                             <div class="card-body">
                                 Untuk menambah TPS, pilih kecamatan lalu klik tombol
-                                <button class="btn btn-xs btn-secondary"><i class="mdi mdi-eye-outline px-1"></i></button>
+                                <button class="btn btn-xs btn-secondary"><i class="ri-add-fill px-1"></i></button>
                                 pada
                                 daftar desa.
                             </div>
@@ -178,12 +114,11 @@
     <div class="modal fade" id="modal-tps">
         <div class="modal-dialog">
             <div class="modal-content p-1">
-                <div class="modal-body">
+                <div class="modal-body pb-4">
                     <label>TAMBAH TPS</label>
-                    <input class="form-control mt-2 form-control-yellow" type="number" min="0"
+                    <input class="form-control mt-2 mb-3 form-control-yellow" type="number" min="0"
                         oninput="this.value = !!this.value && Math.abs(this.value) >= 1 ? Math.abs(this.value) : null"
-                        placeholder="Jumlah TPS..." id="tps"
-                        data-quantity="">
+                        placeholder="Jumlah TPS..." id="tps" data-quantity="">
                 </div>
             </div>
         </div>
@@ -198,7 +133,25 @@
         })
 
     </script>
+    <script>
+        //--------------------------------------------------------ADD TOOLTIP FUCNTION HELPER
+        function addToolTip(id, place, trigger, title, ) {
+            $(id).tooltip({
+                placement: place,
+                trigger: trigger,
+                title: title,
+                delay: {
+                    "show": 300,
+                    "hide": 0
+                }
+            });
+        }
 
+        $(document).ready(function() {
+            addToolTip('#tps', 'bottom', 'focus', 'press enter to save');
+        });
+
+    </script>
     @include('admin.js.tps.show-desa')
     @include('admin.js.tps.show-tps')
     @include('admin.js.tps.store-tps')
@@ -211,6 +164,10 @@
     <script>
         $('#modal-tps').on('shown.bs.modal', function() {
             $('#tps').focus();
+        })
+
+        $('#modal-tps').on('hidden.bs.modal', function() {
+            $('#tps').val('');
         })
 
     </script>
@@ -252,11 +209,7 @@
     </script>
 
 
-    <script>
-        $(function() {
-                    $('.select2').select2()
-                }
 
-    </script>
+
     {{-- let token = $("meta[name='csrf-token']").attr("content"); --}}
 @endpush

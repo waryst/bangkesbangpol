@@ -20,14 +20,21 @@
                         if (x == 'true') {
                             let table = "";
                             $.each(response.data, function(key, value) {
+                                if (value.dapil === null) {
+                                    var dp = '';
+                                } else {
+                                    var dp = value.dapil.title;
+                                }
+
                                 table += `
                                 <tr id="tr-` + value.id + `">
                                     <td class="td-i">
                                         <input id="` + value.id + `" type="text" value="` + value.title + `"
                                             class="form-control form-control-under border-0 ml-0">
                                     </td>
+                                    <td class="text-center">` + dp + `</td>
                                     <td class="text-center" id="desa_count">` + value.desa_count + `</td>
-                                    <td class="text-center">
+                                    <td class="text-center px-1">
                                         <div class="btn-group">
                                             <button class="btn btn-xs btn-secondary delete-button"
                                                 data-quantity="` + value.id + `">
@@ -51,7 +58,6 @@
                         setTimeout(
                             function() {
                                 Swal.fire({
-                                    type: `${response.type}`,
                                     icon: `${response.type}`,
                                     title: `${response.message}`,
                                     showConfirmButton: false,
@@ -61,7 +67,7 @@
                                     timer: 3000
                                 });
                             }, 700);
-
+                        addToolTip('#table-body input', 'right', 'focus', 'press enter to save');
                     }
                 });
             }

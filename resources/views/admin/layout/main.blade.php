@@ -46,6 +46,39 @@
         </div>
         <!-- ./wrapper -->
 
+
+
+        <!-- Bootstrap 4 -->
+        <script src="{{ asset('asset') }}/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+        <!-- ChartJS -->
+        <script src="{{ asset('asset') }}/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
+        <!-- AdminLTE App -->
+        <script src="{{ asset('asset') }}/dist/js/adminlte.js"></script>
+        <!-- AdminLTE for demo purposes -->
+        {{-- <script src="{{ asset('asset') }}/dist/js/demo.js"></script> --}}
+
+        <script>
+            /*** add active class and stay opened when selected ***/
+            var url = window.location;
+
+            // for sidebar menu entirely but not cover treeview
+            $('ul.nav-sidebar a').filter(function() {
+                if (this.href) {
+                    return this.href == url || url.href.indexOf(this.href) == 0;
+                }
+            }).addClass('active');
+
+            // for the treeview
+            $('ul.nav-treeview a').filter(function() {
+                if (this.href) {
+                    return this.href == url || url.href.indexOf(this.href) == 0;
+                }
+            }).parentsUntil(".nav-sidebar > .nav-treeview").addClass('menu-open');
+            // }).parentsUntil(".nav-sidebar > .nav-treeview").addClass('menu-open').prev('a').addClass('active');
+
+        </script>
+        @stack('java')
+
         <!-- jQuery -->
         <script src="{{ asset('asset') }}/plugins/jquery/jquery.min.js"></script>
         <!-- jQuery UI 1.11.4 -->
@@ -53,6 +86,7 @@
         <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
         <script>
             $.widget.bridge('uibutton', $.ui.button)
+
         </script>
         <!-- Bootstrap 4 -->
         <script src="{{ asset('asset') }}/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -63,6 +97,7 @@
         <!-- AdminLTE for demo purposes -->
         <script src="{{ asset('asset') }}/dist/js/demo.js"></script>
         @stack('java')
+
 </body>
 
 </html>

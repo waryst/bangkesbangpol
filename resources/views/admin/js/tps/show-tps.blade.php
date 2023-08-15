@@ -20,7 +20,7 @@
                                     <td class="td-i">
                                         <input value="TPS ` + value.title + `" class="form-control border-0 ml-0 bg-white" readonly>
                                     </td>
-                                    <td class="text-center">`;
+                                    <td class="text-center px-2">`;
                         if (key === 0) {
                             table += `<div class="btn-group">
                                             <button class="btn btn-xs btn-secondary delete-button" 
@@ -33,7 +33,7 @@
                                  </tr>`;
                     });
 
-                    $("#desa_name").html("KECAMATAN <b>" + kec.toUpperCase() + "</b>");
+                    $("#desa_name").html("DESA <b>" + kec.toUpperCase() + "</b>");
                     $("#table-body-tps").html(table);
 
 

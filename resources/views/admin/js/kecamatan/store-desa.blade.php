@@ -31,7 +31,7 @@
                                         </td>
                                         <td class="text-center">` + value.tps_count +
                                     `</td>
-                                        <td class="text-center">
+                                        <td class="text-center px-1">
                                             <div class="btn-group">
                                                 <button class="btn btn-xs btn-secondary delete-button" 
                                                 data-quantity="` + value.id + `" >
@@ -51,7 +51,6 @@
                         setTimeout(
                             function() {
                                 Swal.fire({
-                                    type: `${response.type}`,
                                     icon: `${response.type}`,
                                     title: `${response.message}`,
                                     showConfirmButton: false,
@@ -61,6 +60,7 @@
                                     timer: 3000
                                 });
                             }, 700);
+                        addToolTip('#table-body-desa input', 'right', 'focus', 'press enter to save');
                     }
                 });
             }

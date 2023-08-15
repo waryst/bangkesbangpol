@@ -2,10 +2,11 @@
     $('#table-body').on('click', ".delete-button", function(e) {
         e.preventDefault();
         let id = $(this).data('quantity');
+        let title = $("#" + id).val();
         let token = $("meta[name='csrf-token']").attr("content");
         Swal.fire({
             title: 'Anda yakin?',
-            text: "Data kecamatan, desa dan TPS di bawah kecamatan ini akan dihapus semua.",
+            text: "Data " + title + " akan dihapus.",
             icon: 'warning',
             iconColor: '#fa5c7c',
             showCancelButton: true,
@@ -18,7 +19,7 @@
 
             if (result.value) {
                 $.ajax({
-                    url: `/kecamatan/` + id,
+                    url: `/dapil/` + id,
                     type: "DELETE",
                     dataType: "json",
                     cache: false,
@@ -31,19 +32,13 @@
                         if (x == 'true') {
                             let table = "";
                             $.each(response.data, function(key, value) {
-                                if (value.dapil === null) {
-                                    var dp = '';
-                                } else {
-                                    var dp = value.dapil.title;
-                                }
                                 table += `
                                 <tr id="tr-` + value.id + `">
                                     <td class="td-i">
-                                        <input id="` + value.id + `" type="text" value="` + value.title + `"
-                                            class="form-control form-control-under border-0 ml-0">
+                                        <input id="` + value.id + `" type="text" value="Dapil ` + value.title + `"
+                                        class="form-control bg-white border-0 ml-0" readonly>
                                     </td>
-                                    <td class="text-center">` + dp + `</td>
-                                    <td class="text-center" id="desa_count">` + value.desa_count + `</td>
+                                    <td class="text-center" id="kecamatan_count">` + value.kecamatan_count + `</td>
                                     <td class="text-center px-1">
                                         <div class="btn-group">
                                             <button class="btn btn-xs btn-secondary delete-button"
@@ -70,16 +65,14 @@
                             showConfirmButton: false,
                             timer: 3000
                         });
-                        let aktif = $("#desa").data("quantity");
+                        let aktif = $("#kecamatan").data("quantity");
                         if (aktif == id) {
                             $("#d-input").addClass('d-none');
                             $("#d-list").addClass('d-none');
                             $("#d-cari").addClass('d-none');
                             $("#default").removeClass('d-none');
-                            $("#kec_name").html('');
-                            $("#kec_name").data("quantity", "");
+                            $("#dapil_name").html('');
                         }
-                        addToolTip('#table-body input', 'right', 'focus', 'press enter to save');
                     }
                 });
             }

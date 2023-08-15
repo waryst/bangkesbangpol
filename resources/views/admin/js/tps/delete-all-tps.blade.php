@@ -39,7 +39,6 @@
 
                         }
                         Swal.fire({
-                            type: `${response.type}`,
                             icon: `${response.type}`,
                             title: `${response.message}`,
                             showConfirmButton: false,
