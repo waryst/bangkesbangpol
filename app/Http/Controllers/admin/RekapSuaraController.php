@@ -184,34 +184,45 @@ class RekapSuaraController extends Controller
             ->Join('Calegs', 'Suaracalegs.caleg_id', '=', 'Calegs.id')
             ->Join('partais', 'Calegs.partai_id', '=', 'partais.id')
             ->get();
-            // dd($kirim['partai'][0]->nama);    
         }
         else if($tipe=='kec'){
             $kirim['ket']="kec";
-            $kecamatan=Kecamatan::where('id', '=', $id)->first();
-            $kirim['daerah_pemilihan']="<a href='".url('rekapdpd/kab/all')."'>Kabupaten Ponorogo </a> - Kecamatan ".$kecamatan->title;
-            $kirim['tabel_pemilihan']="Data Perolehan Suara Per Desa";
-            $kirim['data']=Desa::with(['suaradpd'=> function ($query) use($id)
+            $kirim['kecamatan']=Kecamatan::where('id', '=', $id)->first();
+            $kirim['daerah_pemilihan']="<a href='".url('rekapcalegri/kab/all')."'>Kabupaten Ponorogo </a> - Kecamatan ".$kirim['kecamatan']->title;
+            $kirim['tabel_pemilihan']="Data Perolehan Suara Per Desa";          
+            $kirim['data']=Desa::with(['suaracaleg'=> function ($query) use($id)
             {
                 $query->where('kecamatan_id', '=', $id);
-            }])->where('kecamatan_id',$id)->orderBy('title','ASC')->get();
-            $kirim['data_dpd']=Dpd::with(['suaradpd'=> function ($query) use($id)
-            {
-                $query->where('kecamatan_id', '=', $id);
-            }])->orderBy('no_urut','ASC')->get();       
+            }])->where('kecamatan_id', '=', $id)->orderBy('title','ASC')->get();
+            $dapil_id=1;
+            $kirim['data_partai']=Partai::with(['caleg.suaracaleg','caleg' =>
+                function ($query) use ($dapil_id)  {
+                    $query->where('dapil_id', '=', $dapil_id)->orderBy('no_urut','ASC');
+                } ])->orderBy('no_urut','ASC')->get();
+            $kirim['suara']=Suaracaleg::select('Suaracalegs.*','Calegs.nama','partais.id as partai_id','partais.singkatan')
+                ->Join('Calegs', 'Suaracalegs.caleg_id', '=', 'Calegs.id')
+                ->Join('partais', 'Calegs.partai_id', '=', 'partais.id')
+                ->get();
         }
         else if($tipe=='desa'){
             $kirim['ket']="desa";
-            $desa=Desa::with('kecamatan')->where('id', '=', $id)->first();
-            $kirim['daerah_pemilihan']="<a href='".url('rekapdpd/kab/all')."'>Kabupaten Ponorogo </a>- <a href='".url('rekapdpd/kec/'.$desa->kecamatan->id)."'>Kecamatan ".$desa->kecamatan->title." </a> - Desa ".$desa->title;
+            $kirim['desa']=Desa::with('kecamatan')->where('id', '=', $id)->first();
+            $kirim['daerah_pemilihan']="<a href='".url('rekapcalegri/kab/all')."'>Kabupaten Ponorogo </a>- <a href='".url('rekapcalegri/kec/'.$kirim['desa']->kecamatan->id)."'>Kecamatan ".$kirim['desa']->kecamatan->title." </a> - Desa ".$kirim['desa']->title;
             $kirim['tabel_pemilihan']="Data Perolehan Suara Per TPS";
-            $kirim['data']=Tps::with(['suaradpd'=> function ($query) use($id)
+            $kirim['data']=Tps::with(['suaracaleg'=> function ($query) use($id)
             {
                 $query->where('desa_id', '=', $id);
-            }])->where('desa_id',$id)->orderBy('title','ASC')->get();
-            $kirim['data_dpd']=Dpd::with(['suaradpd'=> function ($query) use($id){
-                $query->where('desa_id', '=', $id);
-            }])->orderBy('no_urut','ASC')->get();
+            }])->where('desa_id', '=', $id)->orderBy('title','ASC')->get();
+            $dapil_id=1;
+            $kirim['data_partai']=Partai::with(['caleg.suaracaleg','caleg' =>
+            function ($query) use ($dapil_id)  {
+                $query->where('dapil_id', '=', $dapil_id)->orderBy('no_urut','ASC');
+            } ])->orderBy('no_urut','ASC')->get();
+            $kirim['suara']=Suaracaleg::select('Suaracalegs.*','Calegs.nama','partais.id as partai_id','partais.singkatan')
+            ->Join('Calegs', 'Suaracalegs.caleg_id', '=', 'Calegs.id')
+            ->Join('partais', 'Calegs.partai_id', '=', 'partais.id')
+            ->get();
+            // dd($kirim['suara']);
         }
         return view('admin.conten.v_rekapcalegri',$kirim);       
     }

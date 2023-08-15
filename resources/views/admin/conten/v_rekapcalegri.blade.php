@@ -72,20 +72,20 @@
                                 <thead>
                                     <tr>
                                         <th class="text-center align-middle" style="width: 5%;">No</th>
-                                        <th class="text-center align-middle" style="width: 25%;">Nama Calon
+                                        <th class="text-center align-middle" style="width: 160px;">Nama Calon
                                             DPR RI</th>
-                                        @foreach ($data as $kec)
-                                            <th class=" text-center">
+                                        @foreach ($data as $dt)
+                                            <th class="text-center" style="width: 160px;">
                                                 @if ($ket == 'kab')
-                                                    <a href="{{ url('rekapdpd/kec/' . $kec->id) }}">
-                                                        {{ $kec->title }}
+                                                    <a href="{{ url('rekapcalegri/kec/' . $dt->id) }}">
+                                                        {{ $dt->title }}
                                                     </a>
                                                 @elseif($ket == 'kec')
-                                                    <a href="{{ url('rekapdpd/desa/' . $kec->id) }}">
-                                                        {{ $kec->title }}
+                                                    <a href="{{ url('rekapcalegri/desa/' . $dt->id) }}">
+                                                        {{ $dt->title }}
                                                     </a>
-                                                @else
-                                                    TPS {{ $kec->title }}
+                                                @elseif($ket == 'desa')
+                                                    TPS {{ $dt->title }}
                                                 @endif
 
                                             </th>
@@ -102,13 +102,26 @@
                                             <td>
                                                 {{ $partai->nama }}
                                             </td>
-                                            @foreach ($data as $kec)
+                                            @foreach ($data as $dt)
                                                 @foreach ($partai->caleg as $caleg)
                                                     @php
-                                                        $total = $suara
-                                                            ->where('kecamatan_id', $kec->id)
-                                                            ->where('partai_id', $caleg->partai_id)
-                                                            ->sum('jumlah');
+                                                        if ($ket == 'kab') {
+                                                            $total = $suara
+                                                                ->where('kecamatan_id', $dt->id)
+                                                                ->where('partai_id', $caleg->partai_id)
+                                                                ->sum('jumlah');
+                                                        } elseif ($ket == 'kec') {
+                                                            $total = $suara
+                                                                ->where('desa_id', $dt->id)
+                                                                ->where('partai_id', $caleg->partai_id)
+                                                                ->sum('jumlah');
+                                                        } elseif ($ket == 'desa') {
+                                                            $total = $suara
+                                                                ->where('tps_id', $dt->id)
+                                                                ->where('partai_id', $caleg->partai_id)
+                                                                ->sum('jumlah');
+                                                        }
+                                                        
                                                     @endphp
                                                 @endforeach
                                                 <td class="text-center font-weight-bold">{{ $total }}</td>
@@ -121,9 +134,15 @@
                                                 <td class="text-muted">
                                                     <span class="m-2"></span>{{ $caleg->nama }}
                                                 </td>
-                                                @foreach ($data as $kec)
+                                                @foreach ($data as $dt)
                                                     <td class="text-center text-muted">
-                                                        {{ $caleg->suaracaleg->where('kecamatan_id', $kec->id)->sum('jumlah') ?? 0 }}
+                                                        @if ($ket == 'kab')
+                                                            {{ $caleg->suaracaleg->where('kecamatan_id', $dt->id)->sum('jumlah') ?? 0 }}
+                                                        @elseif ($ket == 'kec')
+                                                            {{ $caleg->suaracaleg->where('desa_id', $dt->id)->sum('jumlah') ?? 0 }}
+                                                        @elseif ($ket == 'desa')
+                                                            {{ $caleg->suaracaleg->where('tps_id', $dt->id)->sum('jumlah') ?? 0 }}
+                                                        @endif
                                                     </td>
                                                 @endforeach
                                             </tr>
@@ -178,7 +197,13 @@
                 borderColor: 'black',
                 data: [
                     @foreach ($data_partai as $suara_partai)
-                        "{{ $suara->where('partai_id', $suara_partai->id)->sum('jumlah') }}",
+                        @if ($ket == 'kab')
+                            "{{ $suara->where('partai_id', $suara_partai->id)->sum('jumlah') }}",
+                        @elseif ($ket == 'kec')
+                            "{{ $suara->where('kecamatan_id', $kecamatan->id)->where('partai_id', $suara_partai->id)->sum('jumlah') }}",
+                        @elseif ($ket == 'desa')
+                            "{{ $suara->where('desa_id', $desa->id)->where('partai_id', $suara_partai->id)->sum('jumlah') }}",
+                        @endif
                     @endforeach
 
                 ],

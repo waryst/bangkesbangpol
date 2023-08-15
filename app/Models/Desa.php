@@ -31,6 +31,9 @@ class Desa extends Model
     public function suaradpd(){
         return $this->hasMany(Suaradpd::class);
     }
+    public function suaracaleg(){
+        return $this->hasMany(Suaracaleg::class);
+    }
     public function scopeJumlahDesa($query, $kecamatan_id)
     {
         return $query->where('kecamatan_id', $kecamatan_id)->count();
