@@ -188,10 +188,9 @@
                             var percent = String(Math.round(dataset.data[i] / total * 100));
                             if (percent != 0) {
                                 ctx.fillText("Jumlah Suara", model.x + x, model.y + y);
-                                ctx.fillText(dataset.data[i] + " (" + percent + "%" + ")", model.x + x,
+                                ctx.fillText(dataset.data[i], model.x + x,
                                     model.y + y + 15);
                             }
-
                         }
                     });
                 }

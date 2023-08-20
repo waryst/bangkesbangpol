@@ -164,11 +164,9 @@
     <script type="text/javascript">
         var myData = {
             labels: [
-
                 @foreach ($data_dpd as $label_dpd)
                     '{{ $label_dpd->nama }}',
                 @endforeach
-
             ],
             datasets: [{
                 label: "Jumlah Suara ",
@@ -227,11 +225,7 @@
             data: myData, // Chart data
             options: myoption // Chart Options [This is optional paramenter use to add some extra things in the chart].
         });
-
-
-
         $(function() {
-
             $("#example").DataTable({
                 "scrollX": true,
                 "buttons": ["excel", "pdf"],
@@ -240,7 +234,6 @@
                     [25, 50, "All"]
                 ],
             }).buttons().container().appendTo('#example_wrapper .col-md-6:eq(0)');
-
         });
 
         function myFunction() {

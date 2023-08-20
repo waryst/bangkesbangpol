@@ -14,6 +14,22 @@ class Partai extends Model
         return $this->hasMany(Caleg::class);
     }
     public function suaracaleg(){
-        return $this->hasManyThrough(Suaracaleg::class,Caleg::class);
+        return $this->hasMany(Suaracaleg::class);
     }
+    public function suarapartai(){
+        return $this->hasMany(Suaracaleg::class);
+    }
+    public function suaracalegprov(){
+        return $this->hasMany(Suaracalegprov::class);
+    }
+    public function suarapartaiprov(){
+        return $this->hasMany(Suaracalegprov::class);
+    }
+    public function suaracalegkab(){
+        return $this->hasMany(Suaracalegkab::class);
+    }
+    public function suarapartaikab(){
+        return $this->hasMany(Suaracalegkab::class);
+    }
+
 }

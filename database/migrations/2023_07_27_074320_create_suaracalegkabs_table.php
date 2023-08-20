@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('suaracalegkabs', function (Blueprint $table) {
             $table->uuid('id')->primary();
+            $table->uuid('partai_id');
             $table->uuid('caleg_id');
             $table->uuid('tps_id');
             $table->uuid('desa_id');

@@ -74,74 +74,59 @@
                                         <th class="text-center align-middle" style="width: 5%;">No</th>
                                         <th class="text-center align-middle" style="width: 160px;">Nama Calon
                                             DPR Provinsi</th>
-                                        @foreach ($data as $dt)
+                                        @foreach ($headers as $header)
                                             <th class="text-center" style="width: 160px;">
                                                 @if ($ket == 'kab')
-                                                    <a href="{{ url('rekapcalegprov/kec/' . $dt->id) }}">
-                                                        {{ $dt->title }}
+                                                    <a href="{{ url('rekapcalegprov/kec/' . $header->id) }}">
+                                                        {{ $header->title }}
                                                     </a>
                                                 @elseif($ket == 'kec')
-                                                    <a href="{{ url('rekapcalegprov/desa/' . $dt->id) }}">
-                                                        {{ $dt->title }}
+                                                    <a href="{{ url('rekapcalegprov/desa/' . $header->id) }}">
+                                                        {{ $header->title }}
                                                     </a>
                                                 @elseif($ket == 'desa')
-                                                    TPS {{ $dt->title }}
+                                                    TPS {{ $header->title }}
                                                 @endif
-
                                             </th>
                                         @endforeach
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($data_partai as $partai)
+                                    @foreach ($data as $partai)
                                         <tr>
                                             <td class="text-center">
                                                 {{ sprintf('%02d', $partai->no_urut) }}
-
                                             </td>
                                             <td>
-                                                {{ $partai->nama }}
+                                                <span class="d-none">{{ $partai->singkatan }}</span> {{ $partai->nama }}
                                             </td>
-                                            @foreach ($data as $dt)
-                                                @foreach ($partai->caleg as $caleg)
-                                                    @php
-                                                        if ($ket == 'kab') {
-                                                            $total = $suara
-                                                                ->where('kecamatan_id', $dt->id)
-                                                                ->where('partai_id', $caleg->partai_id)
-                                                                ->sum('jumlah');
-                                                        } elseif ($ket == 'kec') {
-                                                            $total = $suara
-                                                                ->where('desa_id', $dt->id)
-                                                                ->where('partai_id', $caleg->partai_id)
-                                                                ->sum('jumlah');
-                                                        } elseif ($ket == 'desa') {
-                                                            $total = $suara
-                                                                ->where('tps_id', $dt->id)
-                                                                ->where('partai_id', $caleg->partai_id)
-                                                                ->sum('jumlah');
-                                                        }
-                                                        
-                                                    @endphp
-                                                @endforeach
-                                                <td class="text-center font-weight-bold">{{ $total }}</td>
+                                            @foreach ($headers as $header)
+                                                <td class="text-center">
+                                                    @if ($ket == 'kab')
+                                                        {{ $partai->suarapartaiprov->where('kecamatan_id', $header->id)->first()->jumlah ?? 0 > 0 ? $partai->suarapartaiprov->where('kecamatan_id', $header->id)->first()->jumlah : '-' }}
+                                                    @elseif($ket == 'kec')
+                                                        {{ $partai->suarapartaiprov->where('desa_id', $header->id)->first()->jumlah ?? 0 > 0 ? $partai->suarapartaiprov->where('desa_id', $header->id)->first()->jumlah : '-' }}
+                                                    @elseif($ket == 'desa')
+                                                        {{ $partai->suarapartaiprov->where('tps_id', $header->id)->first()->jumlah ?? 0 > 0 ? $partai->suarapartaiprov->where('tps_id', $header->id)->first()->jumlah : '-' }}
+                                                    @endif
+                                                </td>
                                             @endforeach
                                         </tr>
                                         @foreach ($partai->caleg as $caleg)
                                             <tr>
-                                                <td hidden>{{ sprintf('%02d', $partai->no_urut) }}</td>
-                                                <td></td>
+                                                <td><span class="d-none">{{ sprintf('%02d', $partai->no_urut) }}</span>
+                                                </td>
                                                 <td class="text-muted">
                                                     <span class="m-2"></span>{{ $caleg->nama }}
                                                 </td>
-                                                @foreach ($data as $dt)
+                                                @foreach ($headers as $header)
                                                     <td class="text-center text-muted">
                                                         @if ($ket == 'kab')
-                                                            {{ $caleg->suaracalegprov->where('kecamatan_id', $dt->id)->sum('jumlah') ?? 0 }}
+                                                            {{ $caleg->suaracalegprov->where('kecamatan_id', $header->id)->sum('jumlah') ?? 0 > 0 ? $caleg->suaracalegprov->where('kecamatan_id', $header->id)->sum('jumlah') : '-' }}
                                                         @elseif ($ket == 'kec')
-                                                            {{ $caleg->suaracalegprov->where('desa_id', $dt->id)->sum('jumlah') ?? 0 }}
-                                                        @elseif ($ket == 'desa')
-                                                            {{ $caleg->suaracalegprov->where('tps_id', $dt->id)->sum('jumlah') ?? 0 }}
+                                                            {{ $caleg->suaracalegprov->where('desa_id', $header->id)->sum('jumlah') ?? 0 > 0 ? $caleg->suaracalegprov->where('desa_id', $header->id)->sum('jumlah') : '-' }}
+                                                        @elseif($ket == 'desa')
+                                                            {{ $caleg->suaracalegprov->where('tps_id', $header->id)->first()->jumlah ?? '-' }}
                                                         @endif
                                                     </td>
                                                 @endforeach
@@ -149,7 +134,6 @@
                                         @endforeach
                                     @endforeach
                                 </tbody>
-
                             </table>
                         </div>
                     </div>
@@ -176,11 +160,9 @@
     <script type="text/javascript">
         var myData = {
             labels: [
-
-                @foreach ($data_partai as $label_partai)
-                    '{{ $label_partai->singkatan }}',
+                @foreach ($data as $grafik)
+                    '{{ $grafik->singkatan }}',
                 @endforeach
-
             ],
             datasets: [{
                 label: "Jumlah Suara ",
@@ -196,16 +178,9 @@
                 ],
                 borderColor: 'black',
                 data: [
-                    @foreach ($data_partai as $suara_partai)
-                        @if ($ket == 'kab')
-                            "{{ $suara->where('partai_id', $suara_partai->id)->sum('jumlah') }}",
-                        @elseif ($ket == 'kec')
-                            "{{ $suara->where('kecamatan_id', $kecamatan->id)->where('partai_id', $suara_partai->id)->sum('jumlah') }}",
-                        @elseif ($ket == 'desa')
-                            "{{ $suara->where('desa_id', $desa->id)->where('partai_id', $suara_partai->id)->sum('jumlah') }}",
-                        @endif
+                    @foreach ($data as $grafik)
+                        "{{ $grafik->suaracalegprov[0]->total ?? 0 }}",
                     @endforeach
-
                 ],
             }]
         };
@@ -250,6 +225,7 @@
 
             $("#example").DataTable({
                 "scrollX": true,
+                "buttons": ["excel", "pdf"],
                 "lengthMenu": [
                     [25, 50, -1],
                     [25, 50, "All"]
