@@ -189,7 +189,8 @@ class RekapSuaraController extends Controller
                     ->groupBy('kecamatan_id')
                     ->groupBy('partai_id');
                 },
-                'caleg.suaracaleg', 'caleg' => function ($query)use ($dapil_id){
+                'caleg.suaracaleg',
+                'caleg' => function ($query)use ($dapil_id){
                     $query->whereIn('dapil_id', [$dapil_id]);
                 }
             ])
