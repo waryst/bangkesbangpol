@@ -174,15 +174,15 @@
                                 </ul>
                                 <div class="card-body px-2">
                                     @foreach ($partai->caleg as $caleg)
-                                        <div class="row border">
-                                            <div class="d-flex align-items-center px-2">
-                                                <span class="mx-auto py-1"> {{ $caleg->no_urut }}. </span>
+                                        <div class="row border py-1">
+                                            <div class="d-flex align-items-center px-2 col-1 ">
+                                                <span class="mx-auto"> {{ $caleg->no_urut }}. </span>
                                             </div>
-                                            <div class="d-flex align-items-center col-8 ">
+                                            <div class="d-flex align-items-center col-8">
                                                 <span>{{ $caleg->nama ?? 0 }}</span>
                                             </div>
                                             @if ($pilih_tps->id ?? 0 != null)
-                                                <div class="d-flex align-items-center float-right col-3">
+                                                <div class="d-flex  align-items-center float-right col-3">
                                                     <input type="number" min="0"
                                                         onKeyPress="if(this.value.length==3) return false;"
                                                         oninput="this.value = Math.abs(this.value)" autocomplete="off"

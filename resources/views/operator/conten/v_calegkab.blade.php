@@ -174,7 +174,7 @@
                                 <div class="card-body px-2">
                                     @foreach ($partai->caleg as $caleg)
                                         <div class="row border">
-                                            <div class="d-flex align-items-center px-2">
+                                            <div class="d-flex align-items-center px-2 col-1">
                                                 <span class="mx-auto py-1"> {{ $caleg->no_urut }}. </span>
                                             </div>
                                             <div class="d-flex align-items-center col-8">

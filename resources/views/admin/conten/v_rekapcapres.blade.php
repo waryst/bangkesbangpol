@@ -207,6 +207,7 @@
 
         $(function() {
             $("#example1").DataTable({
+                "ordering": false,
                 "responsive": true,
                 "lengthChange": true,
                 "autoWidth": false,

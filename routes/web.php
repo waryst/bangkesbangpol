@@ -28,18 +28,8 @@ Route::get('/', function () {
     return view('operator.layout.main');
 });
 
-Route::resource('capres', CapresController::class);
-Route::resource('kecamatan', KecamatanController::class);
-Route::resource('desa', DesaController::class);
-Route::resource('tps', TpsController::class);
-Route::resource('dapil', DapilController::class);
-Route::resource('partai', PartaiController::class);
 
-Route::get('capres', [EntrySuaraController::class,'capres']);
-Route::get('capres/{id}', [EntrySuaraController::class,'capres_tps']);
 
-Route::get('pilgub', [EntrySuaraController::class,'pilgub']);
-Route::get('pilgub/{id}', [EntrySuaraController::class,'pilgub_tps']);
 
 Route::get('/', [AuthController::class,'index'])->name('login')->middleware('revalidate');
 Route::post('/', [AuthController::class,'postlogin']);
@@ -47,6 +37,17 @@ Route::post('/', [AuthController::class,'postlogin']);
 
 Route::get('/logout', [AuthController::class,'logout']);
 Route::group(['middleware' => ['auth', 'checkRole:administrator', 'revalidate']], function () {
+
+    Route::resource('capres', CapresController::class);
+    Route::resource('kecamatan', KecamatanController::class);
+    Route::resource('desa', DesaController::class);
+    Route::resource('tps', TpsController::class);
+    Route::resource('dapil', DapilController::class);
+    Route::resource('partai', PartaiController::class);
+
+
+
+
     Route::get('/dashboard', function () {
         return view('admin.layout.main');
     })->name('dashboard');
