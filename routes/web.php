@@ -38,12 +38,12 @@ Route::post('/', [AuthController::class,'postlogin']);
 Route::get('/logout', [AuthController::class,'logout']);
 Route::group(['middleware' => ['auth', 'checkRole:administrator', 'revalidate']], function () {
 
-    Route::resource('capres', CapresController::class);
-    Route::resource('kecamatan', KecamatanController::class);
-    Route::resource('desa', DesaController::class);
-    Route::resource('tps', TpsController::class);
-    Route::resource('dapil', DapilController::class);
-    Route::resource('partai', PartaiController::class);
+    // Route::resource('capres', CapresController::class);
+    // Route::resource('kecamatan', KecamatanController::class);
+    // Route::resource('desa', DesaController::class);
+    // Route::resource('tps', TpsController::class);
+    // Route::resource('dapil', DapilController::class);
+    // Route::resource('partai', PartaiController::class);
 
 
 
