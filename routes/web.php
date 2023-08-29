@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\admin\RekapDataPemilu;
 use App\Http\Controllers\operator\CapresController;
 use App\Http\Controllers\KecamatanController;
 use App\Http\Controllers\DesaController;
@@ -37,20 +38,7 @@ Route::post('/', [AuthController::class,'postlogin']);
 
 Route::get('/logout', [AuthController::class,'logout']);
 Route::group(['middleware' => ['auth', 'checkRole:administrator', 'revalidate']], function () {
-
-    // Route::resource('capres', CapresController::class);
-    // Route::resource('kecamatan', KecamatanController::class);
-    // Route::resource('desa', DesaController::class);
-    // Route::resource('tps', TpsController::class);
-    // Route::resource('dapil', DapilController::class);
-    // Route::resource('partai', PartaiController::class);
-
-
-
-
-    Route::get('/dashboard', function () {
-        return view('admin.layout.main');
-    })->name('dashboard');
+    Route::get('/dashboard', [RekapDataPemilu::class,'index'])->name('dashboard');
     Route::get('rekapcapres/{tipe}/{id}', [RekapSuaraController::class,'rekapcapres']);
     Route::get('rekapcagub/{tipe}/{id}', [RekapSuaraController::class,'rekapcagub']);
     Route::get('rekapcabub/{tipe}/{id}', [RekapSuaraController::class,'rekapcabub']);
