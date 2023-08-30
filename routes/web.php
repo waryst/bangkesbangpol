@@ -12,6 +12,8 @@ use App\Http\Controllers\admin\RekapSuaraController;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\operator\SavesuaraController;
 use App\Http\Controllers\operator\EntrySuaraController;
+use App\Http\Controllers\operator\Home;
+use App\Http\Controllers\operator\HomeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -50,9 +52,7 @@ Route::group(['middleware' => ['auth', 'checkRole:administrator', 'revalidate']]
 
 
 Route::group(['middleware' => ['auth', 'checkRole:operator', 'revalidate']], function () {
-    Route::get('/home', function () {
-        return view('operator.layout.main');
-    })->name('home');
+    Route::get('/home', [HomeController::class,'index'])->name('home');
     Route::get('capres', [EntrySuaraController::class,'capres']);
     Route::get('capres/{id}', [EntrySuaraController::class,'capres_tps']);
     Route::get('pilgub', [EntrySuaraController::class,'pilgub']);
