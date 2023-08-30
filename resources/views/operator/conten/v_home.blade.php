@@ -1,4 +1,4 @@
-@extends('admin.layout.main')
+@extends('operator.layout.main')
 
 @section('title', 'Calon Bupati ')
 @push('mycss')
@@ -81,6 +81,50 @@
                                             <div class="col-5">Jumlah TPS</div>
                                             <div class="col-1">:</div>
                                             <div class="col-4">{{ $data->desa->tps_count }}</div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-8">
+                        <div class="card">
+                            <div class="card-header font-weight-bold">
+                                Daftar Menu Entry Data
+                            </div>
+                            <div class="card-body p-0">
+                                <ul class="list-group list-group-flush">
+                                    <li class="list-group-item p-1">
+                                        <div class="row mx-auto justify-content-center">
+                                            <div class="col-md-3 mx-2 my-2">
+                                                <a href="{{ url('capres') }}" type="button"
+                                                    class="btn btn-block btn-outline-primary">Presiden</a>
+                                            </div>
+                                            <div class="col-md-3 mx-2 my-2"><a href="{{ url('pilgub') }}" type="button"
+                                                    class="btn btn-block btn-outline-info">Gubernur</a></div>
+                                            <div class="col-md-3 mx-2 my-2"><a href="{{ url('pilbub') }}" type="button"
+                                                    class="btn btn-block btn-outline-danger">Bupati</a></div>
+                                        </div>
+                                    </li>
+                                    <li class="list-group-item p-1">
+                                        <div class="row mx-auto justify-content-center">
+                                            <div class="col-md-3 mx-2 my-2">
+                                                <a href="{{ url('dpd') }}" type="button"
+                                                    class="btn btn-block btn-outline-primary">DPD</a>
+                                            </div>
+
+                                        </div>
+                                    </li>
+                                    <li class="list-group-item p-1">
+                                        <div class="row mx-auto justify-content-center">
+                                            <div class="col-md-3 mx-2 my-2">
+                                                <a href="{{ url('caleg') }}" type="button"
+                                                    class="btn btn-block btn-outline-danger">DPR RI</a>
+                                            </div>
+                                            <div class="col-md-3 mx-2 my-2"><a href="{{ url('calegprov') }}" type="button"
+                                                    class="btn btn-block btn-outline-info">DPR Provinsi</a></div>
+                                            <div class="col-md-3 mx-2 my-2"><a href="{{ url('calegkab') }}" type="button"
+                                                    class="btn btn-block btn-outline-primary">DPR Kabupaten</a></div>
                                         </div>
                                     </li>
                                 </ul>
