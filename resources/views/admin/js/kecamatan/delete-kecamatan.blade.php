@@ -5,7 +5,7 @@
         let token = $("meta[name='csrf-token']").attr("content");
         Swal.fire({
             title: 'Anda yakin?',
-            text: "Data kecamatan, desa dan TPS di bawah kecamatan ini akan dihapus semua.",
+            text: "Data kecamatan, desa, TPS dan operator di bawah kecamatan ini akan dihapus semua.",
             icon: 'warning',
             iconColor: '#fa5c7c',
             showCancelButton: true,

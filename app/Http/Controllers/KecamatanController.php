@@ -10,6 +10,7 @@ use App\Models\Kecamatan;
 use App\Models\Desa;
 use App\Models\Dapil;
 use App\Models\Tps;
+use App\Models\User;
 
 class KecamatanController extends Controller
 {
@@ -148,6 +149,7 @@ class KecamatanController extends Controller
         try {
             foreach ($desa as $d) {
                 Tps::where('desa_id', $d->id)->delete();
+                User::where('desa_id', $d->id)->delete();
                 $d->delete();
             }
             $kecamatan->delete();

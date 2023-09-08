@@ -60,6 +60,19 @@
                                     timer: 3000
                                 });
                             }, 700);
+
+                        setTimeout(
+                            function() {
+                                Swal.fire({
+                                    icon: `success`,
+                                    title: `Akun operator desa berhasil dibuat.`,
+                                    showConfirmButton: false,
+                                    toast: true,
+                                    position: 'top-end',
+                                    showConfirmButton: false,
+                                    timer: 3000
+                                });
+                            }, 3500);
                         addToolTip('#table-body-desa input', 'right', 'focus', 'press enter to save');
                     }
                 });

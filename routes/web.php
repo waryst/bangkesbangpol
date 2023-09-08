@@ -7,6 +7,15 @@ use App\Http\Controllers\DesaController;
 use App\Http\Controllers\TpsController;
 use App\Http\Controllers\DapilController;
 use App\Http\Controllers\PartaiController;
+use App\Http\Controllers\CalegRIController;
+use App\Http\Controllers\CalegProvController;
+use App\Http\Controllers\CalegKabController;
+use App\Http\Controllers\CalegDpdController;
+use App\Http\Controllers\CalonPresidenController;
+use App\Http\Controllers\CalonGubernurController;
+use App\Http\Controllers\CalonBupatiController;
+use App\Http\Controllers\UserAdminController;
+use App\Http\Controllers\UserDesaController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\admin\RekapSuaraController;
 use App\Http\Controllers\Auth\AuthController;
@@ -31,6 +40,26 @@ Route::get('/', function () {
     return view('operator.layout.main');
 });
 
+Route::resource('capres', CapresController::class);
+Route::resource('kecamatan', KecamatanController::class);
+Route::resource('desa', DesaController::class);
+Route::resource('tps', TpsController::class);
+Route::resource('dapil', DapilController::class);
+Route::resource('partai', PartaiController::class);
+Route::resource('caleg-dpr', CalegRIController::class);
+Route::resource('caleg-dprd1', CalegProvController::class);
+Route::resource('caleg-dprd2', CalegKabController::class);
+Route::get('caleg-dprd2/show/{pid}/{did}', [CalegKabController::class,'show2']);
+Route::resource('caleg-dpd', CalegDpdController::class);
+Route::resource('calon-presiden', CalonPresidenController::class);
+Route::post('calon-presiden/foto/{id}', [CalonPresidenController::class,'foto']);
+Route::resource('calon-gubernur', CalonGubernurController::class);
+Route::post('calon-gubernur/foto/{id}', [CalonGubernurController::class,'foto']);
+Route::resource('calon-bupati', CalonBupatiController::class);
+Route::post('calon-bupati/foto/{id}', [CalonBupatiController::class,'foto']);
+Route::resource('user-admin', UserAdminController::class);
+Route::post('user-admin/password/{id}', [UserAdminController::class,'password']);
+Route::resource('user-desa', UserDesaController::class);
 
 
 

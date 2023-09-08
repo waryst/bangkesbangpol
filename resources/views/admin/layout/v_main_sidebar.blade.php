@@ -35,8 +35,95 @@
         <!-- Sidebar Menu -->
         <nav class="mt-2">
             <ul class="nav nav-pills nav-sidebar flex-column nav-child-indent" data-widget="treeview" role="menu"
-                data-accordion="false">
-                <li class="nav-item menu-open">
+                data-accordion="true">
+                <li class="nav-item">
+                    <a href="#" class="nav-link active">
+                        <p>Data Wilayah</p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="{{ url('dapil') }}" class="nav-link">
+                                <p>Dapil</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ url('kecamatan') }}" class="nav-link">
+                                <p>Kecamatan & Desa</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ url('tps') }}" class="nav-link">
+                                <p>TPS</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link active">
+                        <p>Data Pemilihan</p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="{{ url('partai') }}" class="nav-link">
+                                <p>Partai</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ url('calon-presiden') }}" class="nav-link">
+                                <p>Calon Presiden</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ url('calon-gubernur') }}" class="nav-link">
+                                <p>Calon Gubernur</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ url('calon-bupati') }}" class="nav-link">
+                                <p>Calon Bupati</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ url('caleg-dpd') }}" class="nav-link">
+                                <p>Caleg DPD</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ url('caleg-dpr') }}" class="nav-link">
+                                <p>Caleg DPR RI</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ url('caleg-dprd1') }}" class="nav-link">
+                                <p>Caleg DPRD I</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ url('caleg-dprd2') }}" class="nav-link">
+                                <p>Caleg DPRD II</p>
+                            </a>
+                        </li>
+
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link active">
+                        <p>Data User</p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="{{ url('user-admin') }}" class="nav-link">
+                                <p>User Admin</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ url('user-desa') }}" class="nav-link">
+                                <p>User Operator Desa</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="nav-item">
                     <a href="#" class="nav-link active">
                         <svg class="svg" class="nav-icon" height="1.6em" viewBox="0 0 576 512">
                             <style>
@@ -125,6 +212,7 @@
                         </li>
                     </ul>
                 </li>
+
                 <li>
                     <a href="{{ url('/logout') }}" class="nav-link">
                         <svg xmlns="http://www.w3.org/2000/svg" height="1em"

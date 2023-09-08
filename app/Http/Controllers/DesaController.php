@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
@@ -9,6 +10,7 @@ use Illuminate\Support\Facades\DB;
 use App\Models\Kecamatan;
 use App\Models\Desa;
 use App\Models\Tps;
+use App\Models\User;
 
 class DesaController extends Controller
 {
@@ -40,8 +42,18 @@ class DesaController extends Controller
         $ada=Desa::where('title', $request->title)->where('kecamatan_id', $request->kecamatan_id)->count();
 
         if ($ada==0) {
-            Desa::create(['title'=> ucwords($request->title), 'kecamatan_id'=>$request->kecamatan_id]);
-           
+            $nama_kecamatan = Kecamatan::where("id", $request->kecamatan_id)->first();
+
+            $desa = Desa::create(['title'=> ucwords($request->title), 'kecamatan_id'=>$request->kecamatan_id]);
+
+            User::create([
+                'name' => "Operator ".$desa->title,
+                'desa_id' =>$desa->id,
+                'email' => str_replace(" ", "", (strtolower($desa->title).".".strtolower($nama_kecamatan->title))),
+                'role'=>'operator',
+                'password'=>Hash::make(str_replace(" ", "", (strtolower($nama_kecamatan->title).".".strtolower($desa->title)))),
+            ]);
+
             return response()->json([
                 'success' => true,
                 'type' => 'success',
@@ -138,6 +150,7 @@ class DesaController extends Controller
         DB::beginTransaction();
         try {
             Tps::where('desa_id', $old->id)->delete();
+            User::where('desa_id', $old->id)->delete();
             Desa::where('id', $id)->first()->delete();
             DB::commit();
         } catch (\Exception $e) {

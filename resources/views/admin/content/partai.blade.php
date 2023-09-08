@@ -26,12 +26,12 @@
                         <div class="card-body p-0 mb-2 mt-1">
                             <div class="row">
                                 <div class="col-md-8 mb-2">
-                                    <button class="btn btn-info" data-toggle="modal" data-target="#modal-partai">
+                                    <button class="btn btn-info btn-sm" data-toggle="modal" data-target="#modal-partai">
                                         <i class="mdi mdi-plus"></i> Tambah Partai</button>
 
                                 </div>
                                 <div class="col-md-4 mb-2 text-right">
-                                    <input class="form-control form-control-yellow" type="text"
+                                    <input class="form-control form-control-sm form-control-yellow" type="text"
                                         placeholder="Pencarian Partai..." id="cari_partai">
                                 </div>
                             </div>
@@ -44,7 +44,7 @@
                                             <th class="text-center" width="100px">No. Urut</th>
                                             <th class="" width="50%">Nama Partai</th>
                                             <th>Singkatan</th>
-                                            <th class="text-center px-2">Aksi</th>
+                                            <th class="text-center px-2" width="8%">Aksi</th>
                                         </tr>
                                     </thead>
                                     <tbody id="table-body">
@@ -96,7 +96,7 @@
 
                     <div class="form-group floating">
                         <input type="text" class="form-control floating" id="nama" autocomplete="off">
-                        <label for="nama">Nama partai</label>
+                        <label for="nama">Nama Partai</label>
                     </div>
 
                     <div class="form-group floating">
@@ -107,7 +107,7 @@
                     <div class="form-group floating">
                         <input type="number" min="0" autocomplete="off"
                             oninput="this.value = !!this.value && Math.abs(this.value) >= 1 ? Math.abs(this.value) : null" class="form-control floating" id="no_urut">
-                        <label for="no_urut">Nomor urut</label>
+                        <label for="no_urut">Nomor Urut</label>
                     </div>
                     <button class="btn btn-info float-right" style="margin-top:-1rem">SIMPAN</button>
                 </div>

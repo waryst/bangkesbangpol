@@ -79,14 +79,14 @@ class DatabaseSeeder extends Seeder
             "Partai UMMAT"=>array("UMMAT"),
         );
         $data_dapil=[];
-        for($i=1; $i<=6;$i++){
+        for ($i=1; $i<=6;$i++) {
             $dapil=Dapil::create(['title'=>$i]);
-            array_push( $data_dapil, $dapil->id);
+            array_push($data_dapil, $dapil->id);
         }
         foreach ($kecamatan as $nama_kec => $array_desa) {
             $post = Kecamatan::create([
                 'title' => $nama_kec,
-                'dapil_id'=>$data_dapil[rand(0,5)]
+                'dapil_id'=>$data_dapil[rand(0, 5)]
 
             ]);
             foreach ($array_desa as $nama_desa) {
@@ -95,13 +95,13 @@ class DatabaseSeeder extends Seeder
                     'title'=>$nama_desa,
                 ]);
                 $create_password= User::create([
-                    'name' => $desa->title,
+                    'name' => "Operator ".$desa->title,
                     'desa_id' =>$desa->id,
-                    'email' => $desa->title.".".$nama_kec,
+                    'email' => str_replace(" ", "", (strtolower($desa->title).".".strtolower($nama_kec))),
                     'role'=>'operator',
-                    'password'=>Hash::make('admin'),
+                    'password'=>Hash::make(str_replace(" ", "", (strtolower($nama_kec).".".strtolower($desa->title)))),
                 ]);
-                for($i=1; $i<=10;$i++){
+                for ($i=1; $i<=10;$i++) {
                     $tps=Tps::create([
                         'desa_id'=>$desa->id,
                         'title'=>$i,
@@ -109,7 +109,7 @@ class DatabaseSeeder extends Seeder
                 }
             }
         }
-        for($i=1; $i<=3;$i++){
+        for ($i=1; $i<=3;$i++) {
             $capres=Capres::create([
                 'no_urut'=>$i,
                 'nama_capres'=>fake()->name(),
@@ -117,7 +117,7 @@ class DatabaseSeeder extends Seeder
                 'foto'=>3
             ]);
         }
-        for($i=1; $i<=2;$i++){
+        for ($i=1; $i<=2;$i++) {
             $cagub=Cagub::create([
                 'no_urut'=>$i,
                 'nama_cagub'=>fake()->name(),
@@ -125,7 +125,7 @@ class DatabaseSeeder extends Seeder
                 'foto'=>3
             ]);
         }
-        for($i=1; $i<=2;$i++){
+        for ($i=1; $i<=2;$i++) {
             $cabub=Cabub::create([
                 'no_urut'=>$i,
                 'nama_cabub'=>fake()->name(),
@@ -133,7 +133,7 @@ class DatabaseSeeder extends Seeder
                 'foto'=>3
             ]);
         }
-        for($i=1; $i<=30;$i++){
+        for ($i=1; $i<=30;$i++) {
             $dpd=Dpd::create([
                 'no_urut'=>$i,
                 'nama'=>fake()->name(),
@@ -148,7 +148,7 @@ class DatabaseSeeder extends Seeder
                     'nama' =>  $key_partai,
                     'singkatan' =>  $nama_partai,
                 ]);
-                for($i=1; $i<=15;$i++){
+                for ($i=1; $i<=15;$i++) {
                     $caleg_ri=Caleg::create([
                         'partai_id'=>$partai->id,
                         'dapil_id'=>1,
@@ -156,7 +156,7 @@ class DatabaseSeeder extends Seeder
                         'nama'=>fake()->name(),
                     ]);
                 }
-                for($i=1; $i<=15;$i++){
+                for ($i=1; $i<=15;$i++) {
                     $caleg_prov=Caleg::create([
                         'partai_id'=>$partai->id,
                         'dapil_id'=>2,
@@ -164,8 +164,8 @@ class DatabaseSeeder extends Seeder
                         'nama'=>fake()->name(),
                     ]);
                 }
-                for($x=0; $x<=5;$x++){
-                    for($i=1; $i<=15;$i++){
+                for ($x=0; $x<=5;$x++) {
+                    for ($i=1; $i<=15;$i++) {
                         $caleg_kab=Caleg::create([
                             'partai_id'=>$partai->id,
                             'dapil_id'=>$data_dapil[$x],
@@ -177,7 +177,5 @@ class DatabaseSeeder extends Seeder
             }
             $no++;
         }
-          
-       
     }
 }

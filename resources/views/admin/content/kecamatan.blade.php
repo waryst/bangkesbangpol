@@ -26,12 +26,12 @@
                         <div class="card-body p-0 mb-2 mt-1">
                             <div class="row">
                                 <div class="col-md-7 mb-2">
-                                    <button class="btn btn-info" data-toggle="modal" data-target="#modal-kecamatan">
+                                    <button class="btn btn-info btn-sm" data-toggle="modal" data-target="#modal-kecamatan">
                                         <i class="mdi mdi-plus"></i> Tambah Kecamatan</button>
 
                                 </div>
                                 <div class="col-md-5 mb-2 text-right">
-                                    <input class="form-control form-control-yellow" type="text"
+                                    <input class="form-control form-control-sm form-control-yellow" type="text"
                                         placeholder="Pencarian kecamatan..." id="cari_kecamatan">
                                 </div>
                             </div>
@@ -83,12 +83,12 @@
                         <div class="card-body p-0 mb-2 mt-1 d-none " id="d-cari">
                             <div class="row">
                                 <div class="col-md-7 mb-2">
-                                    <button class="btn btn-info" data-toggle="modal" data-target="#modal-desa">
+                                    <button class="btn btn-info btn-sm" data-toggle="modal" data-target="#modal-desa">
                                         <i class="mdi mdi-plus"></i> Tambah Desa</button>
                                 </div>
                                 <div class="col-md-5 text-right">
 
-                                    <input class="form-control form-control-yellow" type="text"
+                                    <input class="form-control form-control-sm form-control-yellow" type="text"
                                         placeholder="Pencarian desa..." id="cari_desa">
                                 </div>
                             </div>
@@ -127,11 +127,16 @@
 
     <div class="modal fade" id="modal-kecamatan">
         <div class="modal-dialog">
-            <div class="modal-content p-1">
-                <div class="modal-body pb-4">
-                    <label>TAMBAH KECAMATAN</label>
-                    <input class="form-control mt-2 mb-3 form-control-yellow" type="text" placeholder="Nama kecamatan..."
-                        id="kecamatan">
+            <div class="modal-content pb-2">
+                <div class="modal-header">
+                    <label class="mb-0">TAMBAH KECAMATAN</label>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group floating">
+                        <input type="text" id="kecamatan"
+                            class="form-control floating" autocomplete="off">
+                        <label for="password">Nama Kecamatan</label>
+                    </div>
                 </div>
             </div>
         </div>
@@ -139,11 +144,16 @@
 
     <div class="modal fade" id="modal-desa">
         <div class="modal-dialog">
-            <div class="modal-content p-1">
-                <div class="modal-body pb-4">
-                    <label>TAMBAH DESA</label>
-                    <input class="form-control mt-2 mb-3 form-control-yellow" type="text" placeholder="Nama desa..." id="desa"
-                        data-quantity="">
+            <div class="modal-content pb-2">
+                <div class="modal-header">
+                    <label class="mb-0">TAMBAH DESA</label>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group floating">
+                        <input type="text" id="desa"
+                            class="form-control floating" autocomplete="off">
+                        <label for="password">Nama desa</label>
+                    </div>
                 </div>
             </div>
         </div>
@@ -167,7 +177,7 @@
         }
 
         $(document).ready(function() {
-            addToolTip('#table-body input', 'right', 'focus', 'press enter to save');
+            addToolTip('#table-body input', 'bottom', 'focus', 'press enter to save');
             addToolTip('#kecamatan', 'bottom', 'focus', 'press enter to save');
             addToolTip('#desa', 'bottom', 'focus', 'press enter to save');
         });
