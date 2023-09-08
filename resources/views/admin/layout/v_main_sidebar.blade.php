@@ -95,12 +95,12 @@
                         </li>
                         <li class="nav-item">
                             <a href="{{ url('caleg-dprd1') }}" class="nav-link">
-                                <p>Caleg DPRD I</p>
+                                <p>Caleg DPR Provinsi</p>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a href="{{ url('caleg-dprd2') }}" class="nav-link">
-                                <p>Caleg DPRD II</p>
+                                <p>Caleg DPR Kabupaten</p>
                             </a>
                         </li>
 
