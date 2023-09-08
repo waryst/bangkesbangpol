@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\operator;
+
 use App\Http\Controllers\Controller;
 use App\Models\Cabub;
 use App\Models\Cagub;
@@ -13,164 +14,169 @@ use Illuminate\Http\Request;
 
 class EntrySuaraController extends Controller
 {
-    public function capres(){
-        $desa_id=auth()->user()->desa_id;
-        $kirim['tps']=Tps::where('desa_id',$desa_id)->orderBy('title','ASC')->get();
-        $kirim['capres']=Capres::with('suaracapres')->orderBy('no_urut','ASC')->get();
-        return view('operator.conten.v_capres',$kirim);    
+    public function capres()
+    {
+        $desa_id = auth()->user()->desa_id;
+        $kirim['tps'] = Tps::where('desa_id', $desa_id)->orderBy('title', 'ASC')->get();
+        $kirim['capres'] = Capres::with('suaracapres')->orderBy('no_urut', 'ASC')->get();
+        return view('operator.conten.v_capres', $kirim);
     }
-    public function pilgub(){
-        $desa_id=auth()->user()->desa_id;
-        $kirim['tps']=Tps::where('desa_id',$desa_id)->orderBy('title','ASC')->get();
-        $kirim['cagub']=Cagub::with('suaracagub')->orderBy('no_urut','ASC')->get();
-        return view('operator.conten.v_cagub',$kirim);    
+    public function pilgub()
+    {
+        $desa_id = auth()->user()->desa_id;
+        $kirim['tps'] = Tps::where('desa_id', $desa_id)->orderBy('title', 'ASC')->get();
+        $kirim['cagub'] = Cagub::with('suaracagub')->orderBy('no_urut', 'ASC')->get();
+        return view('operator.conten.v_cagub', $kirim);
     }
-    public function pilbub(){
-        $desa_id=auth()->user()->desa_id;
-        $kirim['tps']=Tps::where('desa_id',$desa_id)->orderBy('title','ASC')->get();
-        $kirim['cabub']=Cabub::with('suaracabub')->orderBy('no_urut','ASC')->get();
-        return view('operator.conten.v_cabub',$kirim);    
+    public function pilbub()
+    {
+        $desa_id = auth()->user()->desa_id;
+        $kirim['tps'] = Tps::where('desa_id', $desa_id)->orderBy('title', 'ASC')->get();
+        $kirim['cabub'] = Cabub::with('suaracabub')->orderBy('no_urut', 'ASC')->get();
+        return view('operator.conten.v_cabub', $kirim);
     }
-    public function dpd(){
-        $desa_id=auth()->user()->desa_id;
-        $kirim['tps']=Tps::where('desa_id',$desa_id)->orderBy('title','ASC')->get();
-        $kirim['dpd']=Dpd::with('suaradpd')->orderBy('no_urut','ASC')->get();
-        return view('operator.conten.v_dpd',$kirim);    
+    public function dpd()
+    {
+        $desa_id = auth()->user()->desa_id;
+        $kirim['tps'] = Tps::where('desa_id', $desa_id)->orderBy('title', 'ASC')->get();
+        $kirim['dpd'] = Dpd::with('suaradpd')->orderBy('no_urut', 'ASC')->get();
+        return view('operator.conten.v_dpd', $kirim);
     }
-    public function caleg(){
-        $desa_id=auth()->user()->desa_id;
-        $kirim['tps']=Tps::where('desa_id',$desa_id)->orderBy('title','ASC')->get();
-        $dapil_id=1;
-        $kirim['partai']=Partai::with(['caleg' =>
-        function ($query) use ($dapil_id)  {
-            $query->where('dapil_id', '=', $dapil_id)->orderBy('no_urut','ASC');
-        } ])->orderBy('no_urut','ASC')->get();
-        return view('operator.conten.v_caleg',$kirim);    
+    public function caleg()
+    {
+        $desa_id = auth()->user()->desa_id;
+        $kirim['tps'] = Tps::where('desa_id', $desa_id)->orderBy('title', 'ASC')->get();
+        $dapil_id = 1;
+        $kirim['partai'] = Partai::with(['caleg' =>
+        function ($query) use ($dapil_id) {
+            $query->where('dapil_id', '=', $dapil_id)->orderBy('no_urut', 'ASC');
+        }])->orderBy('no_urut', 'ASC')->get();
+        return view('operator.conten.v_caleg', $kirim);
     }
-    public function calegprov(){
-        $desa_id=auth()->user()->desa_id;
-        $kirim['tps']=Tps::where('desa_id',$desa_id)->orderBy('title','ASC')->get();
-        $dapil_id=2;
-        $kirim['partai']=Partai::with(['caleg' =>
-        function ($query) use ($dapil_id)  {
-            $query->where('dapil_id', '=', $dapil_id)->orderBy('no_urut','ASC');
-        } ])->orderBy('no_urut','ASC')->get();
-        return view('operator.conten.v_calegprov',$kirim);    
+    public function calegprov()
+    {
+        $desa_id = auth()->user()->desa_id;
+        $kirim['tps'] = Tps::where('desa_id', $desa_id)->orderBy('title', 'ASC')->get();
+        $dapil_id = 2;
+        $kirim['partai'] = Partai::with(['caleg' =>
+        function ($query) use ($dapil_id) {
+            $query->where('dapil_id', '=', $dapil_id)->orderBy('no_urut', 'ASC');
+        }])->orderBy('no_urut', 'ASC')->get();
+        return view('operator.conten.v_calegprov', $kirim);
     }
-    public function calegkab(){
-        $desa_id=auth()->user()->desa_id;
-        $kirim['tps']=Tps::where('desa_id',$desa_id)->orderBy('title','ASC')->get();
-        $dapil_id=auth()->user()->desa->kecamatan->dapil_id;
-        $kirim['partai']=Partai::with(['caleg' =>
-        function ($query) use ($dapil_id)  {
-            $query->where('dapil_id', '=', $dapil_id)->orderBy('no_urut','ASC');
-        } ])->orderBy('no_urut','ASC')->get();
-        return view('operator.conten.v_calegkab',$kirim);    
+    public function calegkab()
+    {
+        $desa_id = auth()->user()->desa_id;
+        $kirim['tps'] = Tps::where('desa_id', $desa_id)->orderBy('title', 'ASC')->get();
+        $dapil_id = auth()->user()->desa->kecamatan->dapil_id;
+        $kirim['partai'] = Partai::with(['caleg' =>
+        function ($query) use ($dapil_id) {
+            $query->where('dapil_id', '=', $dapil_id)->orderBy('no_urut', 'ASC');
+        }])->orderBy('no_urut', 'ASC')->get();
+        return view('operator.conten.v_calegkab', $kirim);
     }
     public function capres_tps(Tps $id)
     {
-        $kirim['pilih_tps']=$id;
-        $desa_id=auth()->user()->desa_id;
-        $kirim['tps']=Tps::where('desa_id',$desa_id)->orderBy('title','ASC')->get();
-        $tps_id=$id->id;
-        $kirim['capres']=Capres::with(['suaracapres' =>
+        $kirim['pilih_tps'] = $id;
+        $desa_id = auth()->user()->desa_id;
+        $kirim['tps'] = Tps::where('desa_id', $desa_id)->orderBy('title', 'ASC')->get();
+        $tps_id = $id->id;
+        $kirim['capres'] = Capres::with(['suaracapres' =>
         function ($query) use ($tps_id) {
             $query->where('tps_id', '=', $tps_id);
-        } ])->orderBy('no_urut','ASC')->get();
-        return view('operator.conten.v_capres',$kirim);    
+        }])->orderBy('no_urut', 'ASC')->get();
+        return view('operator.conten.v_capres', $kirim);
     }
     public function pilgub_tps(Tps $id)
     {
-        $kirim['pilih_tps']=$id;
-        $desa_id=auth()->user()->desa_id;
-        $kirim['tps']=Tps::where('desa_id',$desa_id)->orderBy('title','ASC')->get();
-        $tps_id=$id->id;
-        $kirim['cagub']=Cagub::with(['suaracagub' =>
+        $kirim['pilih_tps'] = $id;
+        $desa_id = auth()->user()->desa_id;
+        $kirim['tps'] = Tps::where('desa_id', $desa_id)->orderBy('title', 'ASC')->get();
+        $tps_id = $id->id;
+        $kirim['cagub'] = Cagub::with(['suaracagub' =>
         function ($query) use ($tps_id) {
             $query->where('tps_id', '=', $tps_id);
-        } ])->orderBy('no_urut','ASC')->get();
+        }])->orderBy('no_urut', 'ASC')->get();
 
-        return view('operator.conten.v_cagub',$kirim);    
+        return view('operator.conten.v_cagub', $kirim);
     }
     public function pilbub_tps(Tps $id)
     {
-        $kirim['pilih_tps']=$id;
-        $desa_id=auth()->user()->desa_id;
-        $kirim['tps']=Tps::where('desa_id',$desa_id)->orderBy('title','ASC')->get();
-        $tps_id=$id->id;
-        $kirim['cabub']=Cabub::with(['suaracabub' =>
+        $kirim['pilih_tps'] = $id;
+        $desa_id = auth()->user()->desa_id;
+        $kirim['tps'] = Tps::where('desa_id', $desa_id)->orderBy('title', 'ASC')->get();
+        $tps_id = $id->id;
+        $kirim['cabub'] = Cabub::with(['suaracabub' =>
         function ($query) use ($tps_id) {
             $query->where('tps_id', '=', $tps_id);
-        } ])->orderBy('no_urut','ASC')->get();
+        }])->orderBy('no_urut', 'ASC')->get();
 
-        return view('operator.conten.v_cabub',$kirim);    
+        return view('operator.conten.v_cabub', $kirim);
     }
-        public function dpd_tps(Tps $id)
+    public function dpd_tps(Tps $id)
     {
-        $kirim['pilih_tps']=$id;
-        $desa_id=auth()->user()->desa_id;
-        $kirim['tps']=Tps::where('desa_id',$desa_id)->orderBy('title','ASC')->get();
-        $tps_id=$id->id;
-        $kirim['dpd']=Dpd::with(['suaradpd' =>
+        $kirim['pilih_tps'] = $id;
+        $desa_id = auth()->user()->desa_id;
+        $kirim['tps'] = Tps::where('desa_id', $desa_id)->orderBy('title', 'ASC')->get();
+        $tps_id = $id->id;
+        $kirim['dpd'] = Dpd::with(['suaradpd' =>
         function ($query) use ($tps_id) {
             $query->where('tps_id', '=', $tps_id);
-        } ])->orderBy('no_urut','ASC')->get();
+        }])->orderBy('no_urut', 'ASC')->get();
 
-        return view('operator.conten.v_dpd',$kirim);    
+        return view('operator.conten.v_dpd', $kirim);
     }
 
-        public function caleg_tps(Tps $id)
+    public function caleg_tps(Tps $id)
     {
-        $kirim['pilih_tps']=$id;
-        $desa_id=auth()->user()->desa_id;
-        $kirim['tps']=Tps::where('desa_id',$desa_id)->orderBy('title','ASC')->get();
-        $dapil_id=1;
-        $tps_id=$id->id;
-        $kirim['partai']=Partai::with(['caleg' =>
-        function ($query) use ($dapil_id,$tps_id)  {
-            $tps=$tps_id;
-            $query->where('dapil_id', '=', $dapil_id)->orderBy('no_urut','ASC')->with(['suaracaleg'=>
-            function ($query) use ($tps)  {
+        $kirim['pilih_tps'] = $id;
+        $desa_id = auth()->user()->desa_id;
+        $kirim['tps'] = Tps::where('desa_id', $desa_id)->orderBy('title', 'ASC')->get();
+        $dapil_id = 1;
+        $tps_id = $id->id;
+        $kirim['partai'] = Partai::with(['caleg' =>
+        function ($query) use ($dapil_id, $tps_id) {
+            $tps = $tps_id;
+            $query->where('dapil_id', '=', $dapil_id)->orderBy('no_urut', 'ASC')->with(['suaracaleg' =>
+            function ($query) use ($tps) {
                 $query->where('tps_id', '=', $tps);
             }]);
-        } ])->orderBy('no_urut','ASC')->get();
-        return view('operator.conten.v_caleg',$kirim);    
+        }])->orderBy('no_urut', 'ASC')->get();
+        return view('operator.conten.v_caleg', $kirim);
     }
-        public function calegprov_tps(Tps $id)
+    public function calegprov_tps(Tps $id)
     {
-        $kirim['pilih_tps']=$id;
-        $desa_id=auth()->user()->desa_id;
-        $kirim['tps']=Tps::where('desa_id',$desa_id)->orderBy('title','ASC')->get();
-        $dapil_id=2;
-        $tps_id=$id->id;
-        $kirim['partai']=Partai::with(['caleg' =>
-        function ($query) use ($dapil_id,$tps_id)  {
-            $tps=$tps_id;
-            $query->where('dapil_id', '=', $dapil_id)->orderBy('no_urut','ASC')->with(['suaracalegprov'=>
-            function ($query) use ($tps)  {
+        $kirim['pilih_tps'] = $id;
+        $desa_id = auth()->user()->desa_id;
+        $kirim['tps'] = Tps::where('desa_id', $desa_id)->orderBy('title', 'ASC')->get();
+        $dapil_id = 2;
+        $tps_id = $id->id;
+        $kirim['partai'] = Partai::with(['caleg' =>
+        function ($query) use ($dapil_id, $tps_id) {
+            $tps = $tps_id;
+            $query->where('dapil_id', '=', $dapil_id)->orderBy('no_urut', 'ASC')->with(['suaracalegprov' =>
+            function ($query) use ($tps) {
                 $query->where('tps_id', '=', $tps);
             }]);
-        } ])->orderBy('no_urut','ASC')->get();
-        return view('operator.conten.v_calegprov',$kirim);    
+        }])->orderBy('no_urut', 'ASC')->get();
+        return view('operator.conten.v_calegprov', $kirim);
     }
 
-        public function calegkab_tps(Tps $id)
+    public function calegkab_tps(Tps $id)
     {
-        $kirim['pilih_tps']=$id;
-        $desa_id=auth()->user()->desa_id;
-        $kirim['tps']=Tps::where('desa_id',$desa_id)->orderBy('title','ASC')->get();
-        $dapil_id=auth()->user()->desa->kecamatan->dapil_id;
-        $tps_id=$id->id;
-        $kirim['partai']=Partai::with(['caleg' =>
-        function ($query) use ($dapil_id,$tps_id)  {
-            $tps=$tps_id;
-            $query->where('dapil_id', '=', $dapil_id)->orderBy('no_urut','ASC')->with(['suaracalegkab'=>
-            function ($query) use ($tps)  {
+        $kirim['pilih_tps'] = $id;
+        $desa_id = auth()->user()->desa_id;
+        $kirim['tps'] = Tps::where('desa_id', $desa_id)->orderBy('title', 'ASC')->get();
+        $dapil_id = auth()->user()->desa->kecamatan->dapil_id;
+        $tps_id = $id->id;
+        $kirim['partai'] = Partai::with(['caleg' =>
+        function ($query) use ($dapil_id, $tps_id) {
+            $tps = $tps_id;
+            $query->where('dapil_id', '=', $dapil_id)->orderBy('no_urut', 'ASC')->with(['suaracalegkab' =>
+            function ($query) use ($tps) {
                 $query->where('tps_id', '=', $tps);
             }]);
-        } ])->orderBy('no_urut','ASC')->get();
-        return view('operator.conten.v_calegkab',$kirim);    
+        }])->orderBy('no_urut', 'ASC')->get();
+        return view('operator.conten.v_calegkab', $kirim);
     }
-
-
 }
