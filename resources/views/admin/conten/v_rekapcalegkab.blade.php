@@ -49,7 +49,7 @@
     <section class="content">
         <div class="container-fluid">
             <fieldset class="scheduler-border">
-                <legend class="scheduler-border">Perolehan Suara Sah Calon DPR RI</legend>
+                <legend class="scheduler-border">Perolehan Suara Sah Calon DPR Kabupaten</legend>
                 <div class="card">
                     <h2 class="card-title mx-auto font-weight-bold mt-3">--- DAERAH PEMILIHAN ----</h2>
                     <h2 class="card-title mx-auto font-weight-bold">{!! $daerah_pemilihan !!}</h2>
@@ -73,15 +73,15 @@
                                     <tr>
                                         <th class="text-center align-middle" style="width: 5%;">No</th>
                                         <th class="text-center align-middle" style="width: 160px;">Nama Calon
-                                            DPR RI</th>
+                                            DPR Kabupaten</th>
                                         @foreach ($headers as $header)
                                             <th class="text-center" style="width: 160px;">
                                                 @if ($ket == 'kab')
-                                                    <a href="{{ url('rekapcalegri/kec/' . $header->id) }}">
+                                                    <a href="{{ url('rekapcalegkab/kec/' . $header->id) }}">
                                                         {{ $header->title }}
                                                     </a>
                                                 @elseif($ket == 'kec')
-                                                    <a href="{{ url('rekapcalegri/desa/' . $header->id) }}">
+                                                    <a href="{{ url('rekapcalegkab/desa/' . $header->id) }}">
                                                         {{ $header->title }}
                                                     </a>
                                                 @elseif($ket == 'desa')
@@ -103,11 +103,11 @@
                                             @foreach ($headers as $header)
                                                 <td class="text-center">
                                                     @if ($ket == 'kab')
-                                                        {{ $partai->suarapartai->where('kecamatan_id', $header->id)->first()->jumlah ?? 0 > 0 ? $partai->suarapartai->where('kecamatan_id', $header->id)->first()->jumlah : '-' }}
+                                                        {{ $partai->suarapartaikab->where('kecamatan_id', $header->id)->first()->jumlah ?? 0 > 0 ? $partai->suarapartaikab->where('kecamatan_id', $header->id)->first()->jumlah : '-' }}
                                                     @elseif($ket == 'kec')
-                                                        {{ $partai->suarapartai->where('desa_id', $header->id)->first()->jumlah ?? 0 > 0 ? $partai->suarapartai->where('desa_id', $header->id)->first()->jumlah : '-' }}
+                                                        {{ $partai->suarapartaikab->where('desa_id', $header->id)->first()->jumlah ?? 0 > 0 ? $partai->suarapartaikab->where('desa_id', $header->id)->first()->jumlah : '-' }}
                                                     @elseif($ket == 'desa')
-                                                        {{ $partai->suarapartai->where('tps_id', $header->id)->first()->jumlah ?? 0 > 0 ? $partai->suarapartai->where('tps_id', $header->id)->first()->jumlah : '-' }}
+                                                        {{ $partai->suarapartaikab->where('tps_id', $header->id)->first()->jumlah ?? 0 > 0 ? $partai->suarapartaikab->where('tps_id', $header->id)->first()->jumlah : '-' }}
                                                     @endif
                                                 </td>
                                             @endforeach
@@ -122,18 +122,17 @@
                                                 @foreach ($headers as $header)
                                                     <td class="text-center text-muted">
                                                         @if ($ket == 'kab')
-                                                            {{ $caleg->suaracaleg->where('kecamatan_id', $header->id)->sum('jumlah') ?? 0 > 0 ? $caleg->suaracaleg->where('kecamatan_id', $header->id)->sum('jumlah') : '-' }}
+                                                            {{ $caleg->suaracalegkab->where('kecamatan_id', $header->id)->sum('jumlah') ?? 0 > 0 ? $caleg->suaracalegkab->where('kecamatan_id', $header->id)->sum('jumlah') : '-' }}
                                                         @elseif ($ket == 'kec')
-                                                            {{ $caleg->suaracaleg->where('desa_id', $header->id)->sum('jumlah') ?? 0 > 0 ? $caleg->suaracaleg->where('desa_id', $header->id)->sum('jumlah') : '-' }}
+                                                            {{ $caleg->suaracalegkab->where('desa_id', $header->id)->sum('jumlah') ?? 0 > 0 ? $caleg->suaracalegkab->where('desa_id', $header->id)->sum('jumlah') : '-' }}
                                                         @elseif($ket == 'desa')
-                                                            {{ $caleg->suaracaleg->where('tps_id', $header->id)->first()->jumlah ?? '-' }}
+                                                            {{ $caleg->suaracalegkab->where('tps_id', $header->id)->first()->jumlah ?? '-' }}
                                                         @endif
                                                     </td>
                                                 @endforeach
                                             </tr>
                                         @endforeach
                                     @endforeach
-
                                 </tbody>
 
                             </table>
@@ -181,8 +180,9 @@
                 borderColor: 'black',
                 data: [
                     @foreach ($data as $grafik)
-                        "{{ $grafik->suaracaleg[0]->total ?? 0 }}",
+                        "{{ $grafik->suaracalegkab[0]->total ?? 0 }}",
                     @endforeach
+
                 ],
             }]
         };
@@ -223,6 +223,7 @@
             data: myData, // Chart data
             options: myoption // Chart Options [This is optional paramenter use to add some extra things in the chart].
         });
+
         $(function() {
 
             $("#example").DataTable({

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\admin\RekapDataPemilu;
 use App\Http\Controllers\operator\CapresController;
 use App\Http\Controllers\KecamatanController;
 use App\Http\Controllers\DesaController;
@@ -20,6 +21,8 @@ use App\Http\Controllers\admin\RekapSuaraController;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\operator\SavesuaraController;
 use App\Http\Controllers\operator\EntrySuaraController;
+use App\Http\Controllers\operator\Home;
+use App\Http\Controllers\operator\HomeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -58,11 +61,7 @@ Route::resource('user-admin', UserAdminController::class);
 Route::post('user-admin/password/{id}', [UserAdminController::class,'password']);
 Route::resource('user-desa', UserDesaController::class);
 
-Route::get('capres', [EntrySuaraController::class,'capres']);
-Route::get('capres/{id}', [EntrySuaraController::class,'capres_tps']);
 
-Route::get('pilgub', [EntrySuaraController::class,'pilgub']);
-Route::get('pilgub/{id}', [EntrySuaraController::class,'pilgub_tps']);
 
 Route::get('/', [AuthController::class,'index'])->name('login')->middleware('revalidate');
 Route::post('/', [AuthController::class,'postlogin']);
@@ -70,21 +69,19 @@ Route::post('/', [AuthController::class,'postlogin']);
 
 Route::get('/logout', [AuthController::class,'logout']);
 Route::group(['middleware' => ['auth', 'checkRole:administrator', 'revalidate']], function () {
-    Route::get('/dashboard', function () {
-        return view('admin.layout.main');
-    })->name('dashboard');
+    Route::get('/dashboard', [RekapDataPemilu::class,'index'])->name('dashboard');
     Route::get('rekapcapres/{tipe}/{id}', [RekapSuaraController::class,'rekapcapres']);
     Route::get('rekapcagub/{tipe}/{id}', [RekapSuaraController::class,'rekapcagub']);
     Route::get('rekapcabub/{tipe}/{id}', [RekapSuaraController::class,'rekapcabub']);
     Route::get('rekapdpd/{tipe}/{id}', [RekapSuaraController::class,'rekapdpd']);
     Route::get('rekapcalegri/{tipe}/{id}', [RekapSuaraController::class,'rekapcalegri']);
+    Route::get('rekapcalegprov/{tipe}/{id}', [RekapSuaraController::class,'rekapcalegprov']);
+    Route::get('rekapcalegkab/{tipe}/{id}', [RekapSuaraController::class,'rekapcalegkab']);
 });
 
 
 Route::group(['middleware' => ['auth', 'checkRole:operator', 'revalidate']], function () {
-    Route::get('/home', function () {
-        return view('operator.layout.main');
-    })->name('home');
+    Route::get('/home', [HomeController::class,'index'])->name('home');
     Route::get('capres', [EntrySuaraController::class,'capres']);
     Route::get('capres/{id}', [EntrySuaraController::class,'capres_tps']);
     Route::get('pilgub', [EntrySuaraController::class,'pilgub']);

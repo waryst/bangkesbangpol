@@ -4,7 +4,6 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>Pemilu | Dashboard</title>
     @vite('resources/js/app.js')
     <link rel="stylesheet"
@@ -23,8 +22,7 @@
 
         <!-- Preloader -->
         {{-- <div class="preloader flex-column justify-content-center align-items-center">
-            <img class="animation__shake" src="{{ asset('asset') }}/dist/img/AdminLTELogo.png" alt="AdminLTELogo"
-                height="60" width="60">
+            <img src="{{ asset('asset') }}/dist/img/AdminLTELogo.png" alt="AdminLTELogo" height="60" width="60">
         </div> --}}
 
         @include('operator.layout.v_navbar')
@@ -36,36 +34,67 @@
                     <div class="col-sm-12">
                     </div>
                 </div>
+                @yield('content')
             </div>
-            @yield('content')
+            @include('operator.layout.v_footer')
+
+            <!-- Control Sidebar -->
+            <aside class="control-sidebar control-sidebar-dark">
+            </aside>
+            <!-- /.control-sidebar -->
         </div>
-        @include('operator.layout.v_footer')
+        <!-- ./wrapper -->
 
-        <!-- Control Sidebar -->
-        <aside class="control-sidebar control-sidebar-dark">
-        </aside>
-        <!-- /.control-sidebar -->
-    </div>
-    <!-- ./wrapper -->
 
-    <!-- jQuery -->
-    <script src="{{ asset('asset') }}/plugins/jquery/jquery.min.js"></script>
-    <!-- jQuery UI 1.11.4 -->
-    <script src="{{ asset('asset') }}/plugins/jquery-ui/jquery-ui.min.js"></script>
-    <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
-    <script>
-        $.widget.bridge('uibutton', $.ui.button)
 
-    </script>
-    <!-- Bootstrap 4 -->
-    <script src="{{ asset('asset') }}/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-    <!-- ChartJS -->
-    <script src="{{ asset('asset') }}/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
-    <!-- AdminLTE App -->
-    <script src="{{ asset('asset') }}/dist/js/adminlte.js"></script>
-    <!-- AdminLTE for demo purposes -->
-    <script src="{{ asset('asset') }}/dist/js/demo.js"></script>
-    @stack('java')
+        <!-- Bootstrap 4 -->
+        <script src="{{ asset('asset') }}/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+        <!-- ChartJS -->
+        <script src="{{ asset('asset') }}/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
+        <!-- AdminLTE App -->
+        <script src="{{ asset('asset') }}/dist/js/adminlte.js"></script>
+        <!-- AdminLTE for demo purposes -->
+        {{-- <script src="{{ asset('asset') }}/dist/js/demo.js"></script> --}}
+
+        <script>
+            /*** add active class and stay opened when selected ***/
+            var url = window.location;
+
+            // for sidebar menu entirely but not cover treeview
+            $('ul.nav-sidebar a').filter(function() {
+                if (this.href) {
+                    return this.href == url || url.href.indexOf(this.href) == 0;
+                }
+            }).addClass('active');
+
+            // for the treeview
+            $('ul.nav-treeview a').filter(function() {
+                if (this.href) {
+                    return this.href == url || url.href.indexOf(this.href) == 0;
+                }
+            }).parentsUntil(".nav-sidebar > .nav-treeview").addClass('menu-open');
+            // }).parentsUntil(".nav-sidebar > .nav-treeview").addClass('menu-open').prev('a').addClass('active');
+        </script>
+        @stack('java')
+
+        <!-- jQuery -->
+        <script src="{{ asset('asset') }}/plugins/jquery/jquery.min.js"></script>
+        <!-- jQuery UI 1.11.4 -->
+        <script src="{{ asset('asset') }}/plugins/jquery-ui/jquery-ui.min.js"></script>
+        <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
+        <script>
+            $.widget.bridge('uibutton', $.ui.button)
+        </script>
+        <!-- Bootstrap 4 -->
+        <script src="{{ asset('asset') }}/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+        <!-- ChartJS -->
+        <script src="{{ asset('asset') }}/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
+        <!-- AdminLTE App -->
+        <script src="{{ asset('asset') }}/dist/js/adminlte.js"></script>
+        <!-- AdminLTE for demo purposes -->
+        <script src="{{ asset('asset') }}/dist/js/demo.js"></script>
+        @stack('java')
+
 </body>
 
 </html>

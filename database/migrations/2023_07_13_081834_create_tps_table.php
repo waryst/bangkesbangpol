@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('tps', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->uuid('desa_id');
-            $table->string('title');
+            $table->integer('title');
             $table->timestamps();
         });
     }

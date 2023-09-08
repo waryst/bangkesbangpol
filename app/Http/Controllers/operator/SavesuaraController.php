@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\operator;
 
 use App\Http\Controllers\Controller;
+use App\Models\Caleg;
 use App\Models\Suaracabub;
 use App\Models\Suaracagub;
 use App\Models\Suaracaleg;
@@ -132,6 +133,7 @@ class SavesuaraController extends Controller
                 Suaracaleg::updateOrCreate(
                     ['id' => $suara_id],
                     [
+                        'partai_id' => $request->partai_id,
                         'caleg_id' => $caleg_id,
                         'tps_id' => $tps_id,
                         'desa_id' => auth()->user()->desa->id,
@@ -156,6 +158,7 @@ class SavesuaraController extends Controller
                 Suaracalegprov::updateOrCreate(
                     ['id' => $suara_id],
                     [
+                        'partai_id' => $request->partai_id,
                         'caleg_id' => $caleg_id,
                         'tps_id' => $tps_id,
                         'desa_id' => auth()->user()->desa->id,
@@ -181,6 +184,7 @@ class SavesuaraController extends Controller
                 Suaracalegkab::updateOrCreate(
                     ['id' => $suara_id],
                     [
+                        'partai_id' => $request->partai_id,
                         'caleg_id' => $caleg_id,
                         'tps_id' => $tps_id,
                         'desa_id' => auth()->user()->desa->id,

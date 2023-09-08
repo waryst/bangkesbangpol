@@ -174,7 +174,7 @@
                                 <div class="card-body px-2">
                                     @foreach ($partai->caleg as $caleg)
                                         <div class="row border">
-                                            <div class="d-flex align-items-center px-2">
+                                            <div class="d-flex align-items-center px-2 col-1">
                                                 <span class="mx-auto py-1"> {{ $caleg->no_urut }}. </span>
                                             </div>
                                             <div class="d-flex align-items-center col-8">
@@ -186,8 +186,9 @@
                                                         onKeyPress="if(this.value.length==3) return false;"
                                                         oninput="this.value = Math.abs(this.value)" autocomplete="off"
                                                         id="{{ $caleg->id }}" data-id="{{ $caleg->id }}"
-                                                        onfocus="this.placeholder = ''" onblur="this.placeholder = '0'"
-                                                        value="{{ $caleg->suaracaleg[0]->jumlah ?? 0 }}"
+                                                        data-partai="{{ $partai->id }}" onfocus="this.placeholder = ''"
+                                                        onblur="this.placeholder = '0'"
+                                                        value="{{ $caleg->suaracalegprov[0]->jumlah ?? 0 }}"
                                                         class="form-control text-center submit p-0 mr-1 font-weight-bold"
                                                         style="height: 20px;font-size: 13px;">
                                                     <div class="loadingsuara" id="save{{ $caleg->id }}">
@@ -247,6 +248,7 @@
                     input_id = $(this).data('id');
                     tps_id = "{{ $pilih_tps->id ?? 0 }}";
                     jumlah_suara = $(this).val();
+                    partai_id = $(this).data('partai');
                     caleg_id = $(this).data('id');
                     $('#save' + caleg_id).html(`   `);
                     clearTimeout(Interval);
@@ -255,10 +257,12 @@
             });
             $('.submit').blur(function() {
                 var input_id = $(this).data('id');
+                var partai_id = $(this).data('partai');
                 var tps_id = "{{ $pilih_tps->id ?? 0 }}";
                 var jumlah_suara = $(this).val();
                 var fd = new FormData();
                 fd.append(input_id, jumlah_suara);
+                fd.append('partai_id', partai_id);
                 fd.append('caleg_id', input_id);
                 fd.append('tps_id', tps_id);
                 fd.append('jumlah_suara', jumlah_suara);
@@ -309,6 +313,7 @@
         function saveSuara() {
             var fd = new FormData();
             fd.append(input_id, jumlah_suara);
+            fd.append('partai_id', partai_id);
             fd.append('caleg_id', input_id);
             fd.append('tps_id', tps_id);
             fd.append('jumlah_suara', jumlah_suara);

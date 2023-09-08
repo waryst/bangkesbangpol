@@ -18,4 +18,8 @@ class Dapil extends Model
     {
         return $this->hasMany(Caleg::class);
     }
+    public function desa()
+    {
+        return $this->hasManyThrough(Desa::class,Kecamatan::class);
+    }
 }

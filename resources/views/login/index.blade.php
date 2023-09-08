@@ -8,8 +8,8 @@
     <title>Login</title>
     @vite('resources/js/app.js')
     <link href="https://fonts.googleapis.com/css?family=Karla:400,700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.materialdesignicons.com/4.8.95/css/materialdesignicons.min.css">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{{ asset('asset_login') }}/css/materialdesignicons.css">
+    <link rel="stylesheet" href="{{ asset('asset_login') }}/css/bootstrap.css">
     <link rel="stylesheet" href="{{ asset('asset_login') }}/css/login.css">
 </head>
 
@@ -24,7 +24,7 @@
                     <div class="col-md-7">
                         <div class="card-body">
                             <div class="brand-wrapper">
-                                <img src="{{ asset('asset_login') }}/images/logo.svg" alt="logo" class="logo">
+                                <img src="{{ asset('asset_login') }}/images/logo.png" alt="logo" class="logo">
                             </div>
                             <p class="login-card-description">Sign into your account</p>
                             <form action="{{ url('/') }}" method="POST">
@@ -39,12 +39,9 @@
                                     <input type="password" name="password" id="password" class="form-control"
                                         placeholder="Enter password">
                                 </div>
-                                <input name="login" id="login" class="btn btn-block login-btn mb-4" type="submit"
-                                    value="Login">
+                                <input name="login" id="login" class="btn btn-block btn-danger mb-4"
+                                    type="submit" value="Login">
                             </form>
-                            <a href="#!" class="forgot-password-link">Forgot password?</a>
-                            <p class="login-card-footer-text">Don't have an account? <a href="#!"
-                                    class="text-reset">Register here</a></p>
                             <nav class="login-card-footer-nav">
                                 <a href="#!">Terms of use.</a>
                                 <a href="#!">Privacy policy</a>
@@ -56,9 +53,9 @@
 
         </div>
     </main>
-    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+    <script src="{{ asset('asset_login') }}/js/jquery-3.4.1.js"></script>
+    <script src="{{ asset('asset_login') }}/js/popper.js"></script>
+    <script src="{{ asset('asset_login') }}/js/bootstrap.js"></script>
 </body>
 
 </html>
