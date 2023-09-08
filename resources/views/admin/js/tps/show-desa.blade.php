@@ -31,6 +31,7 @@
                                 </tr>`;
                     });
                     $("#kec_name").html("KECAMATAN <b>" + kec.toUpperCase() + "</b>");
+                    $("#desa_name").html("");
                     $("#table-body-desa").html(table);
 
                     $("#d-input").addClass('d-none');

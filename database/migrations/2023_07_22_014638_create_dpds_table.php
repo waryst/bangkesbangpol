@@ -4,8 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
+return new class extends Migration {
     /**
      * Run the migrations.
      */
@@ -13,7 +12,7 @@ return new class extends Migration
     {
         Schema::create('dpds', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->integer('no_urut');
+            $table->integer('no_urut')->nullable();
             $table->string('nama');
             $table->string('foto');
             $table->timestamps();

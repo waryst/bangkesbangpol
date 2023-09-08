@@ -46,7 +46,7 @@
                     $("#d-cari").removeClass('d-none');
 
                     $('html, body').animate({
-                        scrollTop: $("body").offset().top
+                        scrollTop: $("head").offset().top
                     }, 500);
                 }
             }

@@ -45,7 +45,7 @@
                     $("#d-cari").removeClass('d-none');
 
                     $('html, body').animate({
-                        scrollTop: $("body").offset().top
+                        scrollTop: $("head").offset().top
                     }, 500);
                 }
                 addToolTip('#table-body-desa input', 'right', 'focus', 'press enter to save');

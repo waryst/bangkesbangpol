@@ -73,19 +73,65 @@
         bottom: 34px;
         left: 8px;
         position: relative;
-        background-color: white;
+        /* background-color: white; */
+        background-color: rgba(255, 255, 255, 1);
         padding: 0px 5px 0px 5px;
-        font-size: 1em;
+        font-size: 1.1em;
         transition: 0.1s;
         pointer-events: none;
-        font-weight: 500 !important;
+        /* font-weight: 500 !important; */
         transform-origin: bottom left;
-        transform: translate(1px, -85%) scale(0.80);
-        color: rgb(101, 101, 101);
+        transform: translate(1px, -110%) scale(0.80);
+        color: rgb(115, 115, 115);
+        border-radius: .25rem;
+        text-transform: uppercase;
+        z-index: 100;
     }
 
     .floating {
         margin-bottom: 0rem !important;
+    }
+
+    .form-group.floating input {
+        padding-top: 22px;
+        padding-bottom: 22px;
+        font-size: 1.2em;
+        padding-right: 0px;
+
+    }
+
+    .form-group.floating input:focus {
+        background-color: #fff5d7 !important;
+
+    }
+
+    .floating input::file-selector-button {
+        border-radius: 0px;
+        border: solid 0px;
+        background-color: #E9ECEF;
+        float: right;
+        padding-top: 11px;
+        padding-bottom: 12px;
+        padding-left: 15px;
+        padding-right: 15px;
+        margin: 0px;
+        margin-top: -10px;
+        font-family: inherit;
+        font-size: inherit;
+        color: inherit;
+        border-left: solid 1px #ced4da;
+
+    }
+
+    .form-control-under:disabled {
+        background-color: #FFF;
+    }
+
+    .input-sm {
+        padding-top: 0px !important;
+        padding-bottom: 0px !important;
+        height: 20px !important;
+        background-color: #FFF !important;
     }
 
 </style>

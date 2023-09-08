@@ -29,21 +29,14 @@ class DatabaseSeeder extends Seeder
         // \App\Models\User::factory(10)->create();
         User::create([
             'name' => 'Warist Amru Khoruddin',
-            'desa_id' =>'999054d7-54af-44d6-acff-9e88b8992001',
+            'desa_id' =>'123',
             'email' => 'admin',
             'role'=>'administrator',
             'password'=>Hash::make('admin'),
         ]);
-        User::create([
-            'name' => 'Kinara Tadkiya',
-            'desa_id' =>'999054d7-54af-44d6-acff-9e88b8992001',
-            'email' => 'operator',
-            'role'=>'operator',
-            'password'=>Hash::make('admin'),
-        ]);
 
         $kecamatan = array(
-            "Babadan"=>array("Babadan","Barang","Cekok","Gupolo","Japan","Kadipaten","Kertosari","Lembah","Ngunut","Patihan Wetan","Polorejo","Pondok","Purwosari","Sukosari","Trisono"),
+            "Babadan"=>array("Babadan","Bareng","Cekok","Gupolo","Japan","Kadipaten","Kertosari","Lembah","Ngunut","Patihan Wetan","Polorejo","Pondok","Purwosari","Sukosari","Trisono"),
             "Badegan"=>array("Badegan","Bandaralim","Biting","Dayakan","Kapuran","Karangan","Karangjoho","Tanjunggunung","Tanjungrejo","Watubonang"),
             "Balong"=>array("Bajang","Balong","Bulak","Bulukidul","Dadapan","Jalen","Karangan","Karangmojo","Karangpatihan","Muneng","Ngampel","Ngendut","Ngraket","Ngumpul","Pandak","Purworejo","Sedarat","Singkil","Sumberejo","Tatung"),
             "Bungkal"=>array("Bancar","Bedikulon","Bediwetan","Bekare","Belang","Bungkal","Bungu","Kalisat","Ketonggo","Koripan","Kunti","Kupuk","Kwajon","Munggu","Nambak","Padas","Pager","Pelem","Sambilawang"),
@@ -65,414 +58,124 @@ class DatabaseSeeder extends Seeder
             "Sooko"=>array("Bedoho","Jurug","Klepu","Ngadirojo","Sooko","Suru"),
             "Sukorejo"=>array("Bangunrejo","Gandukepuh","Gegeran","Gelanglor","Golan","Kalimalang","Karanglolor","Kedungbanteng","Kranggan","Lengkong","Morosari","Nambangrejo","Nampan","Prajegan","Serangan","Sidorejo","Sragi","Sukorejo")
         );
-            
-            
+        $partai = array(
+            "Partai Kebangkitan Bangsa"=>array("PKB"),
+            "Partai Gerakan Indonesia Raya"=>array("Gerindra"),
+            "Partai Demokrasi Indonesia Perjuangan"=>array("PDI Perjuangan"),
+            "Partai Golongan Karya"=>array("Golkar"),
+            "Partai Nasional Demokrat"=>array("Nasdem"),
+            "Partai Buruh"=>array("Buruh"),
+            "Partai Gelombang Rakyat Indonesia"=>array("Gelora"),
+            "Partai Keadilan Sejahtera"=>array("PKS"),
+            "Partai Kebangkitan Nusantara"=>array("PKN"),
+            "Partai Hati Nurani Rakyat"=>array("Hanura"),
+            "Partai Garda Perubahan Indonesia"=>array("Garuda"),
+            "Partai Amanat Nasional"=>array("PAN"),
+            "Partai Bulan Bintang"=>array("PBB"),
+            "Partai Demokrat"=>array("Demokrat"),
+            "Partai Solidaritas Indonesia"=>array("PSI"),
+            "Partai Persatuan Indonesia"=>array("Perindo"),
+            "Partai Persatuan Pembangunan"=>array("PPP"),
+            "Partai UMMAT"=>array("UMMAT"),
+        );
+        $data_dapil=[];
+        for ($i=1; $i<=6;$i++) {
+            $dapil=Dapil::create(['title'=>$i]);
+            array_push($data_dapil, $dapil->id);
+        }
         foreach ($kecamatan as $nama_kec => $array_desa) {
-            $post = Kecamatan::create(['title' => $nama_kec]);
+            $post = Kecamatan::create([
+                'title' => $nama_kec,
+                'dapil_id'=>$data_dapil[rand(0, 5)]
+
+            ]);
             foreach ($array_desa as $nama_desa) {
-                $des = Desa::create([
+                $desa = Desa::create([
                     'kecamatan_id'=>$post->id,
                     'title'=>$nama_desa,
                 ]);
-                // ----------------------------------------------------------TPS
-                // Tps::create([
-                //     'desa_id'=>$des->id,
-                //     'title'=>'1',
-                // ]);
-                // Tps::create([
-                //     'desa_id'=>$des->id,
-                //     'title'=>'2',
-                // ]);
-                // Tps::create([
-                //     'desa_id'=>$des->id,
-                //     'title'=>'3',
-                // ]);
-                // ----------------------------------------------------------TPS
+                $create_password= User::create([
+                    'name' => "Operator ".$desa->title,
+                    'desa_id' =>$desa->id,
+                    'email' => str_replace(" ", "", (strtolower($desa->title).".".strtolower($nama_kec))),
+                    'role'=>'operator',
+                    'password'=>Hash::make(str_replace(" ", "", (strtolower($nama_kec).".".strtolower($desa->title)))),
+                ]);
+                for ($i=1; $i<=10;$i++) {
+                    $tps=Tps::create([
+                        'desa_id'=>$desa->id,
+                        'title'=>$i,
+                    ]);
+                }
             }
         }
-        
-        Dapil::create(['title'=>'1']);
-        Dapil::create(['title'=>'2']);
-        Dapil::create(['title'=>'3']);
-        Dapil::create(['title'=>'4']);
-        Dapil::create(['title'=>'5']);
-        Dapil::create(['title'=>'6']);
-
-        // Dapil::create(['title'=>'DAPIL RI']);       //identifier caleg RI
-        // Dapil::create(['title'=>'DAPIL DPRD I']);   //identifier caleg DPRD 1
-
-        // Kecamatan::create([
-        //     'id' => '999054d7-54af-44d6-acff-9e88b899e401',
-        //     'dapil_id' => 1,
-        //     'title' => 'Siman',
-        // ]);
-        // Kecamatan::create([
-        //     'id' => '999054d7-54af-44d6-acff-9e88b899e402',
-        //     'dapil_id' => 1,
-        //     'title' => 'Jetis',
-        // ]);
-        // Desa::create([
-        //     'id'=>'999054d7-54af-44d6-acff-9e88b8991001',
-        //     'kecamatan_id'=>'999054d7-54af-44d6-acff-9e88b899e401',
-        //     'title'=>'Demangan',
-        // ]);
-        // Desa::create([
-        //     'id'=>'999054d7-54af-44d6-acff-9e88b8991002',
-        //     'kecamatan_id'=>'999054d7-54af-44d6-acff-9e88b899e401',
-        //     'title'=>'Ngabar',
-        // ]);
-        // Desa::create([
-        //     'id'=>'999054d7-54af-44d6-acff-9e88b8991003',
-        //     'kecamatan_id'=>'999054d7-54af-44d6-acff-9e88b899e401',
-        //     'title'=>'Jabung',
-        // ]);
-        // Desa::create([
-        //     'id'=>'999054d7-54af-44d6-acff-9e88b8992001',
-        //     'kecamatan_id'=>'999054d7-54af-44d6-acff-9e88b899e402',
-        //     'title'=>'Karanggebang',
-        // ]);
-        // Desa::create([
-        //     'id'=>'999054d7-54af-44d6-acff-9e88b8992002',
-        //     'kecamatan_id'=>'999054d7-54af-44d6-acff-9e88b899e402',
-        //     'title'=>'Kutu',
-        // ]);
-        // Tps::create([
-        //     'id'=>'999054d7-54af-44d6-acff-9e88b899e401',
-        //     'desa_id'=>'999054d7-54af-44d6-acff-9e88b8992001',
-        //     'title'=>1,
-        // ]);
-        // Tps::create([
-        //     'id'=>'999054d7-54af-44d6-acff-9e88b899e402',
-        //     'desa_id'=>'999054d7-54af-44d6-acff-9e88b8992001',
-        //     'title'=>2,
-        // ]);
-
-        // Tps::create([
-        //     'id'=>'999054d7-54af-44d6-acff-9e88b899e403',
-        //     'desa_id'=>'999054d7-54af-44d6-acff-9e88b8992001',
-        //     'title'=>3,
-        // ]);
-        // Tps::create([
-        //     'id'=>'999054d7-54af-44d6-acff-9e88b899e404',
-        //     'desa_id'=>'999054d7-54af-44d6-acff-9e88b8992001',
-        //     'title'=>4,
-        // ]);
-        // Tps::create([
-        //     'id'=>'999054d7-54af-44d6-acff-9e88b899e405',
-        //     'desa_id'=>'999054d7-54af-44d6-acff-9e88b8992001',
-        //     'title'=>5,
-        // ]);
-        // Tps::create([
-        //     'id'=>'999054d7-54af-44d6-acff-9e88b899e406',
-        //     'desa_id'=>'999054d7-54af-44d6-acff-9e88b8992001',
-        //     'title'=>6,
-        // ]);
-        Capres::create([
-            'id'=>'999054d7-54af-44d6-acff-9e88bcapres1',
-            'no_urut'=>1,
-            'nama_capres'=>'Ir. H. JOKO WIDODO',
-            'nama_cawapres'=>'Prof. Dr.(H.C) KH. MA RUF AMIN',
-            'foto'=>1,
-        ]);
-        Capres::create([
-            'id'=>'999054d7-54af-44d6-acff-9e88bcapres2',
-            'no_urut'=>2,
-            'nama_capres'=>'H. PRABOWO SUBIANTO',
-            'nama_cawapres'=>'H. SANDIAGA SALAHUDIN UNO',
-            'foto'=>2,
-        ]);
-
-        Cagub::create([
-            'id'=>'999054d7-54af-44d6-acff-9e88bcapres1',
-            'no_urut'=>1,
-            'nama_cagub'=>'Warist Amru Khoiruddin',
-            'nama_cawagub'=>'Prof. Dr.(H.C) KH. MA RUF AMIN',
-            'foto'=>1,
-        ]);
-        Cagub::create([
-            'id'=>'999054d7-54af-44d6-acff-9e88bcapres2',
-            'no_urut'=>2,
-            'nama_cagub'=>'Devi Nurmalasari',
-            'nama_cawagub'=>'H. SANDIAGA SALAHUDIN UNO',
-            'foto'=>2,
-        ]);
-
-        Cabub::create([
-            'id'=>'999054d7-54af-44d6-acff-9e88bcapres1',
-            'no_urut'=>1,
-            'nama_cabub'=>'Kinara Tazkiya Azzahra',
-            'nama_cawabub'=>'Prof. Dr.(H.C) KH. MA RUF AMIN',
-            'foto'=>1,
-        ]);
-        Cabub::create([
-            'id'=>'999054d7-54af-44d6-acff-9e88bcapres2',
-            'no_urut'=>2,
-            'nama_cabub'=>'Fara Aulia Azzahra',
-            'nama_cawabub'=>'H. SANDIAGA SALAHUDIN UNO',
-            'foto'=>2,
-        ]);
-        Dpd::create([
-            'id'=>'999054d7-54af-44d6-acff-9e88bcapres1',
-            'no_urut'=>1,
-            'nama'=>'1. Fara Aulia Azzahra',
-            'foto'=>1,
-        ]);
-        Dpd::create([
-            'id'=>'999054d7-54af-44d6-acff-9e88bcapres2',
-            'no_urut'=>2,
-            'nama'=>'2. Fara Aulia Azzahra',
-            'foto'=>2,
-        ]);
-        Dpd::create([
-            'id'=>'999054d7-54af-44d6-acff-9e88bcapres3',
-            'no_urut'=>3,
-            'nama'=>'3. Fara Aulia Azzahra',
-            'foto'=>3,
-        ]);
-        Dpd::create([
-            'id'=>'999054d7-54af-44d6-acff-9e88bcapres4',
-            'no_urut'=>4,
-            'nama'=>'4. Fara Aulia Azzahra',
-            'foto'=>4,
-        ]);
-        Dpd::create([
-            'id'=>'999054d7-54af-44d6-acff-9e88bcapres5',
-            'no_urut'=>5,
-            'nama'=>'5. Fara Aulia Azzahra',
-            'foto'=>5,
-        ]);
-        Dpd::create([
-            'id'=>'999054d7-54af-44d6-acff-9e88bcapres6',
-            'no_urut'=>6,
-            'nama'=>'6. Fara Aulia Azzahra',
-            'foto'=>6,
-        ]);
-        Dpd::create([
-            'id'=>'999054d7-54af-44d6-acff-9e88bcapres7',
-            'no_urut'=>7,
-            'nama'=>'7. Fara Aulia Azzahra',
-            'foto'=>7,
-        ]);
-        Dpd::create([
-            'id'=>'999054d7-54af-44d6-acff-9e88bcapres8',
-            'no_urut'=>8,
-            'nama'=>'8. Fara Aulia Azzahra',
-            'foto'=>8,
-        ]);
-        Dpd::create([
-            'id'=>'999054d7-54af-44d6-acff-9e88bcapres9',
-            'no_urut'=>9,
-            'nama'=>'9. Fara Aulia Azzahra',
-            'foto'=>9,
-        ]);
-        Dpd::create([
-            'id'=>'999054d7-54af-44d6-acff-9e88bcapre10',
-            'no_urut'=>10,
-            'nama'=>'10. Fara Aulia Azzahra',
-            'foto'=>10,
-        ]);
-        Partai::create([
-            'id'=>'999054d7-54af-44d6-acff-9e88partai01',
-            'no_urut'=>1,
-            'nama'=>'PARTAI KEBANGKITAN BANGSA',
-            'singkatan'=>'PKB',
-            'logo'=>1,
-        ]);
-        Partai::create([
-            'id'=>'999054d7-54af-44d6-acff-9e88partai02',
-            'no_urut'=>2,
-            'nama'=>'PARTAI GERINDRA',
-            'singkatan'=>'PARTAI GERINDRA',
-            'logo'=>2,
-        ]);
-        Partai::create([
-            'id'=>'999054d7-54af-44d6-acff-9e88partai03',
-            'no_urut'=>3,
-            'nama'=>'PDI PERJUANGAN',
-            'singkatan'=>'PDIP',
-            'logo'=>3,
-        ]);
-        Partai::create([
-            'id'=>'999054d7-54af-44d6-acff-9e88partai04',
-            'no_urut'=>4,
-            'nama'=>'PARTAI GOLKAR',
-            'singkatan'=>'GOLKAR',
-            'logo'=>4,
-        ]);
-        Partai::create([
-            'id'=>'999054d7-54af-44d6-acff-9e88partai05',
-            'no_urut'=>5,
-            'nama'=>'PARTAI BURUH',
-            'singkatan'=>'BURUH',
-            'logo'=>5,
-        ]);
-        Partai::create([
-            'id'=>'999054d7-54af-44d6-acff-9e88partai06',
-            'no_urut'=>6,
-            'nama'=>'PARTAI NASDEM',
-            'singkatan'=>'NASDEM',
-            'logo'=>6,
-        ]);
-        Partai::create([
-            'id'=>'999054d7-54af-44d6-acff-9e88partai07',
-            'no_urut'=>7,
-            'nama'=>'PARTAI GELOMBANG RAKYAT INDONESIA',
-            'singkatan'=>'GELORA',
-            'logo'=>7,
-        ]);
-        Partai::create([
-            'id'=>'999054d7-54af-44d6-acff-9e88partai08',
-            'no_urut'=>8,
-            'nama'=>'PARTAI KEADILAN SEJAHTERA',
-            'singkatan'=>'PKS',
-            'logo'=>8,
-        ]);
-        Partai::create([
-            'id'=>'999054d7-54af-44d6-acff-9e88partai09',
-            'no_urut'=>9,
-            'nama'=>'PARTAI KEBANGKITAN NUSANTARA',
-            'singkatan'=>'PKN',
-            'logo'=>9,
-        ]);
-        Partai::create([
-            'id'=>'999054d7-54af-44d6-acff-9e88partai10',
-            'no_urut'=>10,
-            'nama'=>'PARTAI HATI NURANI RAKYAT',
-            'singkatan'=>'HANURA',
-            'logo'=>10,
-        ]);
-        Partai::create([
-            'id'=>'999054d7-54af-44d6-acff-9e88partai11',
-            'no_urut'=>11,
-            'nama'=>'PARTAI GARDA PERUBAHAN INDONESIA',
-            'singkatan'=>'GARUDA',
-            'logo'=>11,
-        ]);
-        Partai::create([
-            'id'=>'999054d7-54af-44d6-acff-9e88partai12',
-            'no_urut'=>12,
-            'nama'=>'PARTAI AMANAT NASIONAL',
-            'singkatan'=>'PAN',
-            'logo'=>12,
-        ]);
-        Partai::create([
-            'id'=>'999054d7-54af-44d6-acff-9e88partai13',
-            'no_urut'=>13,
-            'nama'=>'PARTAI BULAN BINTANG',
-            'singkatan'=>'PBB',
-            'logo'=>13,
-        ]);
-        Partai::create([
-            'id'=>'999054d7-54af-44d6-acff-9e88partai14',
-            'no_urut'=>14,
-            'nama'=>'PARTAI DEMOKRAT',
-            'singkatan'=>'PARTAI DEMOKRAT',
-            'logo'=>14,
-        ]);
-        Partai::create([
-            'id'=>'999054d7-54af-44d6-acff-9e88partai15',
-            'no_urut'=>15,
-            'nama'=>'PARTAI SOLIDARITAS INDONESIA',
-            'singkatan'=>'PSI',
-            'logo'=>15,
-        ]);
-        Partai::create([
-            'id'=>'999054d7-54af-44d6-acff-9e88partai16',
-            'no_urut'=>16,
-            'nama'=>'PARTAI PERSATUAN INDONESIA',
-            'singkatan'=>'PERINDO',
-            'logo'=>16,
-        ]);
-        Partai::create([
-            'id'=>'999054d7-54af-44d6-acff-9e88partai17',
-            'no_urut'=>17,
-            'nama'=>'PARTAI PERSATUAN INDONESIA',
-            'singkatan'=>'PPP',
-            'logo'=>17,
-        ]);
-        Partai::create([
-            'id'=>'999054d7-54af-44d6-acff-9e88partai18',
-            'no_urut'=>18,
-            'nama'=>'PARTAI UMMAT',
-            'singkatan'=>'PARTAI UMMAT',
-            'logo'=>18,
-        ]);
-        Caleg::create([
-            'id'=>'999054d7-54af-44d6-acff-9e88bcaleg01',
-            'partai_id'=>'999054d7-54af-44d6-acff-9e88partai01',
-            'dapil_id'=>'999054d7-54af-44d6-acff-9e88b899e402',
-            'no_urut'=>1,
-            'nama'=>'Drs. MUHAMMAD NUR, MH',
-        ]);
-        Caleg::create([
-            'id'=>'999054d7-54af-44d6-acff-9e88bcaleg02',
-            'partai_id'=>'999054d7-54af-44d6-acff-9e88partai01',
-            'dapil_id'=>'999054d7-54af-44d6-acff-9e88b899e402',
-            'no_urut'=>2,
-            'nama'=>'MUHAMMAD SALEH, ST, MT',
-        ]);
-        Caleg::create([
-            'id'=>'999054d7-54af-44d6-acff-9e88bcaleg03',
-            'partai_id'=>'999054d7-54af-44d6-acff-9e88partai01',
-            'dapil_id'=>'999054d7-54af-44d6-acff-9e88b899e402',
-            'no_urut'=>3,
-            'nama'=>'SITI MARIAM',
-        ]);
-        Caleg::create([
-            'id'=>'999054d7-54af-44d6-acff-9e88bcaleg04',
-            'partai_id'=>'999054d7-54af-44d6-acff-9e88partai02',
-            'dapil_id'=>'999054d7-54af-44d6-acff-9e88b899e402',
-            'no_urut'=>1,
-            'nama'=>'Ir. Hj. ENDANG SULISTYORINI',
-        ]);
-        Caleg::create([
-            'id'=>'999054d7-54af-44d6-acff-9e88bcaleg05',
-            'partai_id'=>'999054d7-54af-44d6-acff-9e88partai02',
-            'dapil_id'=>'999054d7-54af-44d6-acff-9e88b899e402',
-            'no_urut'=>2,
-            'nama'=>'Drs. H. ZAINUL ARIFIN',
-        ]);
-        Caleg::create([
-            'id'=>'999054d7-54af-44d6-acff-9e88bcaleg06',
-            'partai_id'=>'999054d7-54af-44d6-acff-9e88partai03',
-            'dapil_id'=>'999054d7-54af-44d6-acff-9e88b899e402',
-            'no_urut'=>1,
-            'nama'=>'MUJAHID ABDUL LATIEF, S.H., M.H',
-        ]);
-        Caleg::create([
-            'id'=>'999054d7-54af-44d6-acff-9e88bcaleg07',
-            'partai_id'=>'999054d7-54af-44d6-acff-9e88partai01',
-            'dapil_id'=>1,
-            'no_urut'=>1,
-            'nama'=>'WARIST AMRU KHOIRUDDIN',
-        ]);
-        Caleg::create([
-            'id'=>'999054d7-54af-44d6-acff-9e88bcaleg08',
-            'partai_id'=>'999054d7-54af-44d6-acff-9e88partai02',
-            'dapil_id'=>1,
-            'no_urut'=>1,
-            'nama'=>'Drs. H. ZAINUL ARIFIN',
-        ]);
-        Caleg::create([
-            'id'=>'999054d7-54af-44d6-acff-9e88bcaleg09',
-            'partai_id'=>'999054d7-54af-44d6-acff-9e88partai01',
-            'dapil_id'=>2,
-            'no_urut'=>1,
-            'nama'=>'MUJAHID ABDUL LATIEF, S.H., M.H',
-        ]);
-        Caleg::create([
-            'id'=>'999054d7-54af-44d6-acff-9e88bcaleg10',
-            'partai_id'=>'999054d7-54af-44d6-acff-9e88partai01',
-            'dapil_id'=>2,
-            'no_urut'=>2,
-            'nama'=>'WARIST AMRU KHOIRUDDIN',
-        ]);
-        Caleg::create([
-            'id'=>'999054d7-54af-44d6-acff-9e88bcaleg11',
-            'partai_id'=>'999054d7-54af-44d6-acff-9e88partai01',
-            'dapil_id'=>2,
-            'no_urut'=>3,
-            'nama'=>'Drs. H. ZAINUL ARIFIN',
-        ]);
+        for ($i=1; $i<=3;$i++) {
+            $capres=Capres::create([
+                'no_urut'=>$i,
+                'nama_capres'=>fake()->name(),
+                'nama_cawapres'=>fake()->name(),
+                'foto'=>3
+            ]);
+        }
+        for ($i=1; $i<=2;$i++) {
+            $cagub=Cagub::create([
+                'no_urut'=>$i,
+                'nama_cagub'=>fake()->name(),
+                'nama_cawagub'=>fake()->name(),
+                'foto'=>3
+            ]);
+        }
+        for ($i=1; $i<=2;$i++) {
+            $cabub=Cabub::create([
+                'no_urut'=>$i,
+                'nama_cabub'=>fake()->name(),
+                'nama_cawabub'=>fake()->name(),
+                'foto'=>3
+            ]);
+        }
+        for ($i=1; $i<=30;$i++) {
+            $dpd=Dpd::create([
+                'no_urut'=>$i,
+                'nama'=>fake()->name(),
+                'foto'=>3
+            ]);
+        }
+        $no=1;
+        foreach ($partai as $key_partai => $array_partai) {
+            foreach ($array_partai as $nama_partai) {
+                $partai = Partai::create([
+                    'no_urut' =>  $no,
+                    'nama' =>  $key_partai,
+                    'singkatan' =>  $nama_partai,
+                ]);
+                for ($i=1; $i<=15;$i++) {
+                    $caleg_ri=Caleg::create([
+                        'partai_id'=>$partai->id,
+                        'dapil_id'=>1,
+                        'no_urut'=>$i,
+                        'nama'=>fake()->name(),
+                    ]);
+                }
+                for ($i=1; $i<=15;$i++) {
+                    $caleg_prov=Caleg::create([
+                        'partai_id'=>$partai->id,
+                        'dapil_id'=>2,
+                        'no_urut'=>$i,
+                        'nama'=>fake()->name(),
+                    ]);
+                }
+                for ($x=0; $x<=5;$x++) {
+                    for ($i=1; $i<=15;$i++) {
+                        $caleg_kab=Caleg::create([
+                            'partai_id'=>$partai->id,
+                            'dapil_id'=>$data_dapil[$x],
+                            'no_urut'=>$i,
+                            'nama'=>fake()->name(),
+                        ]);
+                    }
+                }
+            }
+            $no++;
+        }
     }
 }

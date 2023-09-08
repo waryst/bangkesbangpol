@@ -27,7 +27,7 @@
                             <div class="row">
                                 <div class="col-md-6 mb-2">
                                     <div class="form-group mb-0">
-                                        <select class="form-control select2" style="width: 100%;" id="kecamatan">
+                                        <select class="form-control select2" id="kecamatan">
                                             <option selected="selected" disabled="disabled">Pilih
                                                 Kecamatan
                                             </option>
@@ -41,7 +41,7 @@
                                 </div>
                                 <div class="col-md-1 mb-2"></div>
                                 <div class="col-md-5 mb-2 text-right">
-                                    <input class="form-control form-control form-control-yellow" type="text"
+                                    <input class="form-control form-control-sm form-control-yellow" type="text"
                                         placeholder="Pencarian desa..." id="cari_desa">
 
                                 </div>
@@ -71,7 +71,7 @@
                         <div class="card-body p-0 mb-2 mt-1 d-none " id="d-cari">
                             <div class="row">
                                 <div class="col-md-6 mb-2">
-                                    <button class="btn btn-info" data-toggle="modal" data-target="#modal-tps">
+                                    <button class="btn btn-info btn-sm " data-toggle="modal" data-target="#modal-tps">
                                         <i class="mdi mdi-plus"></i> Tambah TPS</button>
                                 </div>
                                 <div class="col-md-6 mb-2 text-right">
@@ -113,12 +113,17 @@
 
     <div class="modal fade" id="modal-tps">
         <div class="modal-dialog">
-            <div class="modal-content p-1">
-                <div class="modal-body pb-4">
-                    <label>TAMBAH TPS</label>
-                    <input class="form-control mt-2 mb-3 form-control-yellow" type="number" min="0"
-                        oninput="this.value = !!this.value && Math.abs(this.value) >= 1 ? Math.abs(this.value) : null"
-                        placeholder="Jumlah TPS..." id="tps" data-quantity="">
+            <div class="modal-content pb-2">
+                <div class="modal-header">
+                    <label class="mb-0">TAMBAH TPS</label>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group floating">
+                        <input type="number" min="0" id="tps"
+                            oninput="this.value = !!this.value && Math.abs(this.value) >= 1 ? Math.abs(this.value) : null"
+                            class="form-control floating" autocomplete="off">
+                        <label for="password">Jumlah TPS</label>
+                    </div>
                 </div>
             </div>
         </div>
@@ -127,9 +132,13 @@
 @endsection
 @push('java')
     <script src="{{ asset('asset') }}/plugins/select2/js/select2.full.min.js"></script>
+    <script src="{{ asset('asset') }}/plugins/select2/js/select2.no.title.plugin.js"></script>
     <script>
         $(function() {
-            $('.select2').select2({})
+            $('.select2').select2({
+                selectionTitleAttribute: false
+            })
+
         })
 
     </script>

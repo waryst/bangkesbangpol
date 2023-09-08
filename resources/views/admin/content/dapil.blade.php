@@ -26,7 +26,7 @@
                         <div class="card-body p-0 mb-2 mt-1">
                             <div class="row">
                                 <div class="col-md-12 mb-2">
-                                    <button class="btn btn-info" data-toggle="modal" data-target="#modal-dapil">
+                                    <button class="btn btn-info btn-sm" data-toggle="modal" data-target="#modal-dapil">
                                         <i class="mdi mdi-plus"></i> Tambah Dapil</button>
 
                                 </div>
@@ -84,7 +84,7 @@
                         <div class="card-body p-0 mb-2 mt-1 d-none " id="d-cari">
                             <div class="row">
                                 <div class="col-md-12 mb-2">
-                                    <button class="btn btn-info" data-toggle="modal" data-target="#modal-kecamatan">
+                                    <button class="btn btn-info btn-sm" data-toggle="modal" data-target="#modal-kecamatan">
                                         <i class="mdi mdi-plus"></i> Masukkan Kecamatan</button>
                                 </div>
                             </div>
@@ -122,12 +122,17 @@
 
     <div class="modal fade" id="modal-dapil">
         <div class="modal-dialog">
-            <div class="modal-content p-1">
-                <div class="modal-body pb-4">
-                    <label>TAMBAH DAPIL</label>
-                    <input class="form-control mt-2 form-control-yellow mb-3" type="number" min="0"
-                        oninput="this.value = !!this.value && Math.abs(this.value) >= 1 ? Math.abs(this.value) : null"
-                        placeholder="Nama dapil..." id="dapil">
+            <div class="modal-content pb-2">
+                <div class="modal-header">
+                    <label class="mb-0">TAMBAH DAPIL</label>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group floating">
+                        <input type="number" min="0"
+                            oninput="this.value = !!this.value && Math.abs(this.value) >= 1 ? Math.abs(this.value) : null"
+                            class="form-control floating" id="dapil" autocomplete="off">
+                        <label for="password">Nama dapil</label>
+                    </div>
                 </div>
             </div>
         </div>
@@ -141,7 +146,7 @@
                         @csrf --}}
                     <div class="form-group">
                         <label>TAMBAH KECAMATAN</label>
-                        <select class="select2" multiple="multiple"
+                        <select class="select2 form-control-md" multiple="multiple"
                             data-placeholder="Pilih kecamatan, bisa lebih dari satu"
                             style="width: 100%;" id="kecamatan" name="kecamatan[]" data-quantity="">
                             @foreach ($kec as $k)
@@ -166,9 +171,13 @@
 @endsection
 @push('java')
     <script src="{{ asset('asset') }}/plugins/select2/js/select2.full.min.js"></script>
+    <script src="{{ asset('asset') }}/plugins/select2/js/select2.no.title.plugin.js"></script>
     <script>
         $(function() {
-            $('.select2').select2({})
+            $('.select2').select2({
+                selectionTitleAttribute: false
+            })
+
         })
 
     </script>
