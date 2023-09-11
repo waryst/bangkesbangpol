@@ -194,6 +194,11 @@
         var dpd_id;
         var tps_id;
         var jumlah_suara;
+        $(document).keydown(function(objEvent) {
+            if (objEvent.keyCode == 9) { //tab pressed
+                objEvent.preventDefault(); // stops its action
+            }
+        })
 
         function myFunction() {
             var input, filter, table, tr, td, i, txtValue;

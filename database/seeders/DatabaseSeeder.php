@@ -114,7 +114,7 @@ class DatabaseSeeder extends Seeder
                 'no_urut' => $i,
                 'nama_capres' => fake()->name(),
                 'nama_cawapres' => fake()->name(),
-                'foto' => 3
+                'foto' => '3.jpeg'
             ]);
         }
         for ($i = 1; $i <= 2; $i++) {
@@ -122,7 +122,7 @@ class DatabaseSeeder extends Seeder
                 'no_urut' => $i,
                 'nama_cagub' => fake()->name(),
                 'nama_cawagub' => fake()->name(),
-                'foto' => 3
+                'foto' => '3.jpeg'
             ]);
         }
         for ($i = 1; $i <= 2; $i++) {
@@ -130,7 +130,7 @@ class DatabaseSeeder extends Seeder
                 'no_urut' => $i,
                 'nama_cabub' => fake()->name(),
                 'nama_cawabub' => fake()->name(),
-                'foto' => 3
+                'foto' => '3.jpeg'
             ]);
         }
         for ($i = 1; $i <= 30; $i++) {

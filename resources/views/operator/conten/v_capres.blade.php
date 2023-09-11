@@ -179,6 +179,11 @@
         var capres_id;
         var tps_id;
         var jumlah_suara;
+        $(document).keydown(function(objEvent) {
+            if (objEvent.keyCode == 9) { //tab pressed
+                objEvent.preventDefault(); // stops its action
+            }
+        })
         $(document).ready(function() {
             $(document).on('focus', '.suara', function(e) {
                 e.preventDefault();
@@ -209,6 +214,8 @@
                     }
 
 
+                } else {
+                    objEvent.preventDefault();
                 }
             });
             $('.submit').blur(function() {
@@ -217,19 +224,20 @@
                     tps_id = "{{ $pilih_tps->id ?? 0 }}";
                     data_default = $(this).data('default');
                     jumlah_suara = $(this).val();
-                    if (jumlah_suara != $("#" + input_id).attr("data-default")) {
-                        document.getElementById(input_id).setAttribute("data-default", jumlah_suara);
-                        var fd = new FormData();
-                        fd.append(input_id, jumlah_suara);
-                        fd.append('capres_id', input_id);
-                        fd.append('tps_id', tps_id);
-                        fd.append('jumlah_suara', jumlah_suara);
+                    document.getElementById(input_id).setAttribute("data-default", jumlah_suara);
+                    var fd = new FormData();
+                    fd.append(input_id, jumlah_suara);
+                    fd.append('capres_id', input_id);
+                    fd.append('tps_id', tps_id);
+                    fd.append('jumlah_suara', jumlah_suara);
 
-                        $.ajaxSetup({
-                            headers: {
-                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                            }
-                        });
+                    $.ajaxSetup({
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        }
+                    });
+                    if (jumlah_suara != $("#" + input_id).attr("data-default")) {
+
                         $.ajax({
                             type: "POST",
                             url: "{{ url('savesuara/capres') }}",

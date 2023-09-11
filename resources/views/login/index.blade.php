@@ -8,7 +8,7 @@
     <title>Login</title>
     @vite('resources/js/app.js')
     <link href="https://fonts.googleapis.com/css?family=Karla:400,700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="{{ asset('asset_login') }}/css/materialdesignicons.css">
+    {{-- <link rel="stylesheet" href="{{ asset('asset_login') }}/css/materialdesignicons.css"> --}}
     <link rel="stylesheet" href="{{ asset('asset_login') }}/css/bootstrap.css">
     <link rel="stylesheet" href="{{ asset('asset_login') }}/css/login.css">
 </head>
@@ -54,8 +54,8 @@
         </div>
     </main>
     <script src="{{ asset('asset_login') }}/js/jquery-3.4.1.js"></script>
-    <script src="{{ asset('asset_login') }}/js/popper.js"></script>
-    <script src="{{ asset('asset_login') }}/js/bootstrap.js"></script>
+    {{-- <script src="{{ asset('asset_login') }}/js/popper.js"></script>
+    <script src="{{ asset('asset_login') }}/js/bootstrap.js"></script> --}}
 </body>
 
 </html>

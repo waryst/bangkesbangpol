@@ -183,7 +183,11 @@
         var cagub_id;
         var tps_id;
         var jumlah_suara;
-
+        $(document).keydown(function(objEvent) {
+            if (objEvent.keyCode == 9) { //tab pressed
+                objEvent.preventDefault(); // stops its action
+            }
+        })
         $(document).ready(function() {
             $(document).on('click', '.suara', function(e) {
                 e.preventDefault();
