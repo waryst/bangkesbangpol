@@ -132,8 +132,7 @@
                                         </h1>
                                     </li>
                                 </ul>
-                                <img src="{{ asset('foto/' . $cagub->foto . '.jpeg') }}" class="card-img-top "
-                                    alt="...">
+                                <img src="{{ asset('foto/' . $cagub->foto) }}" class="card-img-top " alt="...">
                                 <div class="card-body justify-content-center">
                                     <div class="row ">
                                         <div class="col-6 text-center">
