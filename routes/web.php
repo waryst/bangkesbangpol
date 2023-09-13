@@ -23,6 +23,7 @@ use App\Http\Controllers\operator\SavesuaraController;
 use App\Http\Controllers\operator\EntrySuaraController;
 use App\Http\Controllers\operator\Home;
 use App\Http\Controllers\operator\HomeController;
+use App\Http\Controllers\operator\SuaraTidakSahController;
 
 /*
 |--------------------------------------------------------------------------
@@ -101,4 +102,5 @@ Route::group(['middleware' => ['auth', 'checkRole:operator', 'revalidate']], fun
     Route::get('calegkab', [EntrySuaraController::class, 'calegkab']);
     Route::get('calegkab/{id}', [EntrySuaraController::class, 'calegkab_tps']);
     Route::post('savesuara/{tipe}', [SavesuaraController::class, 'suara']);
+    Route::post('savesuaratidaksah/{tipe}', [SuaraTidakSahControllerController::class, 'save']);
 });

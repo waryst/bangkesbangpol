@@ -8,8 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Tps extends Model
 {
-    use HasFactory,HasUuids;
-    protected $guarded=['id'];
+    use HasFactory, HasUuids;
+    protected $guarded = ['id'];
 
     public function desa()
     {
@@ -20,22 +20,32 @@ class Tps extends Model
     {
         return $this->hasMany(Suaracapres::class);
     }
-    public function suaracagub(){
+    public function suaracagub()
+    {
         return $this->hasMany(Suaracagub::class);
     }
-    public function suaracabub(){
+    public function suaracabub()
+    {
         return $this->hasMany(Suaracabub::class);
     }
-    public function suaradpd(){
+    public function suaradpd()
+    {
         return $this->hasMany(Suaradpd::class);
     }
-    public function suaracaleg(){
+    public function suaracaleg()
+    {
         return $this->hasMany(Suaracaleg::class);
     }
-    public function suaracalegprov(){
+    public function suaracalegprov()
+    {
         return $this->hasMany(Suaracalegprov::class);
     }
-    public function suaracalegkab(){
+    public function suaracalegkab()
+    {
         return $this->hasMany(Suaracalegkab::class);
+    }
+    public function suaratidaksah()
+    {
+        return $this->hasOne(Suaratidaksah::class);
     }
 }

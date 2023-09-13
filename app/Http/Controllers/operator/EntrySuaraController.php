@@ -9,6 +9,7 @@ use App\Models\Caleg;
 use App\Models\Capres;
 use App\Models\Dpd;
 use App\Models\Partai;
+use App\Models\Suaratidaksah;
 use App\Models\Tps;
 use Illuminate\Http\Request;
 
@@ -79,7 +80,8 @@ class EntrySuaraController extends Controller
     {
         $kirim['pilih_tps'] = $id;
         $desa_id = auth()->user()->desa_id;
-        $kirim['tps'] = Tps::where('desa_id', $desa_id)->orderBy('title', 'ASC')->get();
+        $kirim['tps'] = Tps::with('suaratidaksah')->where('desa_id', $desa_id)->orderBy('title', 'ASC')->get();
+        $kirim['suaratidaksah'] = $id->suaratidaksah->presiden ?? 0;
         $tps_id = $id->id;
         $kirim['capres'] = Capres::with(['suaracapres' =>
         function ($query) use ($tps_id) {
@@ -91,20 +93,23 @@ class EntrySuaraController extends Controller
     {
         $kirim['pilih_tps'] = $id;
         $desa_id = auth()->user()->desa_id;
-        $kirim['tps'] = Tps::where('desa_id', $desa_id)->orderBy('title', 'ASC')->get();
+        $kirim['tps'] = Tps::with('suaratidaksah')->where('desa_id', $desa_id)->orderBy('title', 'ASC')->get();
+        $kirim['suaratidaksah'] = $id->suaratidaksah->gubernur ?? 0;
+
         $tps_id = $id->id;
         $kirim['cagub'] = Cagub::with(['suaracagub' =>
         function ($query) use ($tps_id) {
             $query->where('tps_id', '=', $tps_id);
         }])->orderBy('no_urut', 'ASC')->get();
-
         return view('operator.conten.v_cagub', $kirim);
     }
     public function pilbub_tps(Tps $id)
     {
         $kirim['pilih_tps'] = $id;
         $desa_id = auth()->user()->desa_id;
-        $kirim['tps'] = Tps::where('desa_id', $desa_id)->orderBy('title', 'ASC')->get();
+        $kirim['tps'] = Tps::with('suaratidaksah')->where('desa_id', $desa_id)->orderBy('title', 'ASC')->get();
+        $kirim['suaratidaksah'] = $id->suaratidaksah->bupati ?? 0;
+
         $tps_id = $id->id;
         $kirim['cabub'] = Cabub::with(['suaracabub' =>
         function ($query) use ($tps_id) {
@@ -117,13 +122,13 @@ class EntrySuaraController extends Controller
     {
         $kirim['pilih_tps'] = $id;
         $desa_id = auth()->user()->desa_id;
-        $kirim['tps'] = Tps::where('desa_id', $desa_id)->orderBy('title', 'ASC')->get();
+        $kirim['tps'] = Tps::with('suaratidaksah')->where('desa_id', $desa_id)->orderBy('title', 'ASC')->get();
+        $kirim['suaratidaksah'] = $id->suaratidaksah->dpd ?? 0;
         $tps_id = $id->id;
         $kirim['dpd'] = Dpd::with(['suaradpd' =>
         function ($query) use ($tps_id) {
             $query->where('tps_id', '=', $tps_id);
         }])->orderBy('no_urut', 'ASC')->get();
-
         return view('operator.conten.v_dpd', $kirim);
     }
 
@@ -131,7 +136,9 @@ class EntrySuaraController extends Controller
     {
         $kirim['pilih_tps'] = $id;
         $desa_id = auth()->user()->desa_id;
-        $kirim['tps'] = Tps::where('desa_id', $desa_id)->orderBy('title', 'ASC')->get();
+        $kirim['tps'] = Tps::with('suaratidaksah')->where('desa_id', $desa_id)->orderBy('title', 'ASC')->get();
+        $kirim['suaratidaksah'] = $id->suaratidaksah->dpr_ri ?? 0;
+
         $dapil_id = 1;
         $tps_id = $id->id;
         $kirim['partai'] = Partai::with(['caleg' =>
