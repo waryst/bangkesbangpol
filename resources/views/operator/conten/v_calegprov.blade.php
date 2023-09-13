@@ -202,8 +202,7 @@
                                                         value="{{ $caleg->suaracalegprov[0]->jumlah ?? 0 }}"
                                                         class="form-control text-center submit p-0 mr-1 font-weight-bold"
                                                         style="height: 20px;font-size: 13px;">
-                                                    <span class="loadingsuara" id="save{{ $caleg->id }}"
-                                                        style="position: absolute;left: 83%;top:20%"></span>
+                                                    <span class="loadingsuara" id="save{{ $caleg->id }}"></span>
 
                                                 </div>
                                             @endif
