@@ -239,17 +239,17 @@
         }
         $(document).ready(function() {
 
-            // $('.submit').on('click keyup', function(e) {
-            //     input_id = $(this).attr('id');
-            //     tps_id = "{{ $pilih_tps->id ?? 0 }}";
-            //     jumlah_suara = $(this).val();
-            //     partai_id = $(this).data('partai');
-            //     if (jumlah_suara != $("#" + input_id).attr("data-default")) {
-            //         $('#save' + caleg_id).html(`   `);
-            //         clearTimeout(Interval);
-            //         Interval = setTimeout(saveSuara, 500);
-            //     }
-            // });
+            $('.submit').on('click keyup', function(e) {
+                input_id = $(this).attr('id');
+                tps_id = "{{ $pilih_tps->id ?? 0 }}";
+                jumlah_suara = $(this).val();
+                partai_id = $(this).data('partai');
+                if (jumlah_suara != $("#" + input_id).attr("data-default")) {
+                    $('#save' + caleg_id).html(`   `);
+                    clearTimeout(Interval);
+                    Interval = setTimeout(saveSuara, 500);
+                }
+            });
             $('.submit').blur(function() {
                 input_id = $(this).attr('id');
                 partai_id = $(this).data('partai');
