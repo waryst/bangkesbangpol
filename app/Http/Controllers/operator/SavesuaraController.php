@@ -197,7 +197,7 @@ class SavesuaraController extends Controller
             $kirim['jumlah_suara'] = $jumlah_suara;
             return response()->json($kirim);
         }
-        if ($tipe == 'suaratidaksahpresiden' or $tipe == 'suaratidaksahgubernur' or $tipe == 'suaratidaksahbupati' or $tipe == 'suaratidaksahdpd') {
+        if ($tipe == 'suaratidaksahpresiden' or $tipe == 'suaratidaksahgubernur' or $tipe == 'suaratidaksahbupati' or $tipe == 'suaratidaksahdpd' or $tipe == 'suaratidaksahdpr_ri' or $tipe == 'suaratidaksahdpr_prov' or $tipe == 'suaratidaksahdpr_kab') {
             $input_id = $request->input_id;
             $request->validate([
                 $input_id  => 'required|numeric|gt:-1|max:500',
@@ -219,6 +219,12 @@ class SavesuaraController extends Controller
                 $save['bupati'] = $jumlah_suara;
             } elseif ($tipe == 'suaratidaksahdpd') {
                 $save['dpd'] = $jumlah_suara;
+            } elseif ($tipe == 'suaratidaksahdpr_ri') {
+                $save['dpr_ri'] = $jumlah_suara;
+            } elseif ($tipe == 'suaratidaksahdpr_prov') {
+                $save['dpr_prov'] = $jumlah_suara;
+            } elseif ($tipe == 'suaratidaksahdpr_kab') {
+                $save['dpr_kab'] = $jumlah_suara;
             }
             Suaratidaksah::updateOrCreate(
                 ['tps_id' => $suara_id],

@@ -155,7 +155,8 @@ class EntrySuaraController extends Controller
     {
         $kirim['pilih_tps'] = $id;
         $desa_id = auth()->user()->desa_id;
-        $kirim['tps'] = Tps::where('desa_id', $desa_id)->orderBy('title', 'ASC')->get();
+        $kirim['tps'] = Tps::with('suaratidaksah')->where('desa_id', $desa_id)->orderBy('title', 'ASC')->get();
+        $kirim['suaratidaksah'] = $id->suaratidaksah->dpr_prov ?? 0;
         $dapil_id = 2;
         $tps_id = $id->id;
         $kirim['partai'] = Partai::with(['caleg' =>
@@ -173,7 +174,8 @@ class EntrySuaraController extends Controller
     {
         $kirim['pilih_tps'] = $id;
         $desa_id = auth()->user()->desa_id;
-        $kirim['tps'] = Tps::where('desa_id', $desa_id)->orderBy('title', 'ASC')->get();
+        $kirim['tps'] = Tps::with('suaratidaksah')->where('desa_id', $desa_id)->orderBy('title', 'ASC')->get();
+        $kirim['suaratidaksah'] = $id->suaratidaksah->dpr_kab ?? 0;
         $dapil_id = auth()->user()->desa->kecamatan->dapil_id;
         $tps_id = $id->id;
         $kirim['partai'] = Partai::with(['caleg' =>

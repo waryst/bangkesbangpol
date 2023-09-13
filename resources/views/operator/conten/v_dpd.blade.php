@@ -223,11 +223,7 @@
         var dpd_id;
         var tps_id;
         var jumlah_suara;
-        $(document).keydown(function(objEvent) {
-            if (objEvent.keyCode == 9) { //tab pressed
-                objEvent.preventDefault(); // stops its action
-            }
-        })
+
 
         function myFunction() {
             var input, filter, table, tr, td, i, txtValue;
@@ -261,13 +257,15 @@
             }
         }
         $(document).ready(function() {
-            $('.submittidaksah').keyup(function(e) {
-                input_id = $(this).attr('id');
-                jumlah_suara = $(this).val();
-                if (jumlah_suara != $("#" + input_id).attr("data-default")) {
-                    $('#save' + input_id).html(`   `);
-                    clearTimeout(Interval);
-                    Interval = setTimeout(saveSuaraTidakSah, 500);
+            $('.submittidaksah').on('keyup click', function(e) {
+                if (e.keyCode != 9) {
+                    input_id = $(this).attr('id');
+                    jumlah_suara = $(this).val();
+                    if (jumlah_suara != $("#" + input_id).attr("data-default")) {
+                        $('#save' + input_id).html(`   `);
+                        clearTimeout(Interval);
+                        Interval = setTimeout(saveSuaraTidakSah, 500);
+                    }
                 }
             });
 
@@ -365,13 +363,16 @@
                 }
             });
             $('.submit').on('click keyup', function(e) {
-                jumlah_suara = $(this).val();
-                input_id = $(this).attr('id');
-                tps_id = "{{ $pilih_tps->id ?? 0 }}";
-                if (jumlah_suara != $("#" + input_id).attr("data-default")) {
-                    $('#save' + input_id).html(`   `);
-                    clearTimeout(Interval);
-                    Interval = setTimeout(saveSuara, 500);
+                if (e.keyCode != 9) {
+
+                    jumlah_suara = $(this).val();
+                    input_id = $(this).attr('id');
+                    tps_id = "{{ $pilih_tps->id ?? 0 }}";
+                    if (jumlah_suara != $("#" + input_id).attr("data-default")) {
+                        $('#save' + input_id).html(`   `);
+                        clearTimeout(Interval);
+                        Interval = setTimeout(saveSuara, 500);
+                    }
                 }
             });
 
