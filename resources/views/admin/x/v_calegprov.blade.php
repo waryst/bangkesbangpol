@@ -190,9 +190,8 @@
                                                         value="{{ $caleg->suaracaleg[0]->jumlah ?? 0 }}"
                                                         class="form-control text-center submit p-0 mr-1 font-weight-bold"
                                                         style="height: 20px;font-size: 13px;">
-                                                    <div class="loadingsuara" id="save{{ $caleg->id }}">
-                                                        <svg viewBox="0 0 110 110" width="10" height="10"></svg>
-                                                    </div>
+                                                    <span class="loadingsuara" id="save{{ $caleg->id }}">
+                                                    </span>
                                                 </div>
                                             @endif
                                         </div>
