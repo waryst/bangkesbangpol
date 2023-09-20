@@ -21,7 +21,7 @@ class Partai extends Model
     }
     public function suarapartaiprov()
     {
-        return $this->hasMany(suarapartaiprov::class);
+        return $this->hasMany(Suarapartaiprov::class);
     }
     public function suarapartaikab()
     {
