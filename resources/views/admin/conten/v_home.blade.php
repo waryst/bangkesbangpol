@@ -57,28 +57,28 @@
                                 <ul class="list-group list-group-flush">
                                     <li class="list-group-item">
                                         <div class="row">
-                                            <div class="col-5">Jumlah Dapil</div>
+                                            <div class="col-6">Jumlah Dapil</div>
                                             <div class="col-1">:</div>
                                             <div class="col-4">{{ $dapil }}</div>
                                         </div>
                                     </li>
                                     <li class="list-group-item">
                                         <div class="row">
-                                            <div class="col-5">Jumlah Kecamatan</div>
+                                            <div class="col-6">Jumlah Kecamatan</div>
                                             <div class="col-1">:</div>
                                             <div class="col-4">{{ $kecamatan }}</div>
                                         </div>
                                     </li>
                                     <li class="list-group-item">
                                         <div class="row">
-                                            <div class="col-5">Jumlah Desa</div>
+                                            <div class="col-6">Jumlah Desa</div>
                                             <div class="col-1">:</div>
                                             <div class="col-4">{{ $desa }}</div>
                                         </div>
                                     </li>
                                     <li class="list-group-item">
                                         <div class="row">
-                                            <div class="col-5">Jumlah TPS</div>
+                                            <div class="col-6">Jumlah TPS</div>
                                             <div class="col-1">:</div>
                                             <div class="col-4">{{ $tps }}</div>
                                         </div>
@@ -97,7 +97,7 @@
                                     @foreach ($detail_dapil as $item)
                                         <li class="list-group-item">
                                             <div class="row">
-                                                <div class="col-5">Dapil Ponorogo {{ $item->title }}</div>
+                                                <div class="col-6">Dapil Ponorogo {{ $item->title }}</div>
                                                 <div class="col-1">:</div>
                                                 <div class="col-4">{{ $item->kecamatan_count }} </div>
                                             </div>
@@ -119,14 +119,12 @@
                                     @foreach ($detail_dapil as $item)
                                         <li class="list-group-item">
                                             <div class="row">
-                                                <div class="col-5">Dapil Ponorogo {{ $item->title }}</div>
+                                                <div class="col-6">Dapil Ponorogo {{ $item->title }}</div>
                                                 <div class="col-1">:</div>
                                                 <div class="col-4">{{ $item->desa_count }} </div>
                                             </div>
                                         </li>
                                     @endforeach
-
-
                                 </ul>
                             </div>
                         </div>
