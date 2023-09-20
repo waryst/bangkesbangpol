@@ -11,6 +11,9 @@ use App\Models\Suaracalegkab;
 use App\Models\Suaracalegprov;
 use App\Models\Suaracapres;
 use App\Models\Suaradpd;
+use App\Models\Suarapartaikab;
+use App\Models\Suarapartaiprov;
+use App\Models\Suarapartairi;
 use App\Models\Suaratidaksah;
 use Illuminate\Http\Request;
 
@@ -194,6 +197,78 @@ class SavesuaraController extends Controller
                 ]
             );
             $kirim['caleg_id'] = $caleg_id;
+            $kirim['jumlah_suara'] = $jumlah_suara;
+            return response()->json($kirim);
+        }
+        if ($tipe == 'partairi') {
+            $partai_id = $request->partai_id;
+            $jumlah_suara = $request->jumlah_suara;
+            $request->validate([
+                $partai_id  => 'required|numeric|gt:-1|max:500',
+            ]);
+
+            $tps_id = $request->tps_id;
+            $suara_id = Suarapartairi::where([['partai_id', $partai_id], ['tps_id', $tps_id]])->first();
+            $suara_id = $suara_id->id ?? '';
+            Suarapartairi::updateOrCreate(
+                ['id' => $suara_id],
+                [
+                    'partai_id' => $request->partai_id,
+                    'tps_id' => $tps_id,
+                    'desa_id' => auth()->user()->desa->id,
+                    'kecamatan_id' => auth()->user()->desa->kecamatan_id,
+                    'jumlah' => $jumlah_suara,
+                ]
+            );
+            $kirim['partai_id'] = $partai_id;
+            $kirim['jumlah_suara'] = $jumlah_suara;
+            return response()->json($kirim);
+        }
+        if ($tipe == 'partaiprov') {
+            $partai_id = $request->partai_id;
+            $jumlah_suara = $request->jumlah_suara;
+            $request->validate([
+                $partai_id  => 'required|numeric|gt:-1|max:500',
+            ]);
+
+            $tps_id = $request->tps_id;
+            $suara_id = Suarapartaiprov::where([['partai_id', $partai_id], ['tps_id', $tps_id]])->first();
+            $suara_id = $suara_id->id ?? '';
+            Suarapartaiprov::updateOrCreate(
+                ['id' => $suara_id],
+                [
+                    'partai_id' => $request->partai_id,
+                    'tps_id' => $tps_id,
+                    'desa_id' => auth()->user()->desa->id,
+                    'kecamatan_id' => auth()->user()->desa->kecamatan_id,
+                    'jumlah' => $jumlah_suara,
+                ]
+            );
+            $kirim['partai_id'] = $partai_id;
+            $kirim['jumlah_suara'] = $jumlah_suara;
+            return response()->json($kirim);
+        }
+        if ($tipe == 'partaikab') {
+            $partai_id = $request->partai_id;
+            $jumlah_suara = $request->jumlah_suara;
+            $request->validate([
+                $partai_id  => 'required|numeric|gt:-1|max:500',
+            ]);
+
+            $tps_id = $request->tps_id;
+            $suara_id = Suarapartaikab::where([['partai_id', $partai_id], ['tps_id', $tps_id]])->first();
+            $suara_id = $suara_id->id ?? '';
+            Suarapartaikab::updateOrCreate(
+                ['id' => $suara_id],
+                [
+                    'partai_id' => $request->partai_id,
+                    'tps_id' => $tps_id,
+                    'desa_id' => auth()->user()->desa->id,
+                    'kecamatan_id' => auth()->user()->desa->kecamatan_id,
+                    'jumlah' => $jumlah_suara,
+                ]
+            );
+            $kirim['partai_id'] = $partai_id;
             $kirim['jumlah_suara'] = $jumlah_suara;
             return response()->json($kirim);
         }

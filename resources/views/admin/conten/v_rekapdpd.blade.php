@@ -53,6 +53,13 @@
                 <div class="card">
                     <h2 class="card-title mx-auto font-weight-bold mt-3">--- DAERAH PEMILIHAN ----</h2>
                     <h2 class="card-title mx-auto font-weight-bold">{!! $daerah_pemilihan !!}</h2>
+                    <p class="mx-auto font-italic font-weight-normal" style="position: absolute;left: 1%;top:95%">
+                        Total Suara Masuk : <span class="font-weight-bold">{{ $suarasah + $suaratidaksah }}</span> | Suara
+                        Sah
+                        :
+                        <span class="font-weight-bold">{{ $suarasah }}</span> | Suara Tidak
+                        Sah : <span class="font-weight-bold">{{ $suaratidaksah }}</span>
+                    </p>
                     <div class="card-body">
                         <div class="col-md-12 mx-auto">
                             <canvas id="my_Chart" width=250 height=100></canvas>
@@ -137,7 +144,6 @@
                                         </tr>
                                     @endforeach
                                 </tbody>
-
                             </table>
                         </div>
                     </div>
@@ -183,7 +189,7 @@
                 borderColor: 'black',
                 data: [
                     @foreach ($data_dpd as $suara_dpd)
-                        "{{ $suara_dpd->suaradpd->sum('jumlah') }}",
+                        "{{ $suara_dpd->suaradpd_sum_jumlah }}",
                     @endforeach
                 ],
             }]
@@ -227,6 +233,7 @@
         });
         $(function() {
             $("#example").DataTable({
+                "ordering": false,
                 "scrollX": true,
                 "buttons": ["excel", "pdf"],
                 "lengthMenu": [

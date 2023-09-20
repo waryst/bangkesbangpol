@@ -53,6 +53,13 @@
                 <div class="card">
                     <h2 class="card-title mx-auto font-weight-bold mt-3">--- DAERAH PEMILIHAN ----</h2>
                     <h2 class="card-title mx-auto font-weight-bold">{!! $daerah_pemilihan !!}</h2>
+                    <p class="mx-auto font-italic font-weight-normal" style="position: absolute;left: 1%;top:95%">
+                        Total Suara Masuk : <span class="font-weight-bold">{{ $suarasah + $suaratidaksah }}</span> |
+                        Suara Sah
+                        :
+                        <span class="font-weight-bold">{{ $suarasah }}</span> | Suara Tidak
+                        Sah : <span class="font-weight-bold">{{ $suaratidaksah }}</span>
+                    </p>
                     <div class="card-body">
                         <div class="col-md-5 mx-auto">
                             <canvas id="pieChart" width=200 height=200></canvas>
@@ -106,8 +113,16 @@
                                             @endforeach
                                         </tr>
                                     @endforeach
+                                <tfoot>
+                                    <tr style="background-color: #dfdcdc">
+                                        <th rowspan="1" colspan="1">Jumlah</th>
+                                        @foreach ($data_cagub as $suara_cagub)
+                                            <th rowspan="1" colspan="1" class="text-center">
+                                                {{ $suara_cagub->suaracagub_sum_jumlah }}</th>
+                                        @endforeach
+                                    </tr>
+                                </tfoot>
                                 </tbody>
-
                             </table>
                         </div>
                     </div>
@@ -136,7 +151,7 @@
             datasets: [{
                 data: [
                     @foreach ($data_cagub as $suara_cagub)
-                        "{{ $suara_cagub->suaracagub->sum('jumlah') }}",
+                        "{{ $suara_cagub->suaracagub_sum_jumlah }}",
                     @endforeach
                 ],
                 backgroundColor: [
@@ -188,7 +203,7 @@
                             var percent = String(Math.round(dataset.data[i] / total * 100));
                             if (percent != 0) {
                                 ctx.fillText("Jumlah Suara", model.x + x, model.y + y);
-                                ctx.fillText(dataset.data[i] + " (" + percent + "%" + ")", model.x + x,
+                                ctx.fillText(dataset.data[i], model.x + x,
                                     model.y + y + 15);
                             }
 
@@ -208,6 +223,7 @@
 
         $(function() {
             $("#example1").DataTable({
+                "ordering": false,
                 "responsive": true,
                 "lengthChange": true,
                 "autoWidth": false,

@@ -21,6 +21,13 @@ return new class extends Migration
             $table->integer('jumlah');
             $table->timestamps();
         });
+        Schema::table('suaracalegprovs', function (Blueprint $table) {
+            $table->foreign('tps_id')->references('id')->on('tps')->onDelete('cascade');
+            $table->foreign('caleg_id')->references('id')->on('calegs')->onDelete('cascade');
+            $table->foreign('partai_id')->references('id')->on('partais')->onDelete('cascade');
+            $table->foreign('desa_id')->references('id')->on('desas')->onDelete('cascade');
+            $table->foreign('kecamatan_id')->references('id')->on('kecamatans')->onDelete('cascade');
+        });
     }
 
     /**

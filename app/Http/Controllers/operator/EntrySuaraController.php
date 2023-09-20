@@ -141,14 +141,23 @@ class EntrySuaraController extends Controller
 
         $dapil_id = 1;
         $tps_id = $id->id;
-        $kirim['partai'] = Partai::with(['caleg' =>
-        function ($query) use ($dapil_id, $tps_id) {
-            $tps = $tps_id;
-            $query->where('dapil_id', '=', $dapil_id)->orderBy('no_urut', 'ASC')->with(['suaracaleg' =>
-            function ($query) use ($tps) {
-                $query->where('tps_id', '=', $tps);
-            }]);
-        }])->orderBy('no_urut', 'ASC')->get();
+        $kirim['partai'] = Partai::with(
+            [
+                'caleg' => function ($query) use ($dapil_id, $tps_id) {
+                    $tps = $tps_id;
+                    $query->where('dapil_id', '=', $dapil_id)->orderBy('no_urut', 'ASC')->with(
+                        ['suaracaleg' => function ($query) use ($tps) {
+                            $query->where('tps_id', '=', $tps);
+                        }]
+                    );
+                },
+                'suarapartai' => function ($query) use ($tps_id) {
+                    $tps = $tps_id;
+                    $query->where('tps_id', '=', $tps);
+                }
+            ]
+        )->orderBy('no_urut', 'ASC')->get();
+        // dd($kirim['partai'][0]->suarapartai[0]->jumlah);
         return view('operator.conten.v_caleg', $kirim);
     }
     public function calegprov_tps(Tps $id)
@@ -159,14 +168,22 @@ class EntrySuaraController extends Controller
         $kirim['suaratidaksah'] = $id->suaratidaksah->dpr_prov ?? 0;
         $dapil_id = 2;
         $tps_id = $id->id;
-        $kirim['partai'] = Partai::with(['caleg' =>
-        function ($query) use ($dapil_id, $tps_id) {
-            $tps = $tps_id;
-            $query->where('dapil_id', '=', $dapil_id)->orderBy('no_urut', 'ASC')->with(['suaracalegprov' =>
-            function ($query) use ($tps) {
-                $query->where('tps_id', '=', $tps);
-            }]);
-        }])->orderBy('no_urut', 'ASC')->get();
+        $kirim['partai'] = Partai::with(
+            [
+                'caleg' => function ($query) use ($dapil_id, $tps_id) {
+                    $tps = $tps_id;
+                    $query->where('dapil_id', '=', $dapil_id)->orderBy('no_urut', 'ASC')->with(
+                        ['suaracalegprov' => function ($query) use ($tps) {
+                            $query->where('tps_id', '=', $tps);
+                        }]
+                    );
+                },
+                'suarapartaiprov' => function ($query) use ($tps_id) {
+                    $tps = $tps_id;
+                    $query->where('tps_id', '=', $tps);
+                }
+            ]
+        )->orderBy('no_urut', 'ASC')->get();
         return view('operator.conten.v_calegprov', $kirim);
     }
 
@@ -178,14 +195,23 @@ class EntrySuaraController extends Controller
         $kirim['suaratidaksah'] = $id->suaratidaksah->dpr_kab ?? 0;
         $dapil_id = auth()->user()->desa->kecamatan->dapil_id;
         $tps_id = $id->id;
-        $kirim['partai'] = Partai::with(['caleg' =>
-        function ($query) use ($dapil_id, $tps_id) {
-            $tps = $tps_id;
-            $query->where('dapil_id', '=', $dapil_id)->orderBy('no_urut', 'ASC')->with(['suaracalegkab' =>
-            function ($query) use ($tps) {
-                $query->where('tps_id', '=', $tps);
-            }]);
-        }])->orderBy('no_urut', 'ASC')->get();
+        $kirim['partai'] = Partai::with(
+            [
+                'caleg' => function ($query) use ($dapil_id, $tps_id) {
+                    $tps = $tps_id;
+                    $query->where('dapil_id', '=', $dapil_id)->orderBy('no_urut', 'ASC')->with(
+                        ['suaracalegkab' =>
+                        function ($query) use ($tps) {
+                            $query->where('tps_id', '=', $tps);
+                        }]
+                    );
+                },
+                'suarapartaikab' => function ($query) use ($tps_id) {
+                    $tps = $tps_id;
+                    $query->where('tps_id', '=', $tps);
+                }
+            ]
+        )->orderBy('no_urut', 'ASC')->get();
         return view('operator.conten.v_calegkab', $kirim);
     }
 }
