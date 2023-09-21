@@ -1,7 +1,6 @@
 <?php
 
 use App\Http\Controllers\admin\RekapDataPemilu;
-use App\Http\Controllers\operator\CapresController;
 use App\Http\Controllers\KecamatanController;
 use App\Http\Controllers\DesaController;
 use App\Http\Controllers\TpsController;
@@ -21,9 +20,9 @@ use App\Http\Controllers\admin\RekapSuaraController;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\operator\SavesuaraController;
 use App\Http\Controllers\operator\EntrySuaraController;
-use App\Http\Controllers\operator\Home;
 use App\Http\Controllers\operator\HomeController;
-use App\Http\Controllers\operator\SuaraTidakSahController;
+use App\Http\Controllers\operator\PassController;
+use App\Models\Suaratidaksah;
 
 /*
 |--------------------------------------------------------------------------
@@ -50,6 +49,9 @@ Route::post('/', [AuthController::class, 'postlogin']);
 
 
 Route::get('/logout', [AuthController::class, 'logout']);
+// Route::group(['middleware' => ['auth', 'checkRole:administrator', 'permission:0', 'revalidate']], function () {
+//     Route::get('data/{tipe}/{id}', [RekapSuaraController::class, 'rekapcalegkab']);
+// });
 Route::group(['middleware' => ['auth', 'checkRole:administrator', 'revalidate']], function () {
     Route::resource('kecamatan', KecamatanController::class);
     Route::resource('desa', DesaController::class);
@@ -71,9 +73,6 @@ Route::group(['middleware' => ['auth', 'checkRole:administrator', 'revalidate']]
     Route::post('user-admin/password/{id}', [UserAdminController::class, 'password']);
     Route::resource('user-desa', UserDesaController::class);
 
-
-
-
     Route::get('/dashboard', [RekapDataPemilu::class, 'index'])->name('dashboard');
     Route::get('rekapcapres/{tipe}/{id}', [RekapSuaraController::class, 'rekapcapres']);
     Route::get('rekapcagub/{tipe}/{id}', [RekapSuaraController::class, 'rekapcagub']);
@@ -85,7 +84,7 @@ Route::group(['middleware' => ['auth', 'checkRole:administrator', 'revalidate']]
 });
 
 
-Route::group(['middleware' => ['auth', 'checkRole:operator', 'revalidate']], function () {
+Route::group(['middleware' => ['auth', 'checkRole:operator', 'permission:1', 'revalidate']], function () {
     Route::get('/home', [HomeController::class, 'index'])->name('home');
     Route::get('capres', [EntrySuaraController::class, 'capres']);
     Route::get('capres/{id}', [EntrySuaraController::class, 'capres_tps']);
@@ -102,5 +101,8 @@ Route::group(['middleware' => ['auth', 'checkRole:operator', 'revalidate']], fun
     Route::get('calegkab', [EntrySuaraController::class, 'calegkab']);
     Route::get('calegkab/{id}', [EntrySuaraController::class, 'calegkab_tps']);
     Route::post('savesuara/{tipe}', [SavesuaraController::class, 'suara']);
-    Route::post('savesuaratidaksah/{tipe}', [SuaraTidakSahControllerController::class, 'save']);
+    Route::get('/password', [HomeController::class, 'index']);
+    Route::post('/ganti_password', [PassController::class, 'ganti_password']);
 });
+Route::get('/password', [HomeController::class, 'index']);
+Route::post('/ganti_password', [PassController::class, 'ganti_password']);
