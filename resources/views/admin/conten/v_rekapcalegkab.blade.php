@@ -237,7 +237,7 @@
                 "paging": false,
                 "scrollCollapse": true,
                 "ordering": false,
-                "scrollY": 450,
+                "scrollY": 400,
                 "scrollX": true,
                 "buttons": ["excel", "pdf"],
                 "lengthMenu": [

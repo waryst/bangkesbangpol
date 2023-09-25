@@ -61,7 +61,7 @@ class DatabaseSeeder extends Seeder
         $partai = array(
             "Partai Kebangkitan Bangsa" => array("PKB"),
             "Partai Gerakan Indonesia Raya" => array("Gerindra"),
-            "Partai Demokrasi Indonesia Perjuangan" => array("PDI Perjuangan"),
+            "Partai Demokrasi Indonesia Perjuangan" => array("PDIP"),
             "Partai Golongan Karya" => array("Golkar"),
             "Partai Nasional Demokrat" => array("Nasdem"),
             "Partai Buruh" => array("Buruh"),
