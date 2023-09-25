@@ -1,19 +1,19 @@
 @extends('admin.layout.main')
 
 @section('title', 'User Admin')
-    @push('mycss')
-        @include('admin.css.css')
-    @endpush
-    @push('css')
-        <link rel="stylesheet" href="{{ asset('asset') }}/plugins/select2/css/select2.min.css" />
-        <link rel="stylesheet" href="{{ asset('asset') }}/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css" />
+@push('mycss')
+    @include('admin.css.css')
+@endpush
+@push('css')
+    <link rel="stylesheet" href="{{ asset('asset') }}/plugins/select2/css/select2.min.css" />
+    <link rel="stylesheet" href="{{ asset('asset') }}/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css" />
 
-        <link rel="stylesheet" href="{{ asset('asset') }}/plugins/sweetalert2/sweetalert2.css" />
+    <link rel="stylesheet" href="{{ asset('asset') }}/plugins/sweetalert2/sweetalert2.css" />
 
-        <link rel="stylesheet" href="{{ asset('asset') }}/plugins/fontawesome-free/css/fontawesome.min.css" />
-        <link rel="stylesheet" href="{{ asset('asset') }}/plugins/uil-mdi-ri-icons/uil-mdi-ri-icons.css" />
-        <script src="{{ asset('asset') }}/plugins/sweetalert2/sweetalert2.js"></script>
-    @endpush
+    <link rel="stylesheet" href="{{ asset('asset') }}/plugins/fontawesome-free/css/fontawesome.min.css" />
+    <link rel="stylesheet" href="{{ asset('asset') }}/plugins/uil-mdi-ri-icons/uil-mdi-ri-icons.css" />
+    <script src="{{ asset('asset') }}/plugins/sweetalert2/sweetalert2.js"></script>
+@endpush
 @section('content')
     <meta name="csrf-token" content="{{ csrf_token() }}" />
 
@@ -55,29 +55,34 @@
                                             <tr id="{{ $d->id }}">
                                                 <td class="text-center">
                                                     <input type="number" value="{{ $x++ }}"
-                                                        class="form-control form-control-under border-0 ml-0 text-center d-inline urut bg-white" name="no_urut" readonly
-                                                        disabled>
+                                                        class="form-control form-control-under border-0 ml-0 text-center d-inline urut bg-white"
+                                                        name="no_urut" readonly disabled>
                                                 </td>
                                                 <td class="td">
                                                     <input type="text" value="{{ $d->name }}"
-                                                        class="form-control form-control-under border-0 ml-0 name" name="name" autocomplete="off">
+                                                        class="form-control form-control-under border-0 ml-0 name"
+                                                        name="name" autocomplete="off">
                                                 </td>
                                                 <td class="td">
                                                     <input type="text" value="{{ $d->email }}"
-                                                        class="form-control form-control-under border-0 ml-0 email" name="email" autocomplete="off">
+                                                        class="form-control form-control-under border-0 ml-0 email"
+                                                        name="email" autocomplete="off">
                                                 </td>
 
                                                 <td class="text-center px-2">
                                                     <div class="btn-group">
-                                                        <button class="btn btn-xs btn-secondary pass" data-id="{{ $d->id }}" data-toggle="modal"
+                                                        <button class="btn btn-xs btn-secondary pass"
+                                                            data-id="{{ $d->id }}" data-toggle="modal"
                                                             data-target="#modal-pass">
                                                             <i class="ri-key-2-line  px-1"></i>
                                                         </button>
                                                     </div>
                                                     <div class="btn-group">
-                                                        <button class="btn btn-xs btn-secondary delete-button ml-2">
-                                                            <i class="ri-delete-bin-line px-1"></i>
-                                                        </button>
+                                                        @if (auth()->user()->id != $d->id)
+                                                            <button class="btn btn-xs btn-secondary delete-button ml-2">
+                                                                <i class="ri-delete-bin-line px-1"></i>
+                                                            </button>
+                                                        @endif
                                                     </div>
                                                 </td>
                                             </tr>
@@ -101,18 +106,21 @@
                 </div>
                 <div class="modal-body">
                     <div class="form-group floating">
-                        <input type="text" class="form-control floating" id="name" name="name" autocomplete="off">
+                        <input type="text" class="form-control floating" id="name" name="name"
+                            autocomplete="off">
                         <label for="name">Nama</label>
                     </div>
 
                     <div class="form-group floating">
-                        <input type="text" class="form-control floating" id="email" name="email" autocomplete="off">
+                        <input type="text" class="form-control floating" id="email" name="email"
+                            autocomplete="off">
                         <label for="email">Username</label>
                     </div>
 
                     <div class="form-group floating">
                         <div class="input-group">
-                            <input type="password" class="form-control floating" id="password" name="password" autocomplete="off">
+                            <input type="password" class="form-control floating" id="password" name="password"
+                                autocomplete="off">
                             <span class="input-group-append">
                                 <button type="button" class="btn btn-default eye" data-input="password" tabindex="-1">
                                     <i class="mdi mdi-eye-outline"></i>
@@ -139,13 +147,15 @@
                 <div class="modal-body">
 
                     <div class="form-group floating">
-                        <input type="text" class="form-control floating bg-white" style="color:#888 !important;" id="xmail" readonly disabled>
+                        <input type="text" class="form-control floating bg-white" style="color:#888 !important;"
+                            id="xmail" readonly disabled>
                         <label for="password">Username</label>
                     </div>
 
                     <div class="form-group floating">
                         <div class="input-group">
-                            <input type="password" class="form-control floating" id="new_password" name="new_password" autocomplete="off">
+                            <input type="password" class="form-control floating" id="new_password" name="new_password"
+                                autocomplete="off">
                             <span class="input-group-append align-middle">
                                 <button tabindex="-1" class="btn btn-default eye" data-input="new_password">
                                     <i class="mdi mdi-eye-outline"></i>
@@ -157,7 +167,8 @@
 
                     <div class="form-group floating">
                         <div class="input-group">
-                            <input type="password" class="form-control floating" id="confirm_password" name="confirm_password" autocomplete="off">
+                            <input type="password" class="form-control floating" id="confirm_password"
+                                name="confirm_password" autocomplete="off">
                             <span class="input-group-append">
                                 <button tabindex="-1" class="btn btn-default eye" data-input="confirm_password">
                                     <i class="mdi mdi-eye-outline"></i>
@@ -185,7 +196,6 @@
         $(function() {
             bsCustomFileInput.init();
         });
-
     </script>
     @include('admin.js.admin.store-admin')
     @include('admin.js.admin.update-admin')
@@ -206,7 +216,6 @@
                 $(this).html('<i class="mdi mdi-eye-outline"></i>');
             }
         });
-
     </script>
 
     <script>
@@ -226,7 +235,6 @@
         $("#table-body").on("blur", "input", function(e) {
             $(this).val($(this).data("previous-value"));
         });
-
     </script>
 
 
@@ -247,7 +255,6 @@
         $(document).ready(function() {
             addToolTip('#table-body input', 'bottom', 'focus', 'press enter to save');
         });
-
     </script>
 
     <script>
@@ -267,7 +274,6 @@
             });
         }
         $('#cari_partai').on('input', filterRows);
-
     </script>
 
     {{-- let token = $("meta[name='csrf-token']").attr("content"); --}}
