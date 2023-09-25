@@ -3,6 +3,7 @@
         e.preventDefault();
         let id = $(this).closest('tr').attr('id');
         let token = $("meta[name='csrf-token']").attr("content");
+        let current_user_id = {{ auth()->user()->id }};
         Swal.fire({
             title: 'Anda yakin?',
             text: "User ini akan dihapus",
@@ -30,7 +31,7 @@
                             let table = "";
                             let x = 1;
                             $.each(response.data, function(key, value) {
-                                table += `  <tr id="` + value.id + `">
+                                table += `       <tr id="` + value.id + `">
                                                 <td class="text-center">
                                                     <input type="number" value="` + x++ + `"
                                                         class="form-control form-control-under border-0 ml-0 text-center d-inline urut bg-white" name="no_urut" readonly
@@ -51,14 +52,15 @@
                                                             data-target="#modal-pass">
                                                             <i class="ri-key-2-line  px-1"></i>
                                                         </button>
-                                                    </div>
-                                                    <div class="btn-group">
+                                                    </div>`;
+                                if (value.id != current_user_id) {
+                                    table += `<div class="btn-group">
                                                         <button class="btn btn-xs btn-secondary delete-button ml-2">
                                                             <i class="ri-delete-bin-line px-1"></i>
                                                         </button>
-                                                    </div>
-                                                </td>
-                                            </tr>`;
+                                                    </div>`;
+                                }
+                                table += `</td> </tr>`;
                             });
                             $("#table-body").html(table);
                         }

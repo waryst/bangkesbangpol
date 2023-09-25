@@ -5,6 +5,7 @@
         let email = $(" #modal-new #email").val();
         let password = $(" #modal-new #password").val();
         let token = $("meta[name='csrf-token']").attr("content");
+        let current_user_id = {{ auth()->user()->id }};
         if ($.trim(name).length && $.trim(email).length && $.trim(password).length) {
             $.ajax({
                 url: `/user-admin`,
@@ -43,14 +44,15 @@
                                                             data-target="#modal-pass">
                                                             <i class="ri-key-2-line  px-1"></i>
                                                         </button>
-                                                    </div>
-                                                    <div class="btn-group">
+                                                    </div>`;
+                            if (value.id != current_user_id) {
+                                table += `<div class="btn-group">
                                                         <button class="btn btn-xs btn-secondary delete-button ml-2">
                                                             <i class="ri-delete-bin-line px-1"></i>
                                                         </button>
-                                                    </div>
-                                                </td>
-                                            </tr>`;
+                                                    </div>`;
+                            }
+                            table += `</td> </tr>`;
 
                         });
                         $("#table-body").html(table);

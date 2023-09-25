@@ -28,6 +28,14 @@
         padding-left: 1.4rem;
     }
 
+    .normal td {
+        font-size: 1rem !important;
+    }
+
+    .table th.normal {
+        padding-left: .7rem !important;
+    }
+
     td {
         vertical-align: middle !important;
     }
