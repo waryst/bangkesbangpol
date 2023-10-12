@@ -21,16 +21,19 @@ class PassController extends Controller
             [
                 'password' => 'required',
                 'password_confirmation' => 'required|required_with:password|same:password',
+                'hp' => 'required',
             ],
             [
                 'password.required' => "Password Baru Harus Di Isi",
                 'password_confirmation.required' => "Password Konfirmasi Harus Di Isi",
                 'password_confirmation.same' => "Password Konfirmasi Tidak sama",
+                'hp.required' => "No. Whatapp Harus Di Isi",
             ]
         );
         User::where('id',  auth()->user()->id)->update([
             'status' => 1,
             'password' => Hash::make($request->password),
+            'hp' => $request->hp,
         ]);
 
         return response()->json(['url' => url('home')]);

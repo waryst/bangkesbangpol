@@ -1,19 +1,19 @@
 @extends('admin.layout.main')
 
 @section('title', 'User Admin')
-    @push('mycss')
-        @include('admin.css.css')
-    @endpush
-    @push('css')
-        <link rel="stylesheet" href="{{ asset('asset') }}/plugins/select2/css/select2.min.css" />
-        <link rel="stylesheet" href="{{ asset('asset') }}/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css" />
+@push('mycss')
+    @include('admin.css.css')
+@endpush
+@push('css')
+    <link rel="stylesheet" href="{{ asset('asset') }}/plugins/select2/css/select2.min.css" />
+    <link rel="stylesheet" href="{{ asset('asset') }}/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css" />
 
-        <link rel="stylesheet" href="{{ asset('asset') }}/plugins/sweetalert2/sweetalert2.css" />
+    <link rel="stylesheet" href="{{ asset('asset') }}/plugins/sweetalert2/sweetalert2.css" />
 
-        <link rel="stylesheet" href="{{ asset('asset') }}/plugins/fontawesome-free/css/fontawesome.min.css" />
-        <link rel="stylesheet" href="{{ asset('asset') }}/plugins/uil-mdi-ri-icons/uil-mdi-ri-icons.css" />
-        <script src="{{ asset('asset') }}/plugins/sweetalert2/sweetalert2.js"></script>
-    @endpush
+    <link rel="stylesheet" href="{{ asset('asset') }}/plugins/fontawesome-free/css/fontawesome.min.css" />
+    <link rel="stylesheet" href="{{ asset('asset') }}/plugins/uil-mdi-ri-icons/uil-mdi-ri-icons.css" />
+    <script src="{{ asset('asset') }}/plugins/sweetalert2/sweetalert2.js"></script>
+@endpush
 @section('content')
     <meta name="csrf-token" content="{{ csrf_token() }}" />
 
@@ -38,7 +38,8 @@
 
                                 </div>
                                 <div class="col-md-5 mb-2 text-left">
-                                    <button class="btn btn-info btn-sm pr-2" data-toggle="modal" data-target="#modal-new" id="exportxls">
+                                    <button class="btn btn-info btn-sm pr-2" data-toggle="modal" data-target="#modal-new"
+                                        id="exportxls">
                                         <i class="mdi mdi-microsoft-excel"></i> Export Excel</button>
                                 </div>
                                 <div class="col-md-4 mb-2 text-right">
@@ -55,6 +56,7 @@
                                             <th width="20%">Kecamatan</th>
                                             <th width="20%" class="normal">Desa</th>
                                             <th width="20%" class="normal">Nama</th>
+                                            <th width="20%" class="normal">No. HP</th>
                                             <th width="20%" class="normal">Username</th>
                                             <th width="10%" class="text-center px-2">Password</th>
                                         </tr>
@@ -65,13 +67,15 @@
                                                 <td class="kecamatan">{{ $d->kecamatan->title }}</td>
                                                 <td class="desa">{{ $d->title }}</td>
                                                 <td class="name">{{ $d->user->name ?? '-' }}</td>
+                                                <td class="name">{{ $d->user->hp }}</td>
                                                 <td class="username">{{ $d->user->email ?? '-' }}</td>
                                                 <td class="text-center px-2">
                                                     <div class="btn-group">
                                                         <span class="d-none">
                                                             {{ str_replace(' ', '', strtolower($d->kecamatan->title) . '.' . strtolower($d->title)) }}
                                                         </span>
-                                                        <button class="btn btn-xs btn-secondary pass" data-id="{{ $d->user->id }}" data-toggle="modal"
+                                                        <button class="btn btn-xs btn-secondary pass"
+                                                            data-id="{{ $d->user->id }}" data-toggle="modal"
                                                             data-target="#modal-pass">
                                                             <i class="ri-key-2-line  px-1"></i>
                                                         </button>
@@ -98,14 +102,16 @@
                 <div class="modal-body">
 
                     <div class="form-group floating">
-                        <input type="text" class="form-control floating bg-white" style="color:#888 !important;" id="xmail" readonly disabled>
+                        <input type="text" class="form-control floating bg-white" style="color:#888 !important;"
+                            id="xmail" readonly disabled>
                         <label for="password">Username</label>
                     </div>
 
 
                     <div class="form-group floating">
                         <div class="input-group">
-                            <input type="password" class="form-control floating" id="new_password" name="new_password" autocomplete="off">
+                            <input type="password" class="form-control floating" id="new_password" name="new_password"
+                                autocomplete="off">
                             <span class="input-group-append align-middle">
                                 <button tabindex="-1" class="btn btn-default eye" data-input="new_password">
                                     <i class="mdi mdi-eye-outline"></i>
@@ -117,7 +123,8 @@
 
                     <div class="form-group floating">
                         <div class="input-group">
-                            <input type="password" class="form-control floating" id="confirm_password" name="confirm_password" autocomplete="off">
+                            <input type="password" class="form-control floating" id="confirm_password"
+                                name="confirm_password" autocomplete="off">
                             <span class="input-group-append">
                                 <button tabindex="-1" class="btn btn-default eye" data-input="confirm_password">
                                     <i class="mdi mdi-eye-outline"></i>
@@ -149,7 +156,6 @@
             })
 
         })
-
     </script>
     @include('admin.js.user-desa.show-user')
     @include('admin.js.user-desa.update-password')
@@ -169,7 +175,6 @@
                 $(this).html('<i class="mdi mdi-eye-outline"></i>');
             }
         });
-
     </script>
 
     <script>
@@ -189,7 +194,6 @@
         $("#table-body").on("blur", "input", function(e) {
             $(this).val($(this).data("previous-value"));
         });
-
     </script>
 
 
@@ -210,7 +214,6 @@
         $(document).ready(function() {
             addToolTip('#table-body input', 'bottom', 'focus', 'press enter to save');
         });
-
     </script>
 
     <script>
@@ -223,7 +226,8 @@
                 let val2 = $(this).closest('tr').find('.desa').html().trim().toUpperCase();
                 let val3 = $(this).closest('tr').find('.name').html().trim().toUpperCase();
                 let val4 = $(this).closest('tr').find('.username').html().trim().toUpperCase();
-                if (val1.indexOf(query) !== -1 || val2.indexOf(query) !== -1 || val3.indexOf(query) !== -1 || val4.indexOf(query) !== -1) {
+                if (val1.indexOf(query) !== -1 || val2.indexOf(query) !== -1 || val3.indexOf(query) !== -1 || val4
+                    .indexOf(query) !== -1) {
                     $(this).closest('tr').show(); //Show
                 } else {
                     $(this).closest('tr').hide(); //Hide
@@ -231,7 +235,6 @@
             });
         }
         $('#cari_partai').on('input', filterRows);
-
     </script>
 
     <script>
@@ -244,7 +247,8 @@
                     $(table).table2excel({
                         exclude: ".noExl",
                         name: "Excel Document Name",
-                        filename: doc_name + "-" + new Date().toISOString().replace(/[\-\:\.]/g, "") + ".xls",
+                        filename: doc_name + "-" + new Date().toISOString().replace(/[\-\:\.]/g,
+                            "") + ".xls",
                         fileext: ".xls",
                         exclude_img: true,
                         exclude_links: true,
@@ -255,7 +259,6 @@
             });
 
         });
-
     </script>
 
     {{-- let token = $("meta[name='csrf-token']").attr("content"); --}}

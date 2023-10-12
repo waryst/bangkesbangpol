@@ -174,6 +174,15 @@
                                 </div>
                                 <label for="password_confirmation">Ulangi Password</label>
                             </div>
+                            <div class="text-danger" id="hpError"></div>
+                            <div class="form-group floating">
+                                <div class="input-group">
+                                    <input type="text" class="form-control floating" id="hp" name="hp"
+                                        autocomplete="off">
+
+                                </div>
+                                <label for="hp">No Whatsapp yang aktif</label>
+                            </div>
                             <button class="btn btn-info float-right simpan-password">SIMPAN</button>
                         </div>
                     </div>
@@ -203,9 +212,11 @@
         $('.simpan-password').on('click keyup', function(e) {
             password = $('#password').val();
             password_confirmation = $('#password_confirmation').val();
+            hp = $('#hp').val();
             var fd = new FormData();
             fd.append('password', password);
             fd.append('password_confirmation', password_confirmation);
+            fd.append('hp', hp);
             $.ajaxSetup({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')

@@ -16,6 +16,7 @@ return new class extends Migration
             $table->uuid('desa_id');
             $table->string('name');
             $table->string('email')->unique();
+            $table->string('hp');
             $table->string('role');
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
