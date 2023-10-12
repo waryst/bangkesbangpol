@@ -80,10 +80,10 @@ class DatabaseSeeder extends Seeder
             "Partai UMMAT" => array("UMMAT"),
         );
         $data_dapil = [];
-        // for ($i = 1; $i <= 6; $i++) {
-        //     $dapil = Dapil::create(['title' => $i]);
-        //     array_push($data_dapil, $dapil->id);
-        // }
+        for ($i = 1; $i <= 6; $i++) {
+            $dapil = Dapil::create(['title' => $i]);
+            array_push($data_dapil, $dapil->id);
+        }
         foreach ($kecamatan as $nama_kec => $array_desa) {
             $post = Kecamatan::create([
                 'title' => $nama_kec,
