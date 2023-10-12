@@ -18,10 +18,11 @@
         <div class="container">
             <div class="card login-card">
                 <div class="row no-gutters">
-                    <div class="col-md-5">
-                        <img src="{{ asset('asset_login') }}/images/login.jpg" alt="login" class="login-card-img">
+                    <div class="col-md-6 ">
+                        <img src="{{ asset('asset_login') }}/images/login.png" alt="login"
+                            class="login-card-img border">
                     </div>
-                    <div class="col-md-7">
+                    <div class="col-md-6">
                         <div class="card-body">
                             <div class="brand-wrapper">
                                 <img src="{{ asset('asset_login') }}/images/logo.png" alt="logo" class="logo">
@@ -39,8 +40,8 @@
                                     <input type="password" name="password" id="password" class="form-control"
                                         placeholder="Enter password">
                                 </div>
-                                <input name="login" id="login" class="btn btn-block btn-danger mb-4"
-                                    type="submit" value="Login">
+                                <input name="login" id="login" class="btn btn-block btn-dark mb-4" type="submit"
+                                    value="Login">
                             </form>
                             <nav class="login-card-footer-nav">
                                 <a href="#!">Terms of use.</a>
