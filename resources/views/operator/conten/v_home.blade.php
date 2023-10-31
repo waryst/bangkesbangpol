@@ -45,7 +45,6 @@
 
     <section class="content">
         <div class="container-fluid">
-
             <fieldset class="scheduler-border">
                 <legend class="scheduler-border">Data Pemilihan Umum</legend>
                 <div class="row mt-4">
@@ -132,7 +131,47 @@
                             </div>
                         </div>
                     </div>
-
+                </div>
+                <div class="row mt-4">
+                    <div class="col-md-4">
+                        <div class="card">
+                            <div class="card-header font-weight-bold">
+                                Contact Person
+                            </div>
+                            <div class="card-body p-0">
+                                <ul class="list-group list-group-flush">
+                                    <li class="list-group-item">
+                                        <div class="row">
+                                            <div class="col-3">Person 1</div>
+                                            <div class="col-1">:</div>
+                                            <div class="col-6"></div>
+                                        </div>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <div class="row">
+                                            <div class="col-3">Person 2</div>
+                                            <div class="col-1">:</div>
+                                            <div class="col-6"></div>
+                                        </div>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <div class="row">
+                                            <div class="col-3">Person 3</div>
+                                            <div class="col-1">:</div>
+                                            <div class="col-6"></div>
+                                        </div>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <div class="row">
+                                            <div class="col-3">Person 4</div>
+                                            <div class="col-1">:</div>
+                                            <div class="col-6"></div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
             </fieldset>
