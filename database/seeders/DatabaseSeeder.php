@@ -26,7 +26,6 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // \App\Models\User::factory(10)->create();
         User::create([
             'name' => 'BAKESBANGPOL',
             'desa_id' => '123',
@@ -87,7 +86,7 @@ class DatabaseSeeder extends Seeder
         foreach ($kecamatan as $nama_kec => $array_desa) {
             $post = Kecamatan::create([
                 'title' => $nama_kec,
-                // 'dapil_id' => $data_dapil[rand(0, 5)]
+                'dapil_id' => $data_dapil[rand(0, 5)]
 
             ]);
             foreach ($array_desa as $nama_desa) {
@@ -103,81 +102,81 @@ class DatabaseSeeder extends Seeder
                     'role' => 'operator',
                     'password' => Hash::make(str_replace(" ", "", (strtolower($nama_kec) . "." . strtolower($desa->title)))),
                 ]);
-                // for ($i = 1; $i <= 6; $i++) {
-                //     $tps = Tps::create([
-                //         'desa_id' => $desa->id,
-                //         'title' => $i,
-                //     ]);
-                // }
+                for ($i = 1; $i <= 6; $i++) {
+                    $tps = Tps::create([
+                        'desa_id' => $desa->id,
+                        'title' => $i,
+                    ]);
+                }
             }
         }
-        // for ($i = 1; $i <= 3; $i++) {
-        //     $capres = Capres::create([
-        //         'no_urut' => $i,
-        //         'nama_capres' => fake()->name(),
-        //         'nama_cawapres' => fake()->name(),
-        //         'foto' => '3.jpeg'
-        //     ]);
-        // }
-        // for ($i = 1; $i <= 2; $i++) {
-        //     $cagub = Cagub::create([
-        //         'no_urut' => $i,
-        //         'nama_cagub' => fake()->name(),
-        //         'nama_cawagub' => fake()->name(),
-        //         'foto' => '3.jpeg'
-        //     ]);
-        // }
-        // for ($i = 1; $i <= 2; $i++) {
-        //     $cabub = Cabub::create([
-        //         'no_urut' => $i,
-        //         'nama_cabub' => fake()->name(),
-        //         'nama_cawabub' => fake()->name(),
-        //         'foto' => '3.jpeg'
-        //     ]);
-        // }
-        // for ($i = 1; $i <= 15; $i++) {
-        //     $dpd = Dpd::create([
-        //         'no_urut' => $i,
-        //         'nama' => fake()->name(),
-        //         'foto' => 3
-        //     ]);
-        // }
-        // $no = 1;
-        // foreach ($partai as $key_partai => $array_partai) {
-        //     foreach ($array_partai as $nama_partai) {
-        //         $partai = Partai::create([
-        //             'no_urut' =>  $no,
-        //             'nama' =>  $key_partai,
-        //             'singkatan' =>  $nama_partai,
-        //         ]);
-        //         for ($i = 1; $i <= 5; $i++) {
-        //             $caleg_ri = Caleg::create([
-        //                 'partai_id' => $partai->id,
-        //                 'dapil_id' => 1,
-        //                 'no_urut' => $i,
-        //                 'nama' => fake()->name(),
-        //             ]);
-        //         }
-        //         for ($i = 1; $i <= 5; $i++) {
-        //             $caleg_prov = Caleg::create([
-        //                 'partai_id' => $partai->id,
-        //                 'dapil_id' => 2,
-        //                 'no_urut' => $i,
-        //                 'nama' => fake()->name(),
-        //             ]);
-        //         }
-        //         for ($x = 0; $x <= 5; $x++) {
-        //             for ($i = 1; $i <= 5; $i++) {
-        //                 $caleg_kab = Caleg::create([
-        //                     'partai_id' => $partai->id,
-        //                     'dapil_id' => $data_dapil[$x],
-        //                     'no_urut' => $i,
-        //                     'nama' => fake()->name(),
-        //                 ]);
-        //             }
-        //         }
-        //     }
-        //     $no++;
-        // }
+        for ($i = 1; $i <= 3; $i++) {
+            $capres = Capres::create([
+                'no_urut' => $i,
+                'nama_capres' => fake()->name(),
+                'nama_cawapres' => fake()->name(),
+                'foto' => '3.jpeg'
+            ]);
+        }
+        for ($i = 1; $i <= 2; $i++) {
+            $cagub = Cagub::create([
+                'no_urut' => $i,
+                'nama_cagub' => fake()->name(),
+                'nama_cawagub' => fake()->name(),
+                'foto' => '3.jpeg'
+            ]);
+        }
+        for ($i = 1; $i <= 2; $i++) {
+            $cabub = Cabub::create([
+                'no_urut' => $i,
+                'nama_cabub' => fake()->name(),
+                'nama_cawabub' => fake()->name(),
+                'foto' => '3.jpeg'
+            ]);
+        }
+        for ($i = 1; $i <= 15; $i++) {
+            $dpd = Dpd::create([
+                'no_urut' => $i,
+                'nama' => fake()->name(),
+                'foto' => 3
+            ]);
+        }
+        $no = 1;
+        foreach ($partai as $key_partai => $array_partai) {
+            foreach ($array_partai as $nama_partai) {
+                $partai = Partai::create([
+                    'no_urut' =>  $no,
+                    'nama' =>  $key_partai,
+                    'singkatan' =>  $nama_partai,
+                ]);
+                for ($i = 1; $i <= 5; $i++) {
+                    $caleg_ri = Caleg::create([
+                        'partai_id' => $partai->id,
+                        'dapil_id' => 1,
+                        'no_urut' => $i,
+                        'nama' => fake()->name(),
+                    ]);
+                }
+                for ($i = 1; $i <= 5; $i++) {
+                    $caleg_prov = Caleg::create([
+                        'partai_id' => $partai->id,
+                        'dapil_id' => 2,
+                        'no_urut' => $i,
+                        'nama' => fake()->name(),
+                    ]);
+                }
+                for ($x = 0; $x <= 5; $x++) {
+                    for ($i = 1; $i <= 5; $i++) {
+                        $caleg_kab = Caleg::create([
+                            'partai_id' => $partai->id,
+                            'dapil_id' => $data_dapil[$x],
+                            'no_urut' => $i,
+                            'nama' => fake()->name(),
+                        ]);
+                    }
+                }
+            }
+            $no++;
+        }
     }
 }
