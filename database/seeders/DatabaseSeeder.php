@@ -149,7 +149,8 @@ class DatabaseSeeder extends Seeder
                     'nama' =>  $key_partai,
                     'singkatan' =>  $nama_partai,
                 ]);
-                for ($i = 1; $i <= 5; $i++) {
+                $jml = rand(4, 8);
+                for ($i = 1; $i <= $jml; $i++) {
                     $caleg_ri = Caleg::create([
                         'partai_id' => $partai->id,
                         'dapil_id' => 1,
@@ -157,7 +158,7 @@ class DatabaseSeeder extends Seeder
                         'nama' => fake()->name(),
                     ]);
                 }
-                for ($i = 1; $i <= 5; $i++) {
+                for ($i = 1; $i <= $jml; $i++) {
                     $caleg_prov = Caleg::create([
                         'partai_id' => $partai->id,
                         'dapil_id' => 2,
@@ -166,7 +167,7 @@ class DatabaseSeeder extends Seeder
                     ]);
                 }
                 for ($x = 0; $x <= 5; $x++) {
-                    for ($i = 1; $i <= 5; $i++) {
+                    for ($i = 1; $i <= $jml; $i++) {
                         $caleg_kab = Caleg::create([
                             'partai_id' => $partai->id,
                             'dapil_id' => $data_dapil[$x],
