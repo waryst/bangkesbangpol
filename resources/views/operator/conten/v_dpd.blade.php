@@ -157,7 +157,7 @@
                                 <div class="col-md-6 d-flex d-md-block justify-content-center">
                                     <div class="input-group input-group-sm float-md-right" style="width: 200px;">
                                         <input type="text" id="myInput" onkeyup="myFunction()" name="table_search"
-                                            class="form-control float-right" placeholder="Search">
+                                            class="form-control float-right" placeholder="Masukan Nama DPD">
                                         <div class="input-group-append">
                                             <button type="submit" class="btn btn-default">
                                                 <svg height="1em" viewBox="0 0 512 512">
