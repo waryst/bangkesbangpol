@@ -68,12 +68,15 @@ class UserDesaController extends Controller
         $request->validate([
             'password' => 'required|confirmed',
         ]);
-        
-        $user=User::where('id', $id)->first();
+
+        $user = User::where('id', $id)->first();
 
         // dd($user);
         if ($user) {
-            $user->update(["password" => Hash::make($request->password)]);
+            $user->update([
+                'password' => Hash::make($request->password),
+                'status' => 0
+            ]);
             return response()->json([
                 'status' => true,
                 'type' => 'success',

@@ -106,8 +106,6 @@
                             id="xmail" readonly disabled>
                         <label for="password">Username</label>
                     </div>
-
-
                     <div class="form-group floating">
                         <div class="input-group">
                             <input type="password" class="form-control floating" id="new_password" name="new_password"
@@ -120,7 +118,6 @@
                         </div>
                         <label for="new_password">Password Baru</label>
                     </div>
-
                     <div class="form-group floating">
                         <div class="input-group">
                             <input type="password" class="form-control floating" id="confirm_password"

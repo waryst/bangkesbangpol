@@ -11,7 +11,8 @@ use Laravel\Sanctum\HasApiTokens;
 class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
-    public function desa(){
+    public function desa()
+    {
         return $this->belongsTo(Desa::class);
     }
     /**
@@ -24,6 +25,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'status',
         'role',
     ];
 
