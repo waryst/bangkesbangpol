@@ -75,7 +75,8 @@
                                                             {{ str_replace(' ', '', strtolower($d->kecamatan->title) . '.' . strtolower($d->title)) }}
                                                         </span>
                                                         <button class="btn btn-xs btn-secondary pass"
-                                                            data-id="{{ $d->user->id }}" data-toggle="modal"
+                                                            data-id="{{ $d->user->id }}"
+                                                            data-user="{{ $d->user->email }}" data-toggle="modal"
                                                             data-target="#modal-pass">
                                                             <i class="ri-key-2-line  px-1"></i>
                                                         </button>

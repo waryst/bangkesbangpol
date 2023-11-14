@@ -2,7 +2,7 @@
     $("#table-body").on("click", ".pass", function(e) {
         e.preventDefault();
         let id = $(this).data("id");
-        let email = $("#" + id + " .email").val();
+        let email = $(this).data("user");
         $("#modal-pass #xmail").val(email);
         $("#modal-pass button").data('id', id);
     });
@@ -70,5 +70,4 @@
         }
 
     });
-
 </script>
