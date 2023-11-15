@@ -142,30 +142,30 @@
                                 <ul class="list-group list-group-flush">
                                     <li class="list-group-item">
                                         <div class="row">
-                                            <div class="col-3">Person 1</div>
+                                            <div class="col-3">SUPIYONO</div>
                                             <div class="col-1">:</div>
-                                            <div class="col-6"></div>
+                                            <div class="col-6">081335649681</div>
                                         </div>
                                     </li>
                                     <li class="list-group-item">
                                         <div class="row">
-                                            <div class="col-3">Person 2</div>
+                                            <div class="col-3">WILDANA</div>
                                             <div class="col-1">:</div>
-                                            <div class="col-6"></div>
+                                            <div class="col-6">085749057575</div>
                                         </div>
                                     </li>
                                     <li class="list-group-item">
                                         <div class="row">
-                                            <div class="col-3">Person 3</div>
+                                            <div class="col-3">NIDIA</div>
                                             <div class="col-1">:</div>
-                                            <div class="col-6"></div>
+                                            <div class="col-6">082230737324</div>
                                         </div>
                                     </li>
                                     <li class="list-group-item">
                                         <div class="row">
-                                            <div class="col-3">Person 4</div>
+                                            <div class="col-3">ERMANI</div>
                                             <div class="col-1">:</div>
-                                            <div class="col-6"></div>
+                                            <div class="col-6">082233706543</div>
                                         </div>
                                     </li>
                                 </ul>
