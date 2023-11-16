@@ -15,7 +15,7 @@ class UserAdminController extends Controller
      */
     public function index()
     {
-        $data = User::where("role", "administrator")->orderBy('id', 'ASC')->get();
+        $data = User::where("role", "administrator")->whereNotIn("id", [0])->orderBy('id', 'ASC')->get();
         return view('admin.content.admin', compact('data'));
     }
 
@@ -39,7 +39,7 @@ class UserAdminController extends Controller
         ]);
 
         $dupe = User::where('email', $request->name)->count();
-        if ($dupe!=0) {
+        if ($dupe != 0) {
             return response()->json([
                 'success' => false,
                 'type' => 'error',
@@ -58,7 +58,7 @@ class UserAdminController extends Controller
             'status' => true,
             'type' => 'success',
             'message' => 'Data user admin berhasil disimpan',
-            'data'=> User::where("role", "administrator")->orderBy('id', 'ASC')->get()
+            'data' => User::where("role", "administrator")->orderBy('id', 'ASC')->get()
         ]);
     }
 
@@ -87,8 +87,8 @@ class UserAdminController extends Controller
         $request->validate([
             'password' => 'required|confirmed',
         ]);
-        
-        $user=User::where('id', $id)->first();
+
+        $user = User::where('id', $id)->first();
         if ($user) {
             $user->update(["password" => Hash::make($request->password)]);
             return response()->json([
@@ -117,7 +117,7 @@ class UserAdminController extends Controller
         ]);
         $field = $request->field;
         $value = $request->value;
-        
+
         $user = User::where('id', $id)->first();
         if ($user) {
             if ($field == 'email') {
@@ -135,7 +135,7 @@ class UserAdminController extends Controller
                 'status' => 'success',
                 'type' => 'success',
                 'message' => 'Data user berhasil diupdate',
-                'data'=> User::where("role", "administrator")->orderBy('id', 'ASC')->get()
+                'data' => User::where("role", "administrator")->orderBy('id', 'ASC')->get()
             ]);
         }
         return response()->json([
@@ -150,7 +150,7 @@ class UserAdminController extends Controller
      */
     public function destroy(string $id)
     {
-        $user=User::where('id', $id)->first();
+        $user = User::where('id', $id)->first();
         if ($user) {
             DB::beginTransaction();
             try {
@@ -163,7 +163,7 @@ class UserAdminController extends Controller
                 'status' => true,
                 'type' => 'success',
                 'message' => 'Data user berhasil dihapus',
-                'data'=> User::where("role", "administrator")->orderBy('id', 'ASC')->get()
+                'data' => User::where("role", "administrator")->orderBy('id', 'ASC')->get()
             ]);
         }
     }
