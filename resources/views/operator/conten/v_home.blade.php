@@ -142,7 +142,7 @@
                                 <ul class="list-group list-group-flush">
                                     <li class="list-group-item">
                                         <div class="row">
-                                            <div class="col-3">SUPIYONO</div>
+                                            <div class="col-3">SUPRIYONO</div>
                                             <div class="col-1">:</div>
                                             <div class="col-6">081335649681</div>
                                         </div>
